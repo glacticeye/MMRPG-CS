@@ -3,340 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Multiverse RPG Character Sheet</title>
+    <title>Marvel Multiverse RPG Dice Roller</title>
     <style>
-        @media print {
-            body {
-                width: 210mm;
-                height: 297mm;
-                margin: 0;
-                padding: 0;
-            }
-            .no-print {
-                display: none;
-            }
-            .page {
-                page-break-after: always;
-            }
-        }
         body {
             font-family: Arial, sans-serif;
-            font-size: 10px;
-            line-height: 1.2;
-            background-color: #f0f0f0;
-        }
-        .character-sheet {
-            width: 210mm;
-            height: 297mm;
-            padding: 10mm;
-            box-sizing: border-box;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin: 20px auto;
-        }
-        .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
-            background-color: #e23636; /* Marvel red */
-            color: white;
-            padding: 10px;
-        }
-        .header h1 {
+            height: 100vh;
             margin: 0;
-            font-size: 24px;
-        }
-        .header-right {
-            text-align: right;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-        th, td {
-            border: 1px solid #000;
-            padding: 2px 4px;
-        }
-        th {
             background-color: #f0f0f0;
         }
-        .abilities-table td:not(:first-child) {
-            text-align: center;
+        .dice-roller {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .two-column {
+        .dice-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            margin-top: 20px;
         }
-        .two-column > div {
-            width: 48%;
+        .die-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px;
+            position: relative;
         }
-        input[type="text"], input[type="number"] {
-            width: calc(100% - 4px);
-            border: none;
-            background-color: transparent;
-            font-size: inherit;
+        .die-pair {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 10px;
         }
-        textarea {
-            width: calc(100% - 4px);
+        .die-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 5px;
+        }
+        .die {
+            width: 60px;
             height: 60px;
-            border: none;
-            background-color: transparent;
-            font-size: inherit;
-            resize: none;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
         }
-        .section-title {
-            background-color: #518cca; /* Marvel blue */
+        .die-white {
+            background-color: white;
+            color: black;
+        }
+        .die-red {
+            background-color: red;
             color: white;
-            padding: 5px;
-            margin-top: 10px;
-            margin-bottom: 5px;
         }
-        .save-button {
+        .die.rolling {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .edge-trouble-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .edge-button, .trouble-button {
+            padding: 5px 10px;
+            font-size: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+        .edge-button {
+            background-color: #4CAF50;
+        }
+        .trouble-button {
+            background-color: #f44336;
+        }
+        #rollAllButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
             background-color: #518cca;
             color: white;
             border: none;
-            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
+        }
+        #rollResult {
+            text-align: center;
+            font-size: 18px;
             margin-top: 10px;
         }
-        .save-button:hover {
-            background-color: #3a6491;
+        .reroll-indicator {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2px;
+            height: 15px;
+        }
+        .edge-indicator {
+            color: #4CAF50;
+        }
+        .trouble-indicator {
+            color: #f44336;
+        }
+        .fantastic-indicator {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: gold;
+            color: black;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="character-sheet page">
-        <div class="header">
-            <h1>Marvel Multiverse RPG Character Sheet</h1>
-            <div class="header-right">
-                <label>Character Name: <input type="text" id="characterName"></label><br>
-                <label>Rank: <input type="number" id="characterRank" style="width: 30px;"></label>
+    <div class="dice-roller">
+        <h2>Marvel Multiverse RPG Dice Roller</h2>
+        <div class="dice-container" id="diceContainer">
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die1" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator1" class="reroll-indicator"></div>
+                        <div id="die1reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(1)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(1)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="fantastic-indicator" id="fantasticIndicator">Fantastic!</div>
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die2" class="die die-red">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator2" class="reroll-indicator"></div>
+                        <div id="die2reroll" class="die die-red" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(2)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(2)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die3" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator3" class="reroll-indicator"></div>
+                        <div id="die3reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(3)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(3)">Trouble</button>
+                </div>
             </div>
         </div>
-
-        <div class="section-title">Character Details</div>
-        <table>
-            <tr>
-                <th>Real Name</th>
-                <th>Height</th>
-                <th>Weight</th>
-                <th>Gender</th>
-            </tr>
-            <tr>
-                <td><input type="text" id="realName"></td>
-                <td><input type="text" id="height"></td>
-                <td><input type="text" id="weight"></td>
-                <td><input type="text" id="gender"></td>
-            </tr>
-            <tr>
-                <th>Eyes</th>
-                <th>Hair</th>
-                <th>Size</th>
-                <th>Origin</th>
-            </tr>
-            <tr>
-                <td><input type="text" id="eyes"></td>
-                <td><input type="text" id="hair"></td>
-                <td><input type="text" id="size"></td>
-                <td><input type="text" id="origin"></td>
-            </tr>
-        </table>
-
-        <div class="two-column">
-            <div>
-                <div class="section-title">Abilities</div>
-                <table class="abilities-table">
-                    <tr>
-                        <th>Ability</th>
-                        <th>Score</th>
-                        <th>Defense</th>
-                        <th>Non-Combat</th>
-                    </tr>
-                    <tr>
-                        <td>Melee</td>
-                        <td><input type="number" id="meleeScore"></td>
-                        <td><input type="number" id="meleeDefense"></td>
-                        <td><input type="number" id="meleeNonCombat"></td>
-                    </tr>
-                    <tr>
-                        <td>Agility</td>
-                        <td><input type="number" id="agilityScore"></td>
-                        <td><input type="number" id="agilityDefense"></td>
-                        <td><input type="number" id="agilityNonCombat"></td>
-                    </tr>
-                    <tr>
-                        <td>Resilience</td>
-                        <td><input type="number" id="resilienceScore"></td>
-                        <td><input type="number" id="resilienceDefense"></td>
-                        <td><input type="number" id="resilienceNonCombat"></td>
-                    </tr>
-                    <tr>
-                        <td>Vigilance</td>
-                        <td><input type="number" id="vigilanceScore"></td>
-                        <td><input type="number" id="vigilanceDefense"></td>
-                        <td><input type="number" id="vigilanceNonCombat"></td>
-                    </tr>
-                    <tr>
-                        <td>Ego</td>
-                        <td><input type="number" id="egoScore"></td>
-                        <td><input type="number" id="egoDefense"></td>
-                        <td><input type="number" id="egoNonCombat"></td>
-                    </tr>
-                    <tr>
-                        <td>Logic</td>
-                        <td><input type="number" id="logicScore"></td>
-                        <td><input type="number" id="logicDefense"></td>
-                        <td><input type="number" id="logicNonCombat"></td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <div class="section-title">Health & Focus</div>
-                <table>
-                    <tr>
-                        <th colspan="2">Health (Resilience x 30)</th>
-                        <th>Damage Reduction</th>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="number" id="health"></td>
-                        <td><input type="number" id="healthDamageReduction"></td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Focus (Vigilance x 30)</th>
-                        <th>Damage Reduction</th>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="number" id="focus"></td>
-                        <td><input type="number" id="focusDamageReduction"></td>
-                    </tr>
-                    <tr>
-                        <th>Karma (Rank)</th>
-                        <th colspan="2">Initiative Modifier</th>
-                    </tr>
-                    <tr>
-                        <td><input type="number" id="karma"></td>
-                        <td colspan="2"><input type="number" id="initiativeModifier"></td>
-                    </tr>
-                </table>
-
-                <div class="section-title">Movement</div>
-                <table>
-                    <tr>
-                        <th>Run</th>
-                        <th>Climb</th>
-                        <th>Swim</th>
-                        <th>Other</th>
-                    </tr>
-                    <tr>
-                        <td><input type="number" id="runSpeed"></td>
-                        <td><input type="number" id="climbSpeed"></td>
-                        <td><input type="number" id="swimSpeed"></td>
-                        <td><input type="text" id="otherSpeed"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="section-title">Damage</div>
-        <table>
-            <tr>
-                <th>Damage</th>
-                <th>Multiplier</th>
-                <th>Plus</th>
-                <th>Ability</th>
-            </tr>
-            <tr>
-                <td>Melee</td>
-                <td><input type="number" id="meleeDamageMultiplier"></td>
-                <td><input type="text" id="meleeDamagePlus"></td>
-                <td><input type="number" id="meleeDamageAbility"></td>
-            </tr>
-            <tr>
-                <td>Agility</td>
-                <td><input type="number" id="agilityDamageMultiplier"></td>
-                <td><input type="text" id="agilityDamagePlus"></td>
-                <td><input type="number" id="agilityDamageAbility"></td>
-            </tr>
-            <tr>
-                <td>Ego</td>
-                <td><input type="number" id="egoDamageMultiplier"></td>
-                <td><input type="text" id="egoDamagePlus"></td>
-                <td><input type="number" id="egoDamageAbility"></td>
-            </tr>
-            <tr>
-                <td>Logic</td>
-                <td><input type="number" id="logicDamageMultiplier"></td>
-                <td><input type="text" id="logicDamagePlus"></td>
-                <td><input type="number" id="logicDamageAbility"></td>
-            </tr>
-        </table>
-
-        <div class="two-column">
-            <div>
-                <div class="section-title">Traits</div>
-                <textarea id="traits"></textarea>
-            </div>
-            <div>
-                <div class="section-title">Tags</div>
-                <textarea id="tags"></textarea>
-            </div>
-        </div>
-
-        <div class="section-title">Powers</div>
-        <textarea id="powers"></textarea>
-
-        <div class="section-title">Notes</div>
-        <textarea id="notes"></textarea>
-
-        <button class="save-button no-print" onclick="saveCharacterSheet()">Save Character Sheet</button>
+        <button id="rollAllButton">Roll All Dice</button>
+        <div id="rollResult"></div>
     </div>
 
     <script>
-        // Automatically calculate derived values
-        document.getElementById('characterRank').addEventListener('change', function() {
-            document.getElementById('karma').value = this.value;
+        document.addEventListener('DOMContentLoaded', function() {
+            const diceContainer = document.getElementById('diceContainer');
+            const rollAllButton = document.getElementById('rollAllButton');
+            const rollResult = document.getElementById('rollResult');
+
+            let diceValues = [1, 1, 1];
+            let rerollValues = [null, null, null];
+            let rerollTypes = [null, null, null]; // 'edge' or 'trouble'
+
+            function rollDie() {
+                return Math.floor(Math.random() * 6) + 1;
+            }
+
+            function updateDiceDisplay() {
+                for (let i = 1; i <= 3; i++) {
+                    const die = document.getElementById(`die${i}`);
+                    const rerollDie = document.getElementById(`die${i}reroll`);
+                    const rerollIndicator = document.getElementById(`rerollIndicator${i}`);
+
+                    die.textContent = diceValues[i-1];
+                    if (rerollValues[i-1] !== null) {
+                        rerollDie.textContent = rerollValues[i-1];
+                        rerollDie.style.visibility = 'visible';
+                        rerollIndicator.textContent = rerollTypes[i-1].toUpperCase();
+                        rerollIndicator.className = `reroll-indicator ${rerollTypes[i-1]}-indicator`;
+                    } else {
+                        rerollDie.style.visibility = 'hidden';
+                        rerollIndicator.textContent = '';
+                        rerollIndicator.className = 'reroll-indicator';
+                    }
+
+                    // Show "Fantastic" indicator for the middle (red) die when it's 1
+                    if (i === 2) {
+                        const fantasticIndicator = document.getElementById('fantasticIndicator');
+                        fantasticIndicator.style.display = (diceValues[1] === 1 || rerollValues[1] === 1) ? 'block' : 'none';
+                    }
+                }
+
+                const total = calculateTotal();
+                rollResult.textContent = `Total: ${total}`;
+            }
+
+            function calculateTotal() {
+                return diceValues.map((value, index) => {
+                    let effectiveValue = value;
+                    if (rerollValues[index] !== null) {
+                        if (rerollTypes[index] === 'edge') {
+                            effectiveValue = Math.max(value, rerollValues[index]);
+                        } else if (rerollTypes[index] === 'trouble') {
+                            effectiveValue = Math.min(value, rerollValues[index]);
+                        }
+                    }
+                    // For the middle (red) die, treat 1 as 6
+                    if (index === 1 && effectiveValue === 1) {
+                        return 6;
+                    }
+                    return effectiveValue;
+                }).reduce((sum, value) => sum + value, 0);
+            }
+
+            function animateDiceRoll(dieElement, finalValue) {
+                const originalClass = dieElement.className;
+                dieElement.classList.add('rolling');
+                let rollCount = 0;
+                const rollInterval = setInterval(() => {
+                    dieElement.textContent = Math.floor(Math.random() * 6) + 1;
+                    rollCount++;
+                    if (rollCount > 10) {
+                        clearInterval(rollInterval);
+                        dieElement.textContent = finalValue;
+                        dieElement.className = originalClass;
+                    }
+                }, 100);
+            }
+
+            function rollAllDice() {
+                diceValues = [rollDie(), rollDie(), rollDie()];
+                rerollValues = [null, null, null];
+                rerollTypes = [null, null, null];
+
+                for (let i = 1; i <= 3; i++) {
+                    const die = document.getElementById(`die${i}`);
+                    animateDiceRoll(die, diceValues[i-1]);
+                }
+
+                setTimeout(updateDiceDisplay, 1100);
+            }
+
+            function rollEdge(dieIndex) {
+                const edgeRoll = rollDie();
+                const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+
+                animateDiceRoll(rerollDie, edgeRoll);
+                rerollDie.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    rerollValues[dieIndex-1] = edgeRoll;
+                    rerollTypes[dieIndex-1] = 'edge';
+                    updateDiceDisplay();
+                }, 1100);
+            }
+
+            function rollTrouble(dieIndex) {
+                const troubleRoll = rollDie();
+                const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+
+                animateDiceRoll(rerollDie, troubleRoll);
+                rerollDie.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    rerollValues[dieIndex-1] = troubleRoll;
+                    rerollTypes[dieIndex-1] = 'trouble';
+                    updateDiceDisplay();
+                }, 1100);
+            }
+
+            rollAllButton.addEventListener('click', rollAllDice);
+
+            // Initialize dice without animation
+            updateDiceDisplay();
+
+            // Make functions global so they can be called from HTML
+            window.rollEdge = rollEdge;
+            window.rollTrouble = rollTrouble;
         });
-
-        document.getElementById('resilienceScore').addEventListener('change', function() {
-            document.getElementById('health').value = this.value * 30;
-        });
-
-        document.getElementById('vigilanceScore').addEventListener('change', function() {
-            document.getElementById('focus').value = this.value * 30;
-        });
-
-        // Calculate defense values
-        ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
-            document.getElementById(ability + 'Score').addEventListener('change', function() {
-                document.getElementById(ability + 'Defense').value = parseInt(this.value) + 10;
-            });
-        });
-
-        // Save character sheet data
-        function saveCharacterSheet() {
-            const data = {};
-            document.querySelectorAll('input, textarea').forEach(el => {
-                data[el.id] = el.value;
-            });
-            const json = JSON.stringify(data);
-            const blob = new Blob([json], {type: "application/json"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = (document.getElementById('characterName').value || 'character') + '.json';
-            a.click();
-        }
-
-        // Load character sheet data (you would need to implement file input for this)
-        function loadCharacterSheet(json) {
-            const data = JSON.parse(json);
-            Object.keys(data).forEach(key => {
-                const el = document.getElementById(key);
-                if (el) el.value = data[key];
-            });
-        }
     </script>
 </body>
 </html>

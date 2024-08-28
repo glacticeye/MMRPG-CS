@@ -1,89 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marvel Multiverse RPG Character Sheet</title>
     <style>
-        @page {
-            size: A4;
-            margin: 0;
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+            .page {
+                page-break-after: always;
+            }
         }
-
         body {
             font-family: Arial, sans-serif;
             font-size: 10px;
             line-height: 1.2;
-            margin: 0;
-            padding: 0;
+            background-color: #f0f0f0;
         }
-
-        .page {
+        .character-sheet {
             width: 210mm;
             height: 297mm;
             padding: 10mm;
             box-sizing: border-box;
             background-color: white;
-            page-break-after: always;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px auto;
         }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
-            background-color: #e23636;
+            background-color: #e23636; /* Marvel red */
             color: white;
             padding: 10px;
         }
-
         .header h1 {
             margin: 0;
             font-size: 24px;
         }
-
         .header-right {
             text-align: right;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 10px;
         }
-
-        th,
-        td {
+        th, td {
             border: 1px solid #000;
             padding: 2px 4px;
         }
-
         th {
             background-color: #f0f0f0;
         }
-
         .abilities-table td:not(:first-child) {
             text-align: center;
         }
-
         .two-column {
             display: flex;
             justify-content: space-between;
         }
-
-        .two-column>div {
+        .two-column > div {
             width: 48%;
         }
-
-        input[type="text"],
-        input[type="number"] {
+        input[type="text"], input[type="number"] {
             width: calc(100% - 4px);
             border: none;
             background-color: transparent;
             font-size: inherit;
         }
-
         textarea {
             width: calc(100% - 4px);
             height: 60px;
@@ -92,342 +86,234 @@
             font-size: inherit;
             resize: none;
         }
-
         .section-title {
-            background-color: #518cca;
+            background-color: #518cca; /* Marvel blue */
             color: white;
             padding: 5px;
             margin-top: 10px;
             margin-bottom: 5px;
         }
-
-        .dice-roller {
-            position: absolute;
-            bottom: 10mm;
-            left: 10mm;
-            right: 10mm;
-            background-color: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .dice-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .die {
-            width: 40px;
-            height: 40px;
-            border: 2px solid black;
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0 5px;
-        }
-
-        .die-white {
-            background-color: white;
-            color: black;
-        }
-
-        .die-red {
-            background-color: red;
-            color: white;
-        }
-
-        #rollAllButton {
-            display: block;
-            margin: 10px auto;
-            padding: 5px 10px;
-            font-size: 14px;
+        .save-button {
             background-color: #518cca;
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 10px 20px;
             cursor: pointer;
+            margin-top: 10px;
         }
-
-        #rollResult {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 5px;
+        .save-button:hover {
+            background-color: #3a6491;
         }
     </style>
 </head>
-
 <body>
-    <div class="page">
-        <!-- Character Sheet Content for Page 1 -->
+    <div class="character-sheet page">
         <div class="header">
             <h1>Marvel Multiverse RPG Character Sheet</h1>
-            <div class="header-right"><label>Character Name: <input type="text" id="characterName"></label><br><label>Rank: <input type="number" id="characterRank" style="width: 30px;"></label></div>
+            <div class="header-right">
+                <label>Character Name: <input type="text" id="characterName"></label><br>
+                <label>Rank: <input type="number" id="characterRank" style="width: 30px;"></label>
+            </div>
         </div>
+
         <div class="section-title">Character Details</div>
         <table>
-            <thead>
-                <tr>
-                    <th>Real Name</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Gender</th>
-                </tr>
-                <tr>
-                    <th>Eyes</th>
-                    <th>Hair</th>
-                    <th>Size</th>
-                    <th>Origin</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" id="realName"></td>
-                    <td><input type="text" id="height"></td>
-                    <td><input type="text" id="weight"></td>
-                    <td><input type="text" id="gender"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" id="eyes"></td>
-                    <td><input type="text" id="hair"></td>
-                    <td><input type="text" id="size"></td>
-                    <td><input type="text" id="origin"></td>
-                </tr>
-            </tbody>
+            <tr>
+                <th>Real Name</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Gender</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="realName"></td>
+                <td><input type="text" id="height"></td>
+                <td><input type="text" id="weight"></td>
+                <td><input type="text" id="gender"></td>
+            </tr>
+            <tr>
+                <th>Eyes</th>
+                <th>Hair</th>
+                <th>Size</th>
+                <th>Origin</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="eyes"></td>
+                <td><input type="text" id="hair"></td>
+                <td><input type="text" id="size"></td>
+                <td><input type="text" id="origin"></td>
+            </tr>
         </table>
+
         <div class="two-column">
             <div>
                 <div class="section-title">Abilities</div>
                 <table class="abilities-table">
-                    <thead>
-                        <tr>
-                            <th>Ability</th>
-                            <th>Score</th>
-                            <th>Defense</th>
-                            <th>Non-Combat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Melee</td>
-                            <td><input type="number" id="meleeScore"></td>
-                            <td><input type="number" id="meleeDefense"></td>
-                            <td><input type="number" id="meleeNonCombat"></td>
-                        </tr>
-                        <tr>
-                            <td>Agility</td>
-                            <td><input type="number" id="agilityScore"></td>
-                            <td><input type="number" id="agilityDefense"></td>
-                            <td><input type="number" id="agilityNonCombat"></td>
-                        </tr>
-                        <tr>
-                            <td>Resilience</td>
-                            <td><input type="number" id="resilienceScore"></td>
-                            <td><input type="number" id="resilienceDefense"></td>
-                            <td><input type="number" id="resilienceNonCombat"></td>
-                        </tr>
-                        <tr>
-                            <td>Vigilance</td>
-                            <td><input type="number" id="vigilanceScore"></td>
-                            <td><input type="number" id="vigilanceDefense"></td>
-                            <td><input type="number" id="vigilanceNonCombat"></td>
-                        </tr>
-                        <tr>
-                            <td>Ego</td>
-                            <td><input type="number" id="egoScore"></td>
-                            <td><input type="number" id="egoDefense"></td>
-                            <td><input type="number" id="egoNonCombat"></td>
-                        </tr>
-                        <tr>
-                            <td>Logic</td>
-                            <td><input type="number" id="logicScore"></td>
-                            <td><input type="number" id="logicDefense"></td>
-                            <td><input type="number" id="logicNonCombat"></td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th>Ability</th>
+                        <th>Score</th>
+                        <th>Defense</th>
+                        <th>Non-Combat</th>
+                    </tr>
+                    <tr>
+                        <td>Melee</td>
+                        <td><input type="number" id="meleeScore"></td>
+                        <td><input type="number" id="meleeDefense"></td>
+                        <td><input type="number" id="meleeNonCombat"></td>
+                    </tr>
+                    <tr>
+                        <td>Agility</td>
+                        <td><input type="number" id="agilityScore"></td>
+                        <td><input type="number" id="agilityDefense"></td>
+                        <td><input type="number" id="agilityNonCombat"></td>
+                    </tr>
+                    <tr>
+                        <td>Resilience</td>
+                        <td><input type="number" id="resilienceScore"></td>
+                        <td><input type="number" id="resilienceDefense"></td>
+                        <td><input type="number" id="resilienceNonCombat"></td>
+                    </tr>
+                    <tr>
+                        <td>Vigilance</td>
+                        <td><input type="number" id="vigilanceScore"></td>
+                        <td><input type="number" id="vigilanceDefense"></td>
+                        <td><input type="number" id="vigilanceNonCombat"></td>
+                    </tr>
+                    <tr>
+                        <td>Ego</td>
+                        <td><input type="number" id="egoScore"></td>
+                        <td><input type="number" id="egoDefense"></td>
+                        <td><input type="number" id="egoNonCombat"></td>
+                    </tr>
+                    <tr>
+                        <td>Logic</td>
+                        <td><input type="number" id="logicScore"></td>
+                        <td><input type="number" id="logicDefense"></td>
+                        <td><input type="number" id="logicNonCombat"></td>
+                    </tr>
                 </table>
             </div>
             <div>
-                <div class="section-title">Health &amp; Focus</div>
+                <div class="section-title">Health & Focus</div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th colspan="2">Health (Resilience x 30)</th>
-                            <th>Damage Reduction</th>
-                        </tr>
-                        <tr>
-                            <th colspan="2">Focus (Vigilance x 30)</th>
-                            <th>Damage Reduction</th>
-                        </tr>
-                        <tr>
-                            <th>Karma (Rank)</th>
-                            <th colspan="2">Initiative Modifier</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="2"><input type="number" id="health"></td>
-                            <td><input type="number" id="healthDamageReduction"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="number" id="focus"></td>
-                            <td><input type="number" id="focusDamageReduction"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="number" id="karma"></td>
-                            <td colspan="2"><input type="number" id="initiativeModifier"></td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th colspan="2">Health (Resilience x 30)</th>
+                        <th>Damage Reduction</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="number" id="health"></td>
+                        <td><input type="number" id="healthDamageReduction"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Focus (Vigilance x 30)</th>
+                        <th>Damage Reduction</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="number" id="focus"></td>
+                        <td><input type="number" id="focusDamageReduction"></td>
+                    </tr>
+                    <tr>
+                        <th>Karma (Rank)</th>
+                        <th colspan="2">Initiative Modifier</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="karma"></td>
+                        <td colspan="2"><input type="number" id="initiativeModifier"></td>
+                    </tr>
                 </table>
+
                 <div class="section-title">Movement</div>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Run</th>
-                            <th>Climb</th>
-                            <th>Swim</th>
-                            <th>Other</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="number" id="runSpeed"></td>
-                            <td><input type="number" id="climbSpeed"></td>
-                            <td><input type="number" id="swimSpeed"></td>
-                            <td><input type="text" id="otherSpeed"></td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <th>Run</th>
+                        <th>Climb</th>
+                        <th>Swim</th>
+                        <th>Other</th>
+                    </tr>
+                    <tr>
+                        <td><input type="number" id="runSpeed"></td>
+                        <td><input type="number" id="climbSpeed"></td>
+                        <td><input type="number" id="swimSpeed"></td>
+                        <td><input type="text" id="otherSpeed"></td>
+                    </tr>
                 </table>
             </div>
-        </div><!-- Dice Roller for Page 1 -->
-        <div class="dice-roller">
-            <h3>Marvel Multiverse RPG Dice Roller</h3>
-            <div class="dice-container">
-                <div id="die1" class="die die-white">1</div>
-                <div id="die2" class="die die-red">1</div>
-                <div id="die3" class="die die-white">1</div>
-            </div><button id="rollAllButton">Roll All Dice</button>
-            <div id="rollResult"><br></div>
         </div>
-    </div>
-    <div class="page">
-        <!-- Character Sheet Content for Page 2 -->
-        <div class="header">
-            <h1>Marvel Multiverse RPG Character Sheet (Page 2)</h1>
-            <div class="header-right"><label>Character Name: <input type="text" id="characterName2"></label><br><label>Rank: <input type="number" id="characterRank2" style="width: 30px;"></label></div>
-        </div>
+
         <div class="section-title">Damage</div>
         <table>
-            <thead>
-                <tr>
-                    <th>Damage</th>
-                    <th>Multiplier</th>
-                    <th>Plus</th>
-                    <th>Ability</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Melee</td>
-                    <td><input type="number" id="meleeDamageMultiplier"></td>
-                    <td><input type="text" id="meleeDamagePlus"></td>
-                    <td><input type="number" id="meleeDamageAbility"></td>
-                </tr>
-                <tr>
-                    <td>Agility</td>
-                    <td><input type="number" id="agilityDamageMultiplier"></td>
-                    <td><input type="text" id="agilityDamagePlus"></td>
-                    <td><input type="number" id="agilityDamageAbility"></td>
-                </tr>
-                <tr>
-                    <td>Ego</td>
-                    <td><input type="number" id="egoDamageMultiplier"></td>
-                    <td><input type="text" id="egoDamagePlus"></td>
-                    <td><input type="number" id="egoDamageAbility"></td>
-                </tr>
-                <tr>
-                    <td>Logic</td>
-                    <td><input type="number" id="logicDamageMultiplier"></td>
-                    <td><input type="text" id="logicDamagePlus"></td>
-                    <td><input type="number" id="logicDamageAbility"></td>
-                </tr>
-            </tbody>
+            <tr>
+                <th>Damage</th>
+                <th>Multiplier</th>
+                <th>Plus</th>
+                <th>Ability</th>
+            </tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeDamageMultiplier"></td>
+                <td><input type="text" id="meleeDamagePlus"></td>
+                <td><input type="number" id="meleeDamageAbility"></td>
+            </tr>
+            <tr>
+                <td>Agility</td>
+                <td><input type="number" id="agilityDamageMultiplier"></td>
+                <td><input type="text" id="agilityDamagePlus"></td>
+                <td><input type="number" id="agilityDamageAbility"></td>
+            </tr>
+            <tr>
+                <td>Ego</td>
+                <td><input type="number" id="egoDamageMultiplier"></td>
+                <td><input type="text" id="egoDamagePlus"></td>
+                <td><input type="number" id="egoDamageAbility"></td>
+            </tr>
+            <tr>
+                <td>Logic</td>
+                <td><input type="number" id="logicDamageMultiplier"></td>
+                <td><input type="text" id="logicDamagePlus"></td>
+                <td><input type="number" id="logicDamageAbility"></td>
+            </tr>
         </table>
+
         <div class="two-column">
             <div>
-                <div class="section-title">Traits</div><textarea id="traits"></textarea>
+                <div class="section-title">Traits</div>
+                <textarea id="traits"></textarea>
             </div>
             <div>
-                <div class="section-title">Tags</div><textarea id="tags"></textarea>
+                <div class="section-title">Tags</div>
+                <textarea id="tags"></textarea>
             </div>
         </div>
-        <div class="section-title">Powers</div><textarea id="powers"></textarea>
-        <div class="section-title">Notes</div><textarea id="notes"></textarea> <!-- Dice Roller for Page 2 -->
-        <div class="dice-roller">
-            <h3>Marvel Multiverse RPG Dice Roller</h3>
-            <div class="dice-container">
-                <div id="die4" class="die die-white">1</div>
-                <div id="die5" class="die die-red">1</div>
-                <div id="die6" class="die die-white">1</div>
-            </div><button id="rollAllButton2">Roll All Dice</button>
-            <div id="rollResult2"><br></div>
-        </div>
+
+        <div class="section-title">Powers</div>
+        <textarea id="powers"></textarea>
+
+        <div class="section-title">Notes</div>
+        <textarea id="notes"></textarea>
+
+        <button class="save-button no-print" onclick="saveCharacterSheet()">Save Character Sheet</button>
     </div>
+
     <script>
         // Automatically calculate derived values
         document.getElementById('characterRank').addEventListener('change', function() {
             document.getElementById('karma').value = this.value;
-            document.getElementById('characterRank2').value = this.value;
         });
-        
+
         document.getElementById('resilienceScore').addEventListener('change', function() {
             document.getElementById('health').value = this.value * 30;
         });
-        
+
         document.getElementById('vigilanceScore').addEventListener('change', function() {
             document.getElementById('focus').value = this.value * 30;
         });
-        
+
         // Calculate defense values
         ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
             document.getElementById(ability + 'Score').addEventListener('change', function() {
                 document.getElementById(ability + 'Defense').value = parseInt(this.value) + 10;
             });
         });
-        
-        // Sync character name across pages
-        document.getElementById('characterName').addEventListener('input', function() {
-            document.getElementById('characterName2').value = this.value;
-        });
-        
-        // Dice rolling functionality
-        function rollDie() {
-            return Math.floor(Math.random() * 6) + 1;
-        }
-        
-        function rollAllDice(dieIds, resultId) {
-            const results = dieIds.map(id => {
-                const result = rollDie();
-                document.getElementById(id).textContent = result;
-                return result;
-            });
-            const total = results.reduce((sum, value) => sum + value, 0);
-            document.getElementById(resultId).textContent = `Total: ${total}`;
-        }
-        
-        document.getElementById('rollAllButton').
-        
-        document.getElementById('rollAllButton').addEventListener('click', function() {
-            rollAllDice(['die1', 'die2', 'die3'], 'rollResult');
-        });
-        
-        document.getElementById('rollAllButton2').addEventListener('click', function() {
-            rollAllDice(['die4', 'die5', 'die6'], 'rollResult2');
-        });
-        
+
         // Save character sheet data
         function saveCharacterSheet() {
             const data = {};
@@ -442,7 +328,7 @@
             a.download = (document.getElementById('characterName').value || 'character') + '.json';
             a.click();
         }
-        
+
         // Load character sheet data (you would need to implement file input for this)
         function loadCharacterSheet(json) {
             const data = JSON.parse(json);
@@ -453,5 +339,4 @@
         }
     </script>
 </body>
-
 </html>

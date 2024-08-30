@@ -310,149 +310,230 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    
-    // Add event listeners for roll buttons
-    document.querySelectorAll('.roll-ability-check').forEach(button => {
-        button.addEventListener('click', function() {
-            const ability = this.getAttribute('data-ability');
-            rollAllDice(ability);
-        });
-    });
+                    // Global variables
+        let lastRollResult = null;
+        let lastRollType = null;
 
-    document.querySelectorAll('.roll-combat-check').forEach(button => {
-        button.addEventListener('click', function() {
-            const ability = this.getAttribute('data-ability');
-            rollAllDice(ability);
-        });
-    });
-    const diceContainer = document.getElementById('diceContainer');
-    const rollAllButton = document.getElementById('rollAllButton');
-    const rollResult = document.getElementById('rollResult');
+        document.addEventListener('DOMContentLoaded', function() {
+            const rank = document.getElementById('rank');
+            const size = document.getElementById('size');
+            const abilities = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'];
 
-    let diceValues = [6, 6, 6];
-    let rerollValues = [null, null, null];
-    let rerollTypes = [null, null, null]; // 'edge' or 'trouble'
-
-    // Dice rolling functions
-    function rollDie() {
-        return Math.floor(Math.random() * 6) + 1;
-    }
-
-    function updateDiceDisplay(ability, combat) {
-        for (let i = 1; i <= 3; i++) {
-            const die = document.getElementById(`die${i}`);
-            const rerollDie = document.getElementById(`die${i}reroll`);
-            const rerollIndicator = document.getElementById(`rerollIndicator${i}`);
-
-            die.textContent = diceValues[i-1];
-            if (rerollValues[i-1] !== null) {
-                rerollDie.textContent = rerollValues[i-1];
-                rerollDie.style.visibility = 'visible';
-                rerollIndicator.textContent = rerollTypes[i-1].toUpperCase();
-                rerollIndicator.className = `reroll-indicator ${rerollTypes[i-1]}-indicator`;
-            } else {
-                rerollDie.style.visibility = 'hidden';
-                rerollIndicator.textContent = '';
-                rerollIndicator.className = 'reroll-indicator';
-            }
-
-            // Show "Fantastic" indicator for the red Marvel die when it's 1
-            if (i === 2) {
-                const fantasticIndicator = document.getElementById('fantasticIndicator');
-                fantasticIndicator.style.display = (diceValues[1] === 1 || rerollValues[1] === 1) ? 'block' : 'none';
-            }
-        }
-
-        const total = calculateTotal();
-        rollResult.textContent = `Total: ${total}`;
-    }
-
-    function calculateTotal() {
-        return diceValues.map((value, index) => {
-            let effectiveValue = value;
-            if (rerollValues[index] !== null) {
-                if (rerollTypes[index] === 'edge') {
-                    effectiveValue = Math.max(value, rerollValues[index]);
-                } else if (rerollTypes[index] === 'trouble') {
-                    effectiveValue = Math.min(value, rerollValues[index]);
+            function updateField(id, value) {
+                const field = document.getElementById(id);
+                if (field && !field.classList.contains('manually-edited')) {
+                    field.value = value;
                 }
             }
-            // For the Marvel die, treat 1 as 6
-            if (index === 1 && effectiveValue === 1) {
-                return 6;
+
+            function calculateAbilityFields() {
+                abilities.forEach(ability => {
+                    const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                    updateField(`${ability}Defense`, score + 10);
+                    updateField(`${ability}NonCombat`, `+${score}`);
+                });
             }
-            return effectiveValue;
-        }).reduce((sum, value) => sum + value, 0);
-    }
 
-    function animateDiceRoll(dieElement, finalValue) {
-        const originalClass = dieElement.className;
-        dieElement.classList.add('rolling');
-        let rollCount = 0;
-        const rollInterval = setInterval(() => {
-            dieElement.textContent = Math.floor(Math.random() * 6) + 1;
-            rollCount++;
-            if (rollCount > 10) {
-                clearInterval(rollInterval);
-                dieElement.textContent = finalValue;
-                dieElement.className = originalClass;
+            function calculateHealth() {
+                const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
+                updateField('health', resilience < 1 ? 10 : resilience * 30);
             }
-        }, 100);
-    }
 
-    function rollAllDice(ability, combat) {
-        diceValues = [rollDie(), rollDie(), rollDie()];
-        rerollValues = [null, null, null];
-        rerollTypes = [null, null, null];
+            function calculateFocus() {
+                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+                updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
+            }
 
-        for (let i = 1; i <= 3; i++) {
-            const die = document.getElementById(`die${i}`);
-            animateDiceRoll(die, diceValues[i-1]);
+            function calculateMovementSpeeds() {
+                const agility = parseInt(document.getElementById('agilityScore').value) || 0;
+                const sizeValue = size.value;
+                let sizeModifier = 0;
+                if (sizeValue === 'Big') sizeModifier = 1;
+                if (sizeValue === 'Small') sizeModifier = -1;
+                
+                const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
+                updateField('run', baseSpeed);
+                updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
+                updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
+                updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
+                
+                document.getElementById('run-speed').textContent = baseSpeed;
+            }
+
+            function calculateInitiativeModifier() {
+                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+                updateField('initiativeModifier', `+${vigilance}`);
+            }
+
+            function calculateDamage() {
+                const rankValue = parseInt(rank.value) || 0;
+                ['melee', 'agility', 'ego', 'logic'].forEach(ability => {
+                    const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                    updateField(`${ability}DamageMultiplier`, rankValue);
+                    updateField(`${ability}DamageAbility`, score);
+                });
+            }
+
+            function updateCalculatedFields() {
+                calculateAbilityFields();
+                calculateHealth();
+                calculateFocus();
+                calculateMovementSpeeds();
+                calculateInitiativeModifier();
+                calculateDamage();
+            }
+
+            function handleManualEdit(event) {
+                const field = event.target;
+                if (field.classList.contains('calculated')) {
+                    field.classList.add('manually-edited');
+                }
+            }
+
+            function handleRoll(event) {
+                const ability = event.target.dataset.ability;
+                const isAbilityCheck = event.target.classList.contains('roll-ability-check');
+                const rollResult = rollDice();
+                const abilityScore = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                const damageMultiplier = isAbilityCheck ? 1 : (parseInt(document.getElementById(`${ability}DamageMultiplier`).value) || 1);
+
+                lastRollResult = { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability };
+                lastRollType = isAbilityCheck ? 'ability' : 'combat';
+
+                displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+                updateDiceDisplay(rollResult);
+            }
+
+            // Event Listeners
+            if (rank) rank.addEventListener('input', updateCalculatedFields);
+            if (size) size.addEventListener('change', calculateMovementSpeeds);
+
+            abilities.forEach(ability => {
+                const scoreInput = document.getElementById(`${ability}Score`);
+                if (scoreInput) {
+                    scoreInput.addEventListener('input', updateCalculatedFields);
+                }
+            });
+
+            document.querySelectorAll('.calculated').forEach(field => {
+                field.addEventListener('input', handleManualEdit);
+            });
+
+            document.querySelectorAll('.roll-ability-check, .roll-combat-check').forEach(button => {
+                button.addEventListener('click', handleRoll);
+            });
+
+            const rollAllButton = document.getElementById('rollAllButton');
+            if (rollAllButton) {
+                rollAllButton.addEventListener('click', rollAllDice);
+            }
+
+            // Initialize calculations
+            updateCalculatedFields();
+        });
+
+        // Global functions
+        function rollDice() {
+            return {
+                d6_1: Math.floor(Math.random() * 6) + 1,
+                marvel: Math.floor(Math.random() * 6) + 1,
+                d6_2: Math.floor(Math.random() * 6) + 1
+            };
         }
 
-        setTimeout(updateDiceDisplay, 1100);
-    }
+        function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
+            const { d6_1, marvel, d6_2 } = rollResult;
+            const diceTotal = d6_1 + marvel + d6_2;
+            const total = diceTotal + abilityScore;
+            
+            const resultElement = document.getElementById('rollResult');
+            
+            if (isAbilityCheck) {
+                resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
+            } else {
+                const damage = (marvel * damageMultiplier) + abilityScore;
+                resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvel} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
+            }
 
-    function rollEdge(dieIndex) {
-        const edgeRoll = rollDie();
-        const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+            document.getElementById('fantasticIndicator').style.display = marvel === 6 ? 'block' : 'none';
+        }
 
-        animateDiceRoll(rerollDie, edgeRoll);
-        rerollDie.style.visibility = 'visible';
+        function updateDiceDisplay(rollResult) {
+            const { d6_1, marvel, d6_2 } = rollResult;
+            animateDice('die1', d6_1);
+            animateDice('die2', marvel);
+            animateDice('die3', d6_2);
 
-        setTimeout(() => {
-            rerollValues[dieIndex-1] = edgeRoll;
-            rerollTypes[dieIndex-1] = 'edge';
-            updateDiceDisplay();
-        }, 1100);
-    }
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`rerollIndicator${i}`).textContent = '';
+                document.getElementById(`die${i}reroll`).style.visibility = 'hidden';
+            }
+        }
 
-    function rollTrouble(dieIndex) {
-        const troubleRoll = rollDie();
-        const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+        function animateDice(dieId, value) {
+            const die = document.getElementById(dieId);
+            die.classList.add('rolling');
+            setTimeout(() => {
+                die.textContent = value;
+                die.classList.remove('rolling');
+            }, 500);
+        }
 
-        animateDiceRoll(rerollDie, troubleRoll);
-        rerollDie.style.visibility = 'visible';
+        function rollAllDice() {
+            const rollResult = rollDice();
+            lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: 'All Dice' };
+            lastRollType = 'ability';
+            displayResult(rollResult, 0, 1, true, 'All Dice');
+            updateDiceDisplay(rollResult);
+        }
 
-        setTimeout(() => {
-            rerollValues[dieIndex-1] = troubleRoll;
-            rerollTypes[dieIndex-1] = 'trouble';
-            updateDiceDisplay();
-        }, 1100);
-    }
+        function rollEdge(dieNumber) {
+            if (!lastRollResult) return;
 
-    rollAllButton.addEventListener('click', rollAllDice);
+            const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+            const newRoll = Math.floor(Math.random() * 6) + 1;
+            const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
 
-    // Initialize dice without animation
-    updateDiceDisplay();
+            const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+            animateDice(`die${dieNumber}reroll`, newRoll);
+            rerollDie.style.visibility = 'visible';
 
-    // Make functions global so they can be called from HTML
-    window.rollDie = rollDie;
-    window.rollEdge = rollEdge;
-    window.rollTrouble = rollTrouble;
+            const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+            indicator.textContent = 'Edge';
+            indicator.className = 'reroll-indicator edge-indicator';
 
-});
+            if (newRoll > rollResult[dieKey]) {
+                rollResult[dieKey] = newRoll;
+            }
+
+            displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+        }
+
+        function rollTrouble(dieNumber) {
+            if (!lastRollResult) return;
+
+            const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+            const newRoll = Math.floor(Math.random() * 6) + 1;
+            const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
+
+            const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+            animateDice(`die${dieNumber}reroll`, newRoll);
+            rerollDie.style.visibility = 'visible';
+
+            const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+            indicator.textContent = 'Trouble';
+            indicator.className = 'reroll-indicator trouble-indicator';
+
+            if (newRoll < rollResult[dieKey]) {
+                rollResult[dieKey] = newRoll;
+            }
+
+            displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+        }
+
+        // Make sure these functions are accessible globally
+        window.rollEdge = rollEdge;
+        window.rollTrouble = rollTrouble;
     </script>
 
     <script>
@@ -485,7 +566,7 @@
 
         function calculateFocus() {
             const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
+            updateField('focus', vigilance < 1 ? 10 : resilience * 30);
         }
 
         function calculateMovementSpeeds() {

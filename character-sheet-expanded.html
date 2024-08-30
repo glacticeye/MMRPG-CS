@@ -442,22 +442,22 @@
         }
 
         function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
-            const { d6_1, marvel, d6_2 } = rollResult;
-            const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
-            const diceTotal = d6_1 + marvelValue + d6_2;
-            const total = diceTotal + abilityScore;
-            
-            const resultElement = document.getElementById('rollResult');
-            
-            if (isAbilityCheck) {
-                resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
-            } else {
-                const damage = (marvel * damageMultiplier) + abilityScore;
-                resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvel} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
-            }
-
-            document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+        const { d6_1, marvel, d6_2 } = rollResult;
+        const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
+        const diceTotal = d6_1 + marvelValue + d6_2;
+        const total = diceTotal + abilityScore;
+        
+        const resultElement = document.getElementById('rollResult');
+        
+        if (isAbilityCheck) {
+            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
+        } else {
+            const damage = (marvelValue * damageMultiplier) + abilityScore; // Use marvelValue for damage calculation
+            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
         }
+
+        document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+    }
 
         function updateDiceDisplay(rollResult) {
             const { d6_1, marvel, d6_2 } = rollResult;

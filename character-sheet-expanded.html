@@ -443,7 +443,8 @@
 
         function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
             const { d6_1, marvel, d6_2 } = rollResult;
-            const diceTotal = d6_1 + marvel + d6_2;
+            const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
+            const diceTotal = d6_1 + marvelValue + d6_2;
             const total = diceTotal + abilityScore;
             
             const resultElement = document.getElementById('rollResult');
@@ -455,7 +456,7 @@
                 resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvel} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
             }
 
-            document.getElementById('fantasticIndicator').style.display = marvel === 6 ? 'block' : 'none';
+            document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
         }
 
         function updateDiceDisplay(rollResult) {
@@ -502,8 +503,14 @@
             indicator.textContent = 'Edge';
             indicator.className = 'reroll-indicator edge-indicator';
 
-            if (newRoll > rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
+            if (dieKey === 'marvel') {
+                if (newRoll === 1 || newRoll > rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
+            } else {
+                if (newRoll > rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
             }
 
             displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
@@ -524,8 +531,14 @@
             indicator.textContent = 'Trouble';
             indicator.className = 'reroll-indicator trouble-indicator';
 
-            if (newRoll < rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
+            if (dieKey === 'marvel') {
+                if (newRoll > 1 && newRoll < rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
+            } else {
+                if (newRoll < rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
             }
 
             displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);

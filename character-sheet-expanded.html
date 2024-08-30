@@ -29,7 +29,7 @@
             <div>
                 <table>
                     <tr>
-                        <th>Health (Resilience x 30)</th>
+                        <th>Health</th>
                         <td><input type="number" id="health" class="calculated"></td>
                     </tr>
                 </table>
@@ -37,7 +37,7 @@
             <div>
                 <table>
                     <tr>
-                        <th>Focus (Vigilance x 30)</th>
+                        <th>Focus</th>
                         <td><input type="number" id="focus" class="calculated"></td>
                     </tr>
                 </table>
@@ -70,38 +70,38 @@
                 <td><input type="number" id="meleeDefense" class="calculated"></td>
                 <td><input type="text" id="meleeNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
-            </tr>
+            </tr><tr>
                 <td>Agility</td>
                 <td><input type="number" id="agilityScore" min="-3" max="9" value="0"></td>
                 <td><input type="number" id="agilityDefense" class="calculated"></td>
                 <td><input type="text" id="agilityNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
-            <tr>
+            </tr><tr>
                 <td>Resilience</td>
                 <td><input type="number" id="resilienceScore" min="-3" max="9" value="0"></td>
                 <td><input type="number" id="resilienceDefense" class="calculated"></td>
                 <td><input type="text" id="resilienceNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
-            <tr>
+            </tr><tr>
                 <td>Vigilance</td>
                 <td><input type="number" id="vigilanceScore" min="-3" max="9" value="0"></td>
                 <td><input type="number" id="vigilanceDefense" class="calculated"></td>
                 <td><input type="text" id="vigilanceNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
-            <tr>
+            </tr><tr>
                 <td>Ego</td>
                 <td><input type="number" id="egoScore" min="-3" max="9" value="0"></td>
                 <td><input type="number" id="egoDefense" class="calculated"></td>
                 <td><input type="text" id="egoNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
-            <tr>
+            </tr><tr>
                 <td>Logic</td>
                 <td><input type="number" id="logicScore" min="-3" max="9" value="0"></td>
                 <td><input type="number" id="logicDefense" class="calculated"></td>
                 <td><input type="text" id="logicNonCombat" class="calculated"></td>
                 <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
-            </tr>
-        </table>
+            </tr><tr>
+            </table>
 
         <div class="section-title">Damage</div>
         <table>
@@ -176,8 +176,6 @@
 			<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
             <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
             <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
         </table>
 		</div>
 	</div>
@@ -249,12 +247,17 @@
             </tr>
         </table>
 
-		</div>
-		</div>
-		<div class="page">
-
+    </div>
+    <div class="page">
+        <div class="section-title">Power Descriptions</div>
+        <textarea style="height: 240mm;"></textarea>
+    </div>
+    <div class="page">
         <div class="section-title">Notes</div>
-        <textarea style="height: 100px;"></textarea>
+        <textarea style="height: 60mm;"></textarea>
+        <div class="section-title">Portrait</div>
+        <textarea style="height: 180mm;"></textarea>
+    </div>
 
     <div class="dice-roller">
         <div id="diceContainer" class="dice-container">

@@ -1,0 +1,257 @@
+/* Global Styles */
+@page { size: A4; margin: 0; }
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+/* Page Layout */
+.page {
+    width: 210mm;
+    height: 297mm;
+    padding: 10mm;
+    box-sizing: border-box;
+    background-color: white;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e23636;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.two-column {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Form Element Styles */
+input[type="text"],
+input[type="number"],
+textarea {
+    width: calc(100% - 10px);
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Section Styles */
+.section-title {
+    background-color: #518cca;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Calculated Field Styles */
+.calculated {
+    background-color: #e8e8e8;
+}
+.manually-edited {
+    font-weight: bold;
+}
+
+/* Dice Roller Styles */
+.dice-roller {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.dice-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.die-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    position: relative;
+}
+.die-pair {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+.die-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 5px;
+}
+.die {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.die-white {
+    background-color: white;
+    color: black;
+}
+.die-red {
+    background-color: red;
+    color: white;
+}
+.die.rolling {
+    animation: shake 0.5s;
+}
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.edge-trouble-buttons {
+    display: flex;
+    justify-content: center;
+}
+.edge-button, .trouble-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 2px;
+}
+.edge-button {
+    background-color: #4CAF50;
+}
+.trouble-button {
+    background-color: #f44336;
+}
+#rollAllButton {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #518cca;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#rollResult {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.reroll-indicator {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2px;
+    height: 15px;
+}
+.edge-indicator {
+    color: #4CAF50;
+}
+.trouble-indicator {
+    color: #f44336;
+}
+.fantastic-indicator {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: gold;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    display: none;
+}
+
+/* Responsive Design */
+@media print {
+    body {
+        background-color: white;
+    }
+    .page {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .page {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .die {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}

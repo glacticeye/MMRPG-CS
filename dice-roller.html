@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; line-height: 1.2; margin: 0; padding: 0; }
+        }
+        .dice-roller {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .die-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px;
+            position: relative;
+        }
+        .die-pair {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+        .die-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 5px;
+        }
+        .die {
+            width: 60px;
+            height: 60px;
+            border: 2px solid black;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .die-white {
+            background-color: white;
+            color: black;
+        }
+        .die-red {
+            background-color: red;
+            color: white;
+        }
+        .die.rolling {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .edge-trouble-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .edge-button, .trouble-button {
+            padding: 5px 10px;
+            font-size: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+        .edge-button {
+            background-color: #4CAF50;
+        }
+        .trouble-button {
+            background-color: #f44336;
+        }
+        #rollAllButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #518cca;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #rollResult {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .reroll-indicator {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2px;
+            height: 15px;
+        }
+        .edge-indicator {
+            color: #4CAF50;
+        }
+        .trouble-indicator {
+            color: #f44336;
+        }
+        .fantastic-indicator {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: gold;
+            color: black;
+            padding: 2px 5px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dice-roller">
+        <div class="dice-container" id="diceContainer">
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die1" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator1" class="reroll-indicator"></div>
+                        <div id="die1reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(1)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(1)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="fantastic-indicator" id="fantasticIndicator">Fantastic!</div>
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die2" class="die die-red">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator2" class="reroll-indicator"></div>
+                        <div id="die2reroll" class="die die-red" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(2)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(2)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die3" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator3" class="reroll-indicator"></div>
+                        <div id="die3reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(3)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(3)">Trouble</button>
+                </div>
+            </div>
+        </div>
+        <button id="rollAllButton">Roll All Dice</button>
+        <div id="rollResult"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const diceContainer = document.getElementById('diceContainer');
+            const rollAllButton = document.getElementById('rollAllButton');
+            const rollResult = document.getElementById('rollResult');
+
+            let diceValues = [1, 1, 1];
+            let rerollValues = [null, null, null];
+            let rerollTypes = [null, null, null]; // 'edge' or 'trouble'
+
+            function rollDie() {
+                return Math.floor(Math.random() * 6) + 1;
+            }
+
+            function updateDiceDisplay() {
+                for (let i = 1; i <= 3; i++) {
+                    const die = document.getElementById(`die${i}`);
+                    const rerollDie = document.getElementById(`die${i}reroll`);
+                    const rerollIndicator = document.getElementById(`rerollIndicator${i}`);
+
+                    die.textContent = diceValues[i-1];
+                    if (rerollValues[i-1] !== null) {
+                        rerollDie.textContent = rerollValues[i-1];
+                        rerollDie.style.visibility = 'visible';
+                        rerollIndicator.textContent = rerollTypes[i-1].toUpperCase();
+                        rerollIndicator.className = `reroll-indicator ${rerollTypes[i-1]}-indicator`;
+                    } else {
+                        rerollDie.style.visibility = 'hidden';
+                        rerollIndicator.textContent = '';
+                        rerollIndicator.className = 'reroll-indicator';
+                    }
+
+                    // Show "Fantastic" indicator for the middle (red) die when it's 1
+                    if (i === 2) {
+                        const fantasticIndicator = document.getElementById('fantasticIndicator');
+                        fantasticIndicator.style.display = (diceValues[1] === 1 || rerollValues[1] === 1) ? 'block' : 'none';
+                    }
+                }
+
+                const total = calculateTotal();
+                rollResult.textContent = `Total: ${total}`;
+            }
+
+            function calculateTotal() {
+                return diceValues.map((value, index) => {
+                    let effectiveValue = value;
+                    if (rerollValues[index] !== null) {
+                        if (rerollTypes[index] === 'edge') {
+                            effectiveValue = Math.max(value, rerollValues[index]);
+                        } else if (rerollTypes[index] === 'trouble') {
+                            effectiveValue = Math.min(value, rerollValues[index]);
+                        }
+                    }
+                    // For the middle (red) die, treat 1 as 6
+                    if (index === 1 && effectiveValue === 1) {
+                        return 6;
+                    }
+                    return effectiveValue;
+                }).reduce((sum, value) => sum + value, 0);
+            }
+
+            function animateDiceRoll(dieElement, finalValue) {
+                const originalClass = dieElement.className;
+                dieElement.classList.add('rolling');
+                let rollCount = 0;
+                const rollInterval = setInterval(() => {
+                    dieElement.textContent = Math.floor(Math.random() * 6) + 1;
+                    rollCount++;
+                    if (rollCount > 10) {
+                        clearInterval(rollInterval);
+                        dieElement.textContent = finalValue;
+                        dieElement.className = originalClass;
+                    }
+                }, 100);
+            }
+
+            function rollAllDice() {
+                diceValues = [rollDie(), rollDie(), rollDie()];
+                rerollValues = [null, null, null];
+                rerollTypes = [null, null, null];
+
+                for (let i = 1; i <= 3; i++) {
+                    const die = document.getElementById(`die${i}`);
+                    animateDiceRoll(die, diceValues[i-1]);
+                }
+
+                setTimeout(updateDiceDisplay, 1100);
+            }
+
+            function rollEdge(dieIndex) {
+                const edgeRoll = rollDie();
+                const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+
+                animateDiceRoll(rerollDie, edgeRoll);
+                rerollDie.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    rerollValues[dieIndex-1] = edgeRoll;
+                    rerollTypes[dieIndex-1] = 'edge';
+                    updateDiceDisplay();
+                }, 1100);
+            }
+
+            function rollTrouble(dieIndex) {
+                const troubleRoll = rollDie();
+                const rerollDie = document.getElementById(`die${dieIndex}reroll`);
+
+                animateDiceRoll(rerollDie, troubleRoll);
+                rerollDie.style.visibility = 'visible';
+
+                setTimeout(() => {
+                    rerollValues[dieIndex-1] = troubleRoll;
+                    rerollTypes[dieIndex-1] = 'trouble';
+                    updateDiceDisplay();
+                }, 1100);
+            }
+
+            rollAllButton.addEventListener('click', rollAllDice);
+
+            // Initialize dice without animation
+            updateDiceDisplay();
+
+            // Make functions global so they can be called from HTML
+            window.rollEdge = rollEdge;
+            window.rollTrouble = rollTrouble;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Multiverse RPG Character Sheet</title>
+    <style>
+        @page { size: A4; margin: 0; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .character-sheet {
+            width: 210mm;
+            height: 297mm;
+            margin: auto;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .header {
+            grid-column: 1 / -1;
+            background-color: #e23636;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .left-column, .center-column, .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .section {
+            border: 1px solid #000;
+            padding: 5px;
+            background-color: #fff;
+        }
+        .section-title {
+            font-weight: bold;
+            background-color: #e23636;
+            color: white;
+            padding: 2px 5px;
+        }
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 10px);
+            margin: 2px 0;
+        }
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        .damage-grid {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 5px;
+        }
+        .powers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .power-entry {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 5px;
+        }
+        .team-maneuvers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        .dice-roller {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-top: 2px solid #e23636;
+        }
+        .die-group {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .die {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .die-white { background-color: white; color: black; }
+        .die-red { background-color: #e23636; color: white; }
+        .edge-trouble-buttons { margin-top: 5px; }
+        .edge-button, .trouble-button {
+            padding: 5px 10px;
+            font-size: 12px;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+        .edge-button { background-color: #4CAF50; }
+        .trouble-button { background-color: #f44336; }
+        #rollAllButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #518cca;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        @media print {
+            body { background-color: white; }
+            .character-sheet {
+                width: 100%;
+                height: auto;
+                box-shadow: none;
+            }
+            .dice-roller {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="character-sheet">
+        <div class="header">
+            <h1>MARVEL MULTIVERSE ROLE-PLAYING GAME</h1>
+        </div>
+        <div class="left-column">
+            <div class="section">
+                <div class="section-title">CODENAME</div>
+                <input type="text" id="codename">
+            </div>
+            <div class="section">
+                <div class="section-title">RANK</div>
+                <input type="number" id="rank">
+            </div>
+            <div class="section">
+                <div class="section-title">HEALTH</div>
+                <input type="number" id="health">
+                <div>RESILIENCE x 30</div>
+            </div>
+            <div class="section">
+                <div class="section-title">FOCUS</div>
+                <input type="number" id="focus">
+                <div>VIGILANCE x 30</div>
+            </div>
+            <div class="section">
+                <div class="section-title">KARMA</div>
+                <input type="number" id="karma">
+            </div>
+            <div class="section">
+                <div class="section-title">SPEED</div>
+                <div>Run: <input type="number" id="run"></div>
+                <div>Climb: <input type="number" id="climb"></div>
+                <div>Swim: <input type="number" id="swim"></div>
+            </div>
+            <div class="section">
+                <div class="section-title">ABILITIES</div>
+                <div class="abilities-grid">
+                    <div>ABILITY</div>
+                    <div>SCORE</div>
+                    <div>DEFENSE</div>
+                    <div>MELEE</div>
+                    <input type="number" id="melee-score">
+                    <input type="number" id="melee-defense">
+                    <div>AGILITY</div>
+                    <input type="number" id="agility-score">
+                    <input type="number" id="agility-defense">
+                    <div>RESILIENCE</div>
+                    <input type="number" id="resilience-score">
+                    <input type="number" id="resilience-defense">
+                    <div>VIGILANCE</div>
+                    <input type="number" id="vigilance-score">
+                    <input type="number" id="vigilance-defense">
+                    <div>EGO</div>
+                    <input type="number" id="ego-score">
+                    <input type="number" id="ego-defense">
+                    <div>LOGIC</div>
+                    <input type="number" id="logic-score">
+                    <input type="number" id="logic-defense">
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">DAMAGE</div>
+                <div class="damage-grid">
+                    <div>MELEE</div>
+                    <input type="number" id="melee-multiplier">
+                    <input type="number" id="melee-ability">
+                    <div>AGILITY</div>
+                    <input type="number" id="agility-multiplier">
+                    <input type="number" id="agility-ability">
+                    <div>EGO</div>
+                    <input type="number" id="ego-multiplier">
+                    <input type="number" id="ego-ability">
+                    <div>LOGIC</div>
+                    <input type="number" id="logic-multiplier">
+                    <input type="number" id="logic-ability">
+                </div>
+            </div>
+        </div>
+        <div class="center-column">
+            <div class="section">
+                <div class="section-title">IDENTITY</div>
+                <div>Real Name: <input type="text" id="real-name"></div>
+                <div>Height: <input type="text" id="height"> Weight: <input type="text" id="weight"></div>
+                <div>Eyes: <input type="text" id="eyes"> Hair: <input type="text" id="hair"></div>
+                <div>Occupation: <input type="text" id="occupation"></div>
+                <div>Distinguishing Features: <input type="text" id="features"></div>
+                <div>Teams: <input type="text" id="teams"></div>
+                <div>Origin: <input type="text" id="origin"></div>
+            </div>
+            <div class="section">
+                <div class="section-title">NOTES</div>
+                <textarea id="notes" rows="5"></textarea>
+            </div>
+            <div class="section">
+                <div class="section-title">POWERS</div>
+                <div class="powers-list">
+                    <div class="power-entry">
+                        <input type="text" placeholder="Power">
+                        <input type="text" placeholder="Set">
+                        <input type="text" placeholder="Cost">
+                        <input type="text" placeholder="Duration">
+                        <input type="text" placeholder="Action">
+                    </div>
+                    <!-- Repeat power-entry div for desired number of powers -->
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">TEAM MANEUVERS</div>
+                <div class="team-maneuvers">
+                    <div>
+                        <input type="checkbox" id="offensive">
+                        <label for="offensive">OFFENSIVE</label>
+                        <div>Level: <input type="number" id="offensive-level"></div>
+                        <div>Cost: <input type="number" id="offensive-cost"></div>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="defensive">
+                        <label for="defensive">DEFENSIVE</label>
+                        <div>Level: <input type="number" id="defensive-level"></div>
+                        <div>Cost: <input type="number" id="defensive-cost"></div>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="rally">
+                        <label for="rally">RALLY</label>
+                        <div>Level: <input type="number" id="rally-level"></div>
+                        <div>Cost: <input type="number" id="rally-cost"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-column">
+            <div class="section">
+                <div class="section-title">TRAITS</div>
+                <textarea id="traits" rows="10"></textarea>
+            </div>
+            <div class="section">
+                <div class="section-title">TAGS</div>
+                <textarea id="tags" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    </div>
+        <div class="page">
+        </div>
+    <div class="dice-roller">
+            <div class="die-group">
+                <div id="rerollIndicator1" class="reroll-indicator"></div>
+                <div id="die1" class="die die-white">1</div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(1)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(1)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div id="rerollIndicator2" class="reroll-indicator"></div>
+                <div id="die2" class="die die-red">1</div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(2)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(2)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div id="rerollIndicator3" class="reroll-indicator"></div>
+                <div id="die3" class="die die-white">1</div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(3)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(3)">Trouble</button>
+                </div>
+            </div>
+            <button id="rollAllButton">Roll All Dice</button>
+            <div id="rollResult"></div>
+            <div id="fantasticIndicator" class="fantastic-indicator">Fantastic!</div>
+        </div>
+    </div>
+   <div class="page">
+    <script src="scripts/dice-roller.js"></script>
+   <div>
+</body>
+</html>

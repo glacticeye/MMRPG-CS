@@ -314,11 +314,139 @@
         </div>
         <button id="rollAllButton">Roll All Dice</button>
         <div id="rollResult"></div>
+
+
+            <div class="character-actions">
+    <button id="saveCharacter">Save Character</button>
+    <button id="loadCharacter">Load Character</button>
+    <button id="newCharacter">New Character</button>
+    </div>
+    </div>
+
+<!-- Save/Load Functions -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Multiverse RPG Character Sheet</title>
+    <style>
+        /* Add your CSS styles here */
+        body { font-family: Arial, sans-serif; }
+        .page { margin: 20px; }
+        .calculated { background-color: #f0f0f0; }
+        .character-actions { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <h1>Marvel Multiverse Character Sheet</h1>
+
+        <!-- Basic Info -->
+        <div>
+            <label for="characterName">Name:</label>
+            <input type="text" id="characterName" placeholder="Character Name">
+            <label for="rank">Rank:</label>
+            <input type="number" id="rank" min="1" max="6" value="1">
+            <label for="karma">Karma:</label>
+            <input type="number" id="karma" class="calculated" readonly>
+        </div>
+
+        <!-- Health and Focus -->
+        <div>
+            <label for="health">Health:</label>
+            <input type="number" id="health" class="calculated" readonly>
+            <label for="focus">Focus:</label>
+            <input type="number" id="focus" class="calculated" readonly>
+        </div>
+
+        <!-- Abilities -->
+        <h2>Abilities</h2>
+        <table id="abilities-table">
+            <tr>
+                <th>Ability</th>
+                <th>Score</th>
+                <th>Defense</th>
+                <th>Non-Combat Checks</th>
+            </tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeScore" min="-3" max="9" value="0"></td>
+                <td><input type="number" id="meleeDefense" class="calculated" readonly></td>
+                <td><input type="text" id="meleeNonCombat" class="calculated" readonly></td>
+            </tr>
+            <!-- Repeat for other abilities: Agility, Resilience, Vigilance, Ego, Logic -->
+        </table>
+
+        <!-- Damage -->
+        <h2>Damage</h2>
+        <table id="damage-table">
+            <tr>
+                <th>Damage Type</th>
+                <th>Multiplier</th>
+                <th>Ability</th>
+            </tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeDamageMultiplier" class="calculated" readonly></td>
+                <td><input type="number" id="meleeDamageAbility" class="calculated" readonly></td>
+            </tr>
+            <!-- Repeat for other damage types: Agility, Ego, Logic -->
+        </table>
+
+        <!-- Traits -->
+        <h2>Traits</h2>
+        <table id="traits-table">
+            <tr>
+                <th>Trait</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+
+        <!-- Tags -->
+        <h2>Tags</h2>
+        <textarea id="tags" placeholder="Enter tags here"></textarea>
+
+        <!-- Powers -->
+        <h2>Powers</h2>
+        <table id="powers-table">
+            <tr>
+                <th>Power</th>
+                <th>Set</th>
+                <th>Cost</th>
+                <th>Duration</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+
+        <!-- Character Actions -->
+        <div class="character-actions">
+            <button id="saveCharacter">Save Character</button>
+            <button id="loadCharacter">Load Character</button>
+            <input type="file" id="fileInput" style="display: none;" accept=".json">
+            <button id="newCharacter">New Character</button>
+        </div>
     </div>
 
 <!-- Character Sheet Load and Save -->
     <script>
-                    // Global variables
+    document.addEventListener('DOMContentLoaded', function() {
+        const saveButton = document.getElementById('saveCharacter');
+        const loadButton = document.getElementById('loadCharacter');
+        const newButton = document.getElementById('newCharacter');
         const fileInput = document.getElementById('fileInput');
 
         saveButton.addEventListener('click', saveCharacter);

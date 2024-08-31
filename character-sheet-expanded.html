@@ -156,7 +156,11 @@
 		<div class="page">
 		
         <div class="section-title">Powers</div>
-        <table>
+        <table class="powers-table">
+            <colgroup>
+                <col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action">
+            </colgroup>
+            <thead>
             <tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr>
             <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
             <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
@@ -312,8 +316,200 @@
         <div id="rollResult"></div>
     </div>
 
+<!-- Character Sheet Load and Save -->
     <script>
                     // Global variables
+        const fileInput = document.getElementById('fileInput');
+
+        saveButton.addEventListener('click', saveCharacter);
+        loadButton.addEventListener('click', () => fileInput.click());
+        newButton.addEventListener('click', newCharacter);
+        fileInput.addEventListener('change', loadCharacter);
+
+        // Add event listeners to update calculated fields
+        document.getElementById('rank').addEventListener('input', updateCalculatedFields);
+        document.querySelectorAll('#abilities-table input[type="number"]').forEach(input => {
+            input.addEventListener('input', updateCalculatedFields);
+        });
+
+        function saveCharacter() {
+            const characterData = {
+                name: document.getElementById('characterName').value,
+                rank: document.getElementById('rank').value,
+                karma: document.getElementById('karma').value,
+                health: document.getElementById('health').value,
+                focus: document.getElementById('focus').value,
+                abilities: {},
+                damage: {},
+                traits: [],
+                tags: document.getElementById('tags').value,
+                powers: []
+            };
+
+            // Save abilities
+            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
+                characterData.abilities[ability] = {
+                    score: document.getElementById(`${ability}Score`).value,
+                    defense: document.getElementById(`${ability}Defense`).value,
+                    nonCombatChecks: document.getElementById(`${ability}NonCombat`).value
+                };
+            });
+
+            // Save damage
+            ['melee', 'agility', 'ego', 'logic'].forEach(damageType => {
+                characterData.damage[damageType] = {
+                    multiplier: document.getElementById(`${damageType}DamageMultiplier`).value,
+                    ability: document.getElementById(`${damageType}DamageAbility`).value
+                };
+            });
+
+            // Save traits
+            document.querySelectorAll('#traits-table tr:not(:first-child)').forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs[0].value) {
+                    characterData.traits.push({ trait: inputs[0].value, description: inputs[1].value });
+                }
+            });
+
+            // Save powers
+            document.querySelectorAll('#powers-table tr:not(:first-child)').forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                if (inputs[0].value) {
+                    characterData.powers.push({
+                        name: inputs[0].value,
+                        set: inputs[1].value,
+                        cost: inputs[2].value,
+                        duration: inputs[3].value,
+                        action: inputs[4].value
+                    });
+                }
+            });
+
+            // Create a Blob with the character data
+            const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
+
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = `${characterData.name || 'character'}.json`;
+
+            // Append the link to the body, click it, and remove it
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            alert('Character file ready for download!');
+        }
+
+        function loadCharacter(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const characterData = JSON.parse(e.target.result);
+                        
+                        // Populate form fields with characterData
+                        document.getElementById('characterName').value = characterData.name || '';
+                        document.getElementById('rank').value = characterData.rank || '';
+                        document.getElementById('karma').value = characterData.karma || '';
+                        document.getElementById('health').value = characterData.health || '';
+                        document.getElementById('focus').value = characterData.focus || '';
+
+                        // Load abilities
+                        Object.entries(characterData.abilities || {}).forEach(([ability, data]) => {
+                            document.getElementById(`${ability}Score`).value = data.score || '';
+                            document.getElementById(`${ability}Defense`).value = data.defense || '';
+                            document.getElementById(`${ability}NonCombat`).value = data.nonCombatChecks || '';
+                        });
+
+                        // Load damage
+                        Object.entries(characterData.damage || {}).forEach(([damageType, data]) => {
+                            document.getElementById(`${damageType}DamageMultiplier`).value = data.multiplier || '';
+                            document.getElementById(`${damageType}DamageAbility`).value = data.ability || '';
+                        });
+
+                        // Load traits
+                        const traitRows = document.querySelectorAll('#traits-table tr:not(:first-child)');
+                        traitRows.forEach((row, index) => {
+                            const inputs = row.querySelectorAll('input');
+                            if (characterData.traits && characterData.traits[index]) {
+                                inputs[0].value = characterData.traits[index].trait || '';
+                                inputs[1].value = characterData.traits[index].description || '';
+                            } else {
+                                inputs[0].value = '';
+                                inputs[1].value = '';
+                            }
+                        });
+
+                        // Load tags
+                        document.getElementById('tags').value = characterData.tags || '';
+
+                        // Load powers
+                        const powerRows = document.querySelectorAll('#powers-table tr:not(:first-child)');
+                        powerRows.forEach((row, index) => {
+                            const inputs = row.querySelectorAll('input');
+                            if (characterData.powers && characterData.powers[index]) {
+                                inputs[0].value = characterData.powers[index].name || '';
+                                inputs[1].value = characterData.powers[index].set || '';
+                                inputs[2].value = characterData.powers[index].cost || '';
+                                inputs[3].value = characterData.powers[index].duration || '';
+                                inputs[4].value = characterData.powers[index].action || '';
+                            } else {
+                                inputs.forEach(input => input.value = '');
+                            }
+                        });
+
+                        alert('Character loaded successfully!');
+                        updateCalculatedFields();
+                    } catch (error) {
+                        alert('Error loading character file. Please make sure it\'s a valid JSON file.');
+                        console.error('Error loading character:', error);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        function newCharacter() {
+            if (confirm('Are you sure you want to create a new character? This will erase the current character.')) {
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    input.value = '';
+                });
+                updateCalculatedFields();
+            }
+        }
+
+        function updateCalculatedFields() {
+            const rank = parseInt(document.getElementById('rank').value) || 0;
+            const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
+            const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+
+            document.getElementById('karma').value = rank;
+            document.getElementById('health').value = resilience * 30;
+            document.getElementById('focus').value = vigilance * 30;
+
+            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
+                const abilityScore = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                document.getElementById(`${ability}Defense`).value = abilityScore + 10;
+                const nonCombatValue = abilityScore > 0 ? `+${abilityScore}` : abilityScore.toString();
+                document.getElementById(`${ability}NonCombat`).value = nonCombatValue;
+                
+                if (['melee', 'agility', 'ego', 'logic'].includes(ability)) {
+                    document.getElementById(`${ability}DamageMultiplier`).value = rank;
+                    document.getElementById(`${ability}DamageAbility`).value = abilityScore;
+                }
+            });
+        }
+
+        // Initialize calculations
+        updateCalculatedFields();
+    });
+    </script>
+
+<!-- Dice Roller -->
+    <script>
+
         let lastRollResult = null;
         let lastRollType = null;
 
@@ -552,6 +748,7 @@
         window.rollTrouble = rollTrouble;
     </script>
 
+<!-- Character Sheet Calculations -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const rank = document.getElementById('rank');
@@ -572,7 +769,8 @@
         function calculateAbilityFields(ability) {
             const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
             updateField(`${ability}Defense`, score + 10);
-            updateField(`${ability}NonCombat`, `+${score}`);
+            const nonCombatValue = score > 0 ? `+${score}` : score.toString();
+            updateField(`${ability}NonCombat`, nonCombatValue);
         }
 
         function calculateHealth() {
@@ -582,7 +780,7 @@
 
         function calculateFocus() {
             const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            updateField('focus', vigilance < 1 ? 10 : resilience * 30);
+            updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
         }
 
         function calculateMovementSpeeds() {
@@ -603,7 +801,8 @@
 
         function calculateInitiativeModifier() {
             const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            updateField('initiativeModifier', `+${vigilance}`);
+            const modifierValue = vigilance > 0 ? `+${vigilance}` : vigilance.toString();
+            updateField('initiativeModifier', modifierValue);
         }
 
         function calculateDamage() {
@@ -659,7 +858,7 @@
         calculateInitiativeModifier();
         calculateDamage();
     });
-</script>
+    </script>
 
 </body>
 </html>

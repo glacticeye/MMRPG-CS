@@ -234,33 +234,65 @@ textarea {
     display: none;
 }
 
-/* Responsive Design */
+/* Print Styles */
 @media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
     body {
         background-color: white;
     }
+
+    .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 10mm;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .dice-roller {
+        display: none;
+    }
+
+    /* Ensure background colors and images are printed */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Responsive Design for small screens */
+@media screen and (max-width: 210mm) {
     .page {
         width: 100%;
         height: auto;
         margin: 0;
-        padding: 0;
-        box-shadow: none;
+        padding: 5mm;
     }
-    .dice-roller {
-        display: none;
-    }
-}
 
-@media screen and (max-width: 600px) {
-    .page {
-        width: 100%;
-        height: auto;
-        padding: 10px;
-    }
     .header {
         flex-direction: column;
         text-align: center;
     }
+
+    .two-column {
+        flex-direction: column;
+    }
+
     .die {
         width: 40px;
         height: 40px;

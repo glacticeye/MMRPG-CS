@@ -1,5 +1,6 @@
 /* Global Styles */
 @page { size: A4; margin: 0; }
+
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -54,6 +55,19 @@ th {
     font-weight: bold;
 }
 
+/* Powers Table Specific Styles */
+.powers-table .power-name { width: 30%; }
+.powers-table .power-set { width: 30%; }
+.powers-table .power-cost { width: 10%; }
+.powers-table .power-duration { width: 10%; }
+.powers-table .power-action { width: 10%; }
+
+.powers-table input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Layout Helpers */
 .two-column {
     display: flex;
     justify-content: space-between;
@@ -76,7 +90,6 @@ textarea {
     resize: vertical;
 }
 
-/* Placeholder text style */
 ::placeholder {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -97,6 +110,7 @@ textarea {
 .calculated {
     background-color: #e8e8e8;
 }
+
 .manually-edited {
     font-weight: bold;
 }
@@ -118,6 +132,7 @@ textarea {
     justify-content: center;
     margin-top: 20px;
 }
+
 .die-group {
     display: flex;
     flex-direction: column;
@@ -125,18 +140,21 @@ textarea {
     margin: 0 20px;
     position: relative;
 }
+
 .die-pair {
     display: flex;
     justify-content: center;
     align-items: flex-end;
     margin-bottom: 10px;
 }
+
 .die-column {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 5px;
 }
+
 .die {
     width: 60px;
     height: 60px;
@@ -148,17 +166,26 @@ textarea {
     font-size: 24px;
     font-weight: bold;
 }
+
 .die-white {
     background-color: white;
     color: black;
 }
+
 .die-red {
     background-color: red;
     color: white;
 }
+
+.die-marvel-text {
+    font-size: 14px;
+    line-height: 1;
+}
+
 .die.rolling {
     animation: shake 0.5s;
 }
+
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -172,10 +199,12 @@ textarea {
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
+
 .edge-trouble-buttons {
     display: flex;
     justify-content: center;
 }
+
 .edge-button, .trouble-button {
     padding: 5px 10px;
     font-size: 12px;
@@ -185,12 +214,15 @@ textarea {
     cursor: pointer;
     margin: 0 2px;
 }
+
 .edge-button {
     background-color: #4CAF50;
 }
+
 .trouble-button {
     background-color: #f44336;
 }
+
 #rollAllButton {
     display: block;
     margin: 20px auto;
@@ -202,11 +234,13 @@ textarea {
     border-radius: 5px;
     cursor: pointer;
 }
+
 #rollResult {
     text-align: center;
     font-size: 18px;
     margin-top: 10px;
 }
+
 .reroll-indicator {
     font-size: 12px;
     font-weight: bold;
@@ -214,12 +248,15 @@ textarea {
     margin-bottom: 2px;
     height: 15px;
 }
+
 .edge-indicator {
     color: #4CAF50;
 }
+
 .trouble-indicator {
     color: #f44336;
 }
+
 .fantastic-indicator {
     position: absolute;
     top: -25px;
@@ -232,6 +269,28 @@ textarea {
     font-weight: bold;
     font-size: 14px;
     display: none;
+}
+
+/* Character Actions Styles */
+.character-actions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.character-actions button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 16px;
+    background-color: #518cca;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.character-actions button:hover {
+    background-color: #3a6491;
 }
 
 /* Print Styles */
@@ -268,7 +327,6 @@ textarea {
         display: none;
     }
 
-    /* Ensure background colors and images are printed */
     * {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
@@ -297,5 +355,21 @@ textarea {
         width: 40px;
         height: 40px;
         font-size: 18px;
+    }
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 600px) {
+    .powers-table {
+        font-size: 14px;
+    }
+
+    .powers-table th,
+    .powers-table td {
+        padding: 4px;
+    }
+
+    .powers-table input[type="text"] {
+        font-size: 14px;
     }
 }

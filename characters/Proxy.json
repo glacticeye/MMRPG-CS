@@ -1,0 +1,203 @@
+{
+  "name": "Proxy",
+  "rank": 3,
+  "karma": 3,
+  "health": 30,
+  "focus": 120,
+  "initiative": "+4",
+  "size": "Average",
+  "speed": {
+    "run": 5,
+    "climb": 2,
+    "swim": 2,
+    "jump": 2
+  },
+  "abilities": {
+    "melee": {
+      "score": 2,
+      "defense": 12,
+      "nonCombat": "+2"
+    },
+    "agility": {
+      "score": 2,
+      "defense": 12,
+      "nonCombat": "+2"
+    },
+    "resilience": {
+      "score": 1,
+      "defense": 11,
+      "nonCombat": "+1"
+    },
+    "vigilance": {
+      "score": 4,
+      "defense": 14,
+      "nonCombat": "+4"
+    },
+    "ego": {
+      "score": 2,
+      "defense": 12,
+      "nonCombat": "+2"
+    },
+    "logic": {
+      "score": 4,
+      "defense": 14,
+      "nonCombat": "+4"
+    }
+  },
+  "damage": {
+    "melee": {
+      "multiplier": 3,
+      "ability": 2
+    },
+    "agility": {
+      "multiplier": 3,
+      "ability": 2
+    },
+    "ego": {
+      "multiplier": 3,
+      "ability": 2
+    },
+    "logic": {
+      "multiplier": 3,
+      "ability": 4
+    }
+  },
+  "traits": [
+    {
+      "name": "Surprising Power",
+      "description": "Clone Powers"
+    },
+    {
+      "name": "Signature Attack",
+      "description": "Has an edge while using borrowed powers better than the person who has them"
+    },
+    {
+      "name": "Quick Learner",
+      "description": "Edge on checks when attempting the same action again after a failure"
+    },
+    {
+      "name": "Battle Ready",
+      "description": "Always mentally prepared for trouble to start. Add +30 Focus"
+    }
+  ],
+  "tags": [
+    "Auditory Issues",
+    "Mute",
+    "Blind",
+    "Hounded",
+    "X-Gene",
+    "Young"
+  ],
+  "powers": [
+    {
+      "name": "Telepathic Link",
+      "set": "Telepathy",
+      "cost": "-",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Telepathic Network",
+      "set": "Telepathy",
+      "cost": "5",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Borrow Senses",
+      "set": "Telepathy",
+      "cost": "5",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "ESP",
+      "set": "Telepathy",
+      "cost": "-",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Sensory Nexus",
+      "set": "Telepathy",
+      "cost": "-",
+      "duration": "Permanent",
+      "action": "Standard"
+    },
+    {
+      "name": "Animal Communication",
+      "set": "Telepathy",
+      "cost": "-",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Mind Reading",
+      "set": "Telepathy",
+      "cost": "-",
+      "duration": "1 round",
+      "action": "Standard"
+    },
+    {
+      "name": "Mind Reading Dodge",
+      "set": "Telepathy",
+      "cost": "5",
+      "duration": "Instant",
+      "action": "Reaction"
+    },
+    {
+      "name": "Uncanny",
+      "set": "Basic",
+      "cost": "-",
+      "duration": "Permanent",
+      "action": "-"
+    },
+    {
+      "name": "Combat Trickery",
+      "set": "Basic",
+      "cost": "5",
+      "duration": "Instant",
+      "action": "Reaction"
+    },
+    {
+      "name": "Bump Power",
+      "set": "Power Control",
+      "cost": "5+",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Copy Power",
+      "set": "Power Control",
+      "cost": "5",
+      "duration": "Concentration",
+      "action": "Standard"
+    },
+    {
+      "name": "Clone Powers",
+      "set": "Power Control",
+      "cost": "15+",
+      "duration": "Concentration",
+      "action": "Standard"
+    }
+  ],
+  "powerDescriptions": "Telepathic Link\n\nSet: Telepathy\nAction: Standard\nDuration: Concentration\nDescription: The character can communicate telepathically with one person at a time, and they must have met or seen the other person before. The communication can be verbal, visual or even more complex, such as imparting location information. There is no limit to the distance of the communication, as long as the character and the target are in the same dimension.\n\nIf the other person does not wish to speak with the character, the target can automatically tune them out. To force a telepathic link, the character can make a Logic check against the target's Vigilance defense. On a failure, the character cannot attempt to communicate with the target in this way for the rest of the day. On a success, the character can communicate with the target for one round. On a Fantastic success, the target cannot shut the character out for the rest of the day.\n\nTelepathic Network\n\nSet: Telepathy\nAction: Standard\nDuration: Concentration\nCost: 5 Focus\nDescription: The character can communicate telepathically with a group of willing, linked people, each of whom they have met or seen before. The communication can be verbal, visual or even more complex, such as imparting location information. The group can number up to five participants per rank. There is no limit to the distance of the communication, as long as everyone involved is in the same dimension.\n\nESP\n\nSet: Telepathy\nAction: Standard\nDuration: Concentration\nDescription: The character can reach out with their mind to sense the presence of others within 100 spaces per rank. This tells them the person's location and general status. It can also identify if they have super-powers or not.\n\nBorrow Senses\n\nSet: Telepathy\nAction: Standard\nDuration: Concentration\nCost: 5 Focus\nDescription: The character can use the full senses of someone or something with whom they have established a telepathic link or bond. While they do, they retain the use of their own senses too.\n\nSensory Nexus\n\nSet: Telepathy\nPrerequisites: ESP, Borrow Senses\nAction: Standard\nDuration: Permanent\nDescription: The character connects with the senses of all others within 100 spaces to create a collective awareness of their surroundings. As long as there is at least one other individual with appropriate senses within sight or earsight, the character can not be blinded or deafened.\n\nAnimal Communication\n\nSet: Telepathy\nAction: Standard\nDuration: Concentration\nDescription: The character can communicate telepathically with one taxonomic order of animals, such as birds, mammals, fish, amphibians and so on. They can call out to them as a group up to 500 spaces per rank away, and they can communicate specifically with ones they have met or at least seen.\n\nMind Reading\n\nSet: Telepathy\nAction: Standard\nDuration: 1 round\nDescription: The character can read the thoughts of a single person with whom they have established a Telepathic Link. This requires a Logic check against the target's Logic defense. On a success, the character can read the target's surface thoughts. On a Fantastic success, the character can ask a single simple question and get the answer from the target's mind.\n\nMind-Reading Dodge\n\nSet: Telepathy\nAction: Reaction\nTrigger: An enemy makes an attack against the character's Agility defense.\nDuration: Instant\nDescription: The character uses their mind reading abilities to anticipate and dodge attacks, giving trouble on Agility attacks against them.\n\nUncanny\n\nSet: Basic\nDuration: Permanent\nDescription: Any damage multiplier for attacks against the character's Focus is reduced by 1.\n\nCombat Trickery\n\nSet: Basic\nAction: Reaction\nDuration: Instant\nCost: 5 Focus\nDescription: Once per battle, when the character is attacking targets of equal or higher rank, the character automatically rolls a 1 on their Marvel die, and that die can not be affected by trouble.\n\nBump Power\n\nSet: Power Control\nAction: Standard\nDuration: Concentration\nCost: 5+ Focus\nDescription: The character picks one power from another character within 5 spaces and boosts it. If the power has ranges or effective areas or durations, these are doubled. If the power affects a damage multiplier, add 1 to the effect. Any effects that normally happen with a Fantastic success automatically happen on any success, not just a Fantastic one.\n\nCopy Power\n\nSet: Power Control\nAction: Standard\nDuration: Concentration\nCost: 5 Focus\nDescription: The character picks one power a target within 10 spaces has and duplicates it. They can now use it as if it was always theirs. When the character uses such a power, they must pay any cost normally as well.\n\nClone Powers\n\nSet: Power Control\nAction: Standard\nDuration: Concentration\nCost: 15+ Focus\nDescription: The character picks another character within 10 spaces and duplicates all of their powers. They can now use those powers as if they were always theirs. If the target's powers have costs, the character must pay the highest of them, or a minimum of 15 Focus.",
+  "details": {
+    "realName": "Proxy",
+    "height": "5'4",
+    "weight": "130",
+    "gender": "M",
+    "eyes": "blue",
+    "hair": "brown",
+    "distinguishingFeatures": "",
+    "background": {
+      "origin": "test",
+      "occupation": "test"
+    },
+    "personality": "",
+    "team": "test",
+    "base": "test"
+  },
+  "notes": "test",
+  "portrait": "portraits/proxy-1.jpg"
+}

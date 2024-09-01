@@ -46,6 +46,7 @@
 
         <table>
             <tr>
+                <th>Size</th>
                 <th>Run</th>
                 <th>Climb</th>
                 <th>Swim</th>
@@ -53,6 +54,12 @@
                 <th>Initiative Modifier</th>
             </tr>
             <tr>
+                <td><select id="size" name="size">
+                    <option value="---">---</option>
+                    <option value="Average">Average</option>
+                    <option value="Big">Big</option>
+                    <option value="Small">Small</option>
+                </select></td>
                 <td><input type="number" id="run" class="calculated"></td>
                 <td><input type="number" id="climb" class="calculated"></td>
                 <td><input type="number" id="swim" class="calculated"></td>
@@ -135,56 +142,64 @@
 
 	<div class="page">
 
+        <!-- Traits Section -->
         <div class="section-title">Traits</div>
-        <table>
+        <table id="traits-table">
             <tr><th>Trait</th><th>Description</th></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-			<tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+			<tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
         </table>
 		
+        <!-- Tags Section -->
 		<div class="section-title">Tags</div>
 		<textarea id="tags" placeholder="Enter tags here"></textarea>
 		</div>
+
 		<div class="page">
 		
+        <!-- Powers Section -->
         <div class="section-title">Powers</div>
         <table class="powers-table">
             <colgroup>
                 <col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action">
             </colgroup>
             <thead>
-            <tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-			<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-			<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-			<tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+                <tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+            </tbody>
         </table>
 		</div>
 	</div>
 	<div class="page">
 
+        <!-- Team Maneuver Section -->
         <div class="section-title">Team Maneuver</div>
         <table>
             <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
@@ -193,75 +208,73 @@
             <tr><td>Rally</td><td><input type="text"></td><td><input type="number"></td><td><input type="number"></td></tr>
         </table>
 
-        <div class="section-title">Character Details</div>
-        <table>
-            <tr>
-                <th>Real Name</th>
-                <td><input type="text"></td>
-                <th>Height</th>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Weight</th>
-                <td><input type="text"></td>
-                <th>Gender</th>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Eyes</th>
-                <td><input type="text"></td>
-                <th>Hair</th>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Size</th>
-                <td><input type="text"></td>
-                <th>Origin</th>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Distinguishing Features</th>
-                <td colspan="3"><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Team</th>
-                <td><input type="text"></td>
-                <th>Base</th>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <th>Occupation</th>
-                <td colspan="3"><input type="text"></td>
-            </tr>
-        </table>
-
-            <div class="section-title">Speed</div>
-        <table>
-            <tr>
-                <th>Size</th>
-                <td>
-                    <select id="size">
-                        <option value="Average">Average</option>
-                        <option value="Big">Big</option>
-                        <option value="Small">Small</option>
-                    </select>
-                </td>
-                <th>Run Speed</th>
-                <td><span id="run-speed"></span> spaces per round</td>
-            </tr>
-        </table>
-
+<!-- Character Details Section -->
+<div class="section-title">Character Details</div>
+<table class="character-details-table">
+    <tr>
+        <th>Real Name</th>
+        <td><input type="text" id="realName" name="realName"></td>
+        <th>Height</th>
+        <td><input type="text" id="height" name="height"></td>
+    </tr>
+    <tr>
+        <th>Weight</th>
+        <td><input type="text" id="weight" name="weight"></td>
+        <th>Gender</th>
+        <td><input type="text" id="gender" name="gender"></td>
+    </tr>
+    <tr>
+        <th>Eyes</th>
+        <td><input type="text" id="eyes" name="eyes"></td>
+        <th>Hair</th>
+        <td><input type="text" id="hair" name="hair"></td>
+    </tr>
+    <tr>
+        <th>Origin</th>
+        <td><input type="text" id="origin" name="origin"></td>
+    </tr>
+    <tr>
+        <th>Distinguishing Features</th>
+        <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
+    </tr>
+    <tr>
+        <th>Team</th>
+        <td><input type="text" id="team" name="team"></td>
+        <th>Base</th>
+        <td><input type="text" id="base" name="base"></td>
+    </tr>
+    <tr>
+        <th>Occupation</th>
+        <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
+    </tr>
+</table>
     </div>
-    <div class="page">
-        <div class="section-title">Power Descriptions</div>
-        <textarea style="height: 240mm;"></textarea>
-    </div>
-    <div class="page">
+
+    <!-- Power Descriptions Section -->
+        <div class="page">
+            <div class="section-title">Power Descriptions</div>
+            <textarea id="powerDescriptions" style="height: 200mm;"></textarea>
+        </div>
+
+        <!-- Portrait Section -->
+        <div class="page">
+      <div class="section-title">Portrait</div>
+      <div class="portrait-container">
+          <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
+          <div id="portraitDisplay" style="height: 180mm;"> </div>
+      </div>
+       </div>
+
+        <!-- Notes Section -->
+        <div class="page">
         <div class="section-title">Notes</div>
-        <textarea style="height: 60mm;"></textarea>
-        <div class="section-title">Portrait</div>
-        <textarea style="height: 180mm;"></textarea>
+        <textarea id="notes" style="height: 60mm;"></textarea>
     </div>
+    
+        <!-- Extra Page -->
+    <div class="page"></div>
+
+<!-- Dice Roller Section -->
 
     <div class="dice-roller">
         <div id="diceContainer" class="dice-container">
@@ -315,124 +328,7 @@
         <button id="rollAllButton">Roll All Dice</button>
         <div id="rollResult"></div>
 
-
-            <div class="character-actions">
-    <button id="saveCharacter">Save Character</button>
-    <button id="loadCharacter">Load Character</button>
-    <button id="newCharacter">New Character</button>
-    </div>
-    </div>
-
 <!-- Save/Load Functions -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvel Multiverse RPG Character Sheet</title>
-    <style>
-        /* Add your CSS styles here */
-        body { font-family: Arial, sans-serif; }
-        .page { margin: 20px; }
-        .calculated { background-color: #f0f0f0; }
-        .character-actions { margin-top: 20px; }
-    </style>
-</head>
-<body>
-    <div class="page">
-        <h1>Marvel Multiverse Character Sheet</h1>
-
-        <!-- Basic Info -->
-        <div>
-            <label for="characterName">Name:</label>
-            <input type="text" id="characterName" placeholder="Character Name">
-            <label for="rank">Rank:</label>
-            <input type="number" id="rank" min="1" max="6" value="1">
-            <label for="karma">Karma:</label>
-            <input type="number" id="karma" class="calculated" readonly>
-        </div>
-
-        <!-- Health and Focus -->
-        <div>
-            <label for="health">Health:</label>
-            <input type="number" id="health" class="calculated" readonly>
-            <label for="focus">Focus:</label>
-            <input type="number" id="focus" class="calculated" readonly>
-        </div>
-
-        <!-- Abilities -->
-        <h2>Abilities</h2>
-        <table id="abilities-table">
-            <tr>
-                <th>Ability</th>
-                <th>Score</th>
-                <th>Defense</th>
-                <th>Non-Combat Checks</th>
-            </tr>
-            <tr>
-                <td>Melee</td>
-                <td><input type="number" id="meleeScore" min="-3" max="9" value="0"></td>
-                <td><input type="number" id="meleeDefense" class="calculated" readonly></td>
-                <td><input type="text" id="meleeNonCombat" class="calculated" readonly></td>
-            </tr>
-            <!-- Repeat for other abilities: Agility, Resilience, Vigilance, Ego, Logic -->
-        </table>
-
-        <!-- Damage -->
-        <h2>Damage</h2>
-        <table id="damage-table">
-            <tr>
-                <th>Damage Type</th>
-                <th>Multiplier</th>
-                <th>Ability</th>
-            </tr>
-            <tr>
-                <td>Melee</td>
-                <td><input type="number" id="meleeDamageMultiplier" class="calculated" readonly></td>
-                <td><input type="number" id="meleeDamageAbility" class="calculated" readonly></td>
-            </tr>
-            <!-- Repeat for other damage types: Agility, Ego, Logic -->
-        </table>
-
-        <!-- Traits -->
-        <h2>Traits</h2>
-        <table id="traits-table">
-            <tr>
-                <th>Trait</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-            <!-- Add more rows as needed -->
-        </table>
-
-        <!-- Tags -->
-        <h2>Tags</h2>
-        <textarea id="tags" placeholder="Enter tags here"></textarea>
-
-        <!-- Powers -->
-        <h2>Powers</h2>
-        <table id="powers-table">
-            <tr>
-                <th>Power</th>
-                <th>Set</th>
-                <th>Cost</th>
-                <th>Duration</th>
-                <th>Action</th>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-            <!-- Add more rows as needed -->
-        </table>
-
-        <!-- Character Actions -->
         <div class="character-actions">
             <button id="saveCharacter">Save Character</button>
             <button id="loadCharacter">Load Character</button>
@@ -443,196 +339,251 @@
 
 <!-- Character Sheet Load and Save -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const saveButton = document.getElementById('saveCharacter');
-        const loadButton = document.getElementById('loadCharacter');
-        const newButton = document.getElementById('newCharacter');
-        const fileInput = document.getElementById('fileInput');
+    // Wait for the DOM to be fully loaded before executing the script
+document.addEventListener('DOMContentLoaded', function() {
+    // Get references to the buttons and file input
+    const saveButton = document.getElementById('saveCharacter');
+    const loadButton = document.getElementById('loadCharacter');
+    const newButton = document.getElementById('newCharacter');
+    const fileInput = document.getElementById('fileInput');
 
-        saveButton.addEventListener('click', saveCharacter);
-        loadButton.addEventListener('click', () => fileInput.click());
-        newButton.addEventListener('click', newCharacter);
-        fileInput.addEventListener('change', loadCharacter);
+    // Add event listeners to the buttons
+    saveButton.addEventListener('click', saveCharacter);
+    loadButton.addEventListener('click', () => fileInput.click()); // Trigger file input when load button is clicked
+    newButton.addEventListener('click', newCharacter);
+    fileInput.addEventListener('change', loadCharacter);
 
-        // Add event listeners to update calculated fields
-        document.getElementById('rank').addEventListener('input', updateCalculatedFields);
-        document.querySelectorAll('#abilities-table input[type="number"]').forEach(input => {
-            input.addEventListener('input', updateCalculatedFields);
-        });
+    // Add event listeners to update calculated fields when input changes
+    document.getElementById('rank').addEventListener('input', updateCalculatedFields);
+    document.querySelectorAll('#abilities-table input[type="number"]').forEach(input => {
+        input.addEventListener('input', updateCalculatedFields);
+    });
 
-        function saveCharacter() {
-            const characterData = {
-                name: document.getElementById('characterName').value,
-                rank: document.getElementById('rank').value,
-                karma: document.getElementById('karma').value,
-                health: document.getElementById('health').value,
-                focus: document.getElementById('focus').value,
-                abilities: {},
-                damage: {},
-                traits: [],
-                tags: document.getElementById('tags').value,
-                powers: []
-            };
+    // Function to save the character data
+function saveCharacter() {
+    const characterData = {
+        name: document.getElementById('characterName').value,
+        rank: parseInt(document.getElementById('rank').value) || 1,
+        karma: parseInt(document.getElementById('karma').value) || 0,
+        health: parseInt(document.getElementById('health').value) || 0,
+        focus: parseInt(document.getElementById('focus').value) || 0,
+        initiative: document.getElementById('initiativeModifier').value,
+        size: document.getElementById('size').value,
+        speed: {
+            run: parseInt(document.getElementById('run').value) || 0,
+            climb: parseInt(document.getElementById('climb').value) || 0,
+            swim: parseInt(document.getElementById('swim').value) || 0,
+            jump: parseInt(document.getElementById('jump').value) || 0
+        },
+        abilities: {},
+        damage: {},
+        traits: [],
+        tags: document.getElementById('tags').value.split(',').map(tag => tag.trim()),
+        powers: [],
+        powerDescriptions: document.getElementById('powerDescriptions').value,
+        details: {
+            realName: document.getElementById('realName').value,
+            height: document.getElementById('height').value,
+            weight: document.getElementById('weight').value,
+            gender: document.getElementById('gender').value,
+            eyes: document.getElementById('eyes').value,
+            hair: document.getElementById('hair').value,
+            distinguishingFeatures: document.getElementById('distinguishingFeatures').value,
+            background: {
+                origin: document.getElementById('origin').value,
+                occupation: document.getElementById('occupation').value
+            },
+            personality: "",
+            team: document.getElementById('team').value,
+            base: document.getElementById('base').value
+        },
+        notes: document.getElementById('notes').value,
+        portrait: document.getElementById('portraitInput').value
+    };
 
-            // Save abilities
-            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
-                characterData.abilities[ability] = {
-                    score: document.getElementById(`${ability}Score`).value,
-                    defense: document.getElementById(`${ability}Defense`).value,
-                    nonCombatChecks: document.getElementById(`${ability}NonCombat`).value
-                };
+    // Save abilities
+    ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
+        characterData.abilities[ability] = {
+            score: parseInt(document.getElementById(`${ability}Score`).value) || 0,
+            defense: parseInt(document.getElementById(`${ability}Defense`).value) || 0,
+            nonCombat: document.getElementById(`${ability}NonCombat`).value
+        };
+    });
+
+    // Save damage
+    ['melee', 'agility', 'ego', 'logic'].forEach(damageType => {
+        characterData.damage[damageType] = {
+            multiplier: parseInt(document.getElementById(`${damageType}DamageMultiplier`).value) || 0,
+            ability: parseInt(document.getElementById(`${damageType}DamageAbility`).value) || 0
+        };
+    });
+
+    // Save traits
+    document.querySelectorAll('#traits-table tr:not(:first-child)').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        if (inputs[0].value) {
+            characterData.traits.push({ name: inputs[0].value, description: inputs[1].value });
+        }
+    });
+
+    // Save powers
+    document.querySelectorAll('.powers-table tbody tr').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        if (inputs[0].value) {
+            characterData.powers.push({
+                name: inputs[0].value,
+                set: inputs[1].value,
+                cost: inputs[2].value,
+                duration: inputs[3].value,
+                action: inputs[4].value
             });
+        }
+    });
 
-            // Save damage
-            ['melee', 'agility', 'ego', 'logic'].forEach(damageType => {
-                characterData.damage[damageType] = {
-                    multiplier: document.getElementById(`${damageType}DamageMultiplier`).value,
-                    ability: document.getElementById(`${damageType}DamageAbility`).value
-                };
-            });
+    // Create a Blob with the character data
+    const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
 
-            // Save traits
-            document.querySelectorAll('#traits-table tr:not(:first-child)').forEach(row => {
-                const inputs = row.querySelectorAll('input');
-                if (inputs[0].value) {
-                    characterData.traits.push({ trait: inputs[0].value, description: inputs[1].value });
+    // Create a download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = `${characterData.name || 'character'}.json`;
+
+    // Append the link to the body, click it, and remove it
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+    alert('Character file ready for download!');
+}
+function loadCharacter(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const characterData = JSON.parse(e.target.result);
+                
+                // Load basic character information
+                document.getElementById('characterName').value = characterData.name || '';
+                document.getElementById('rank').value = characterData.rank || '';
+                document.getElementById('karma').value = characterData.karma || '';
+                document.getElementById('health').value = characterData.health || '';
+                document.getElementById('focus').value = characterData.focus || '';
+                document.getElementById('initiativeModifier').value = characterData.initiative || '';
+                document.getElementById('size').value = characterData.size || '';
+
+                // Load speed
+                if (characterData.speed) {
+                    document.getElementById('run').value = characterData.speed.run || '';
+                    document.getElementById('climb').value = characterData.speed.climb || '';
+                    document.getElementById('swim').value = characterData.speed.swim || '';
+                    document.getElementById('jump').value = characterData.speed.jump || '';
                 }
-            });
 
-            // Save powers
-            document.querySelectorAll('#powers-table tr:not(:first-child)').forEach(row => {
-                const inputs = row.querySelectorAll('input');
-                if (inputs[0].value) {
-                    characterData.powers.push({
-                        name: inputs[0].value,
-                        set: inputs[1].value,
-                        cost: inputs[2].value,
-                        duration: inputs[3].value,
-                        action: inputs[4].value
+                // Load abilities
+                if (characterData.abilities) {
+                    Object.entries(characterData.abilities).forEach(([ability, data]) => {
+                        document.getElementById(`${ability}Score`).value = data.score || '';
+                        document.getElementById(`${ability}Defense`).value = data.defense || '';
+                        document.getElementById(`${ability}NonCombat`).value = data.nonCombat || '';
                     });
                 }
-            });
 
-            // Create a Blob with the character data
-            const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
-
-            // Create a download link
-            const downloadLink = document.createElement('a');
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = `${characterData.name || 'character'}.json`;
-
-            // Append the link to the body, click it, and remove it
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-
-            alert('Character file ready for download!');
-        }
-
-        function loadCharacter(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const characterData = JSON.parse(e.target.result);
-                        
-                        // Populate form fields with characterData
-                        document.getElementById('characterName').value = characterData.name || '';
-                        document.getElementById('rank').value = characterData.rank || '';
-                        document.getElementById('karma').value = characterData.karma || '';
-                        document.getElementById('health').value = characterData.health || '';
-                        document.getElementById('focus').value = characterData.focus || '';
-
-                        // Load abilities
-                        Object.entries(characterData.abilities || {}).forEach(([ability, data]) => {
-                            document.getElementById(`${ability}Score`).value = data.score || '';
-                            document.getElementById(`${ability}Defense`).value = data.defense || '';
-                            document.getElementById(`${ability}NonCombat`).value = data.nonCombatChecks || '';
-                        });
-
-                        // Load damage
-                        Object.entries(characterData.damage || {}).forEach(([damageType, data]) => {
-                            document.getElementById(`${damageType}DamageMultiplier`).value = data.multiplier || '';
-                            document.getElementById(`${damageType}DamageAbility`).value = data.ability || '';
-                        });
-
-                        // Load traits
-                        const traitRows = document.querySelectorAll('#traits-table tr:not(:first-child)');
-                        traitRows.forEach((row, index) => {
-                            const inputs = row.querySelectorAll('input');
-                            if (characterData.traits && characterData.traits[index]) {
-                                inputs[0].value = characterData.traits[index].trait || '';
-                                inputs[1].value = characterData.traits[index].description || '';
-                            } else {
-                                inputs[0].value = '';
-                                inputs[1].value = '';
-                            }
-                        });
-
-                        // Load tags
-                        document.getElementById('tags').value = characterData.tags || '';
-
-                        // Load powers
-                        const powerRows = document.querySelectorAll('#powers-table tr:not(:first-child)');
-                        powerRows.forEach((row, index) => {
-                            const inputs = row.querySelectorAll('input');
-                            if (characterData.powers && characterData.powers[index]) {
-                                inputs[0].value = characterData.powers[index].name || '';
-                                inputs[1].value = characterData.powers[index].set || '';
-                                inputs[2].value = characterData.powers[index].cost || '';
-                                inputs[3].value = characterData.powers[index].duration || '';
-                                inputs[4].value = characterData.powers[index].action || '';
-                            } else {
-                                inputs.forEach(input => input.value = '');
-                            }
-                        });
-
-                        alert('Character loaded successfully!');
-                        updateCalculatedFields();
-                    } catch (error) {
-                        alert('Error loading character file. Please make sure it\'s a valid JSON file.');
-                        console.error('Error loading character:', error);
-                    }
-                };
-                reader.readAsText(file);
-            }
-        }
-
-        function newCharacter() {
-            if (confirm('Are you sure you want to create a new character? This will erase the current character.')) {
-                document.querySelectorAll('input, textarea').forEach(input => {
-                    input.value = '';
-                });
-                updateCalculatedFields();
-            }
-        }
-
-        function updateCalculatedFields() {
-            const rank = parseInt(document.getElementById('rank').value) || 0;
-            const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
-            const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-
-            document.getElementById('karma').value = rank;
-            document.getElementById('health').value = resilience * 30;
-            document.getElementById('focus').value = vigilance * 30;
-
-            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
-                const abilityScore = parseInt(document.getElementById(`${ability}Score`).value) || 0;
-                document.getElementById(`${ability}Defense`).value = abilityScore + 10;
-                const nonCombatValue = abilityScore > 0 ? `+${abilityScore}` : abilityScore.toString();
-                document.getElementById(`${ability}NonCombat`).value = nonCombatValue;
-                
-                if (['melee', 'agility', 'ego', 'logic'].includes(ability)) {
-                    document.getElementById(`${ability}DamageMultiplier`).value = rank;
-                    document.getElementById(`${ability}DamageAbility`).value = abilityScore;
+                // Load damage
+                if (characterData.damage) {
+                    Object.entries(characterData.damage).forEach(([damageType, data]) => {
+                        document.getElementById(`${damageType}DamageMultiplier`).value = data.multiplier || '';
+                        document.getElementById(`${damageType}DamageAbility`).value = data.ability || '';
+                    });
                 }
-            });
-        }
 
-        // Initialize calculations
-        updateCalculatedFields();
-    });
+                // Load traits
+                if (characterData.traits) {
+                    const traitRows = document.querySelectorAll('#traits-table tr:not(:first-child)');
+                    characterData.traits.forEach((trait, index) => {
+                        if (traitRows[index]) {
+                            const inputs = traitRows[index].querySelectorAll('input');
+                            inputs[0].value = trait.name || '';
+                            inputs[1].value = trait.description || '';
+                        }
+                    });
+                }
+
+                // Load tags
+                if (characterData.tags) {
+                    document.getElementById('tags').value = characterData.tags.join(', ');
+                }
+
+                // Load powers
+                if (characterData.powers) {
+                    const powerRows = document.querySelectorAll('.powers-table tbody tr');
+                    characterData.powers.forEach((power, index) => {
+                        if (powerRows[index]) {
+                            const inputs = powerRows[index].querySelectorAll('input');
+                            inputs[0].value = power.name || '';
+                            inputs[1].value = power.set || '';
+                            inputs[2].value = power.cost || '';
+                            inputs[3].value = power.duration || '';
+                            inputs[4].value = power.action || '';
+                        }
+                    });
+                }
+
+                // Load power descriptions
+                if (characterData.powerDescriptions) {
+                    document.getElementById('powerDescriptions').value = characterData.powerDescriptions;
+                }
+
+                // Load character details
+                if (characterData.details) {
+                    const details = characterData.details;
+                    document.getElementById('realName').value = details.realName || '';
+                    document.getElementById('height').value = details.height || '';
+                    document.getElementById('weight').value = details.weight || '';
+                    document.getElementById('gender').value = details.gender || '';
+                    document.getElementById('eyes').value = details.eyes || '';
+                    document.getElementById('hair').value = details.hair || '';
+                    document.getElementById('distinguishingFeatures').value = details.distinguishingFeatures || '';
+                    document.getElementById('team').value = details.team || '';
+                    document.getElementById('base').value = details.base || '';
+                    if (details.background) {
+                        document.getElementById('origin').value = details.background.origin || '';
+                        document.getElementById('occupation').value = details.background.occupation || '';
+                    }
+                }
+
+                // Load notes
+                document.querySelector('textarea[style="height: 60mm;"]').value = characterData.notes || '';
+
+                // Load portrait
+                if (characterData.portrait) {
+                    document.getElementById('portraitInput').value = characterData.portrait;
+                    loadPortrait(); // Call this function directly
+                }
+
+                // Update calculated fields
+                updateCalculatedFields();
+
+                console.log('Character loaded successfully:', characterData);
+            } catch (error) {
+                console.error('Error loading character:', error);
+                alert('Error loading character file. Please make sure it\'s a valid JSON file.');
+            }
+        };
+        reader.readAsText(file);
+    }
+}
+
+    // Function to create a new character (reset all fields)
+    function newCharacter() {
+        if (confirm('Are you sure you want to create a new character? This will erase the current character.')) {
+            document.querySelectorAll('input, textarea').forEach(input => {
+                input.value = '';
+            });
+            updateCalculatedFields();
+        }
+    }
+});
     </script>
 
 <!-- Dice Roller -->
@@ -642,73 +593,6 @@
         let lastRollType = null;
 
         document.addEventListener('DOMContentLoaded', function() {
-            const rank = document.getElementById('rank');
-            const size = document.getElementById('size');
-            const abilities = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'];
-
-            function updateField(id, value) {
-                const field = document.getElementById(id);
-                if (field && !field.classList.contains('manually-edited')) {
-                    field.value = value;
-                }
-            }
-
-            function calculateAbilityFields() {
-                abilities.forEach(ability => {
-                    const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
-                    updateField(`${ability}Defense`, score + 10);
-                    updateField(`${ability}NonCombat`, `+${score}`);
-                });
-            }
-
-            function calculateHealth() {
-                const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
-                updateField('health', resilience < 1 ? 10 : resilience * 30);
-            }
-
-            function calculateFocus() {
-                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-                updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
-            }
-
-            function calculateMovementSpeeds() {
-                const agility = parseInt(document.getElementById('agilityScore').value) || 0;
-                const sizeValue = size.value;
-                let sizeModifier = 0;
-                if (sizeValue === 'Big') sizeModifier = 1;
-                if (sizeValue === 'Small') sizeModifier = -1;
-                
-                const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
-                updateField('run', baseSpeed);
-                updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
-                updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
-                updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
-                
-                document.getElementById('run-speed').textContent = baseSpeed;
-            }
-
-            function calculateInitiativeModifier() {
-                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-                updateField('initiativeModifier', `+${vigilance}`);
-            }
-
-            function calculateDamage() {
-                const rankValue = parseInt(rank.value) || 0;
-                ['melee', 'agility', 'ego', 'logic'].forEach(ability => {
-                    const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
-                    updateField(`${ability}DamageMultiplier`, rankValue);
-                    updateField(`${ability}DamageAbility`, score);
-                });
-            }
-
-            function updateCalculatedFields() {
-                calculateAbilityFields();
-                calculateHealth();
-                calculateFocus();
-                calculateMovementSpeeds();
-                calculateInitiativeModifier();
-                calculateDamage();
-            }
 
             function handleManualEdit(event) {
                 const field = event.target;
@@ -731,21 +615,6 @@
                 updateDiceDisplay(rollResult);
             }
 
-            // Event Listeners
-            if (rank) rank.addEventListener('input', updateCalculatedFields);
-            if (size) size.addEventListener('change', calculateMovementSpeeds);
-
-            abilities.forEach(ability => {
-                const scoreInput = document.getElementById(`${ability}Score`);
-                if (scoreInput) {
-                    scoreInput.addEventListener('input', updateCalculatedFields);
-                }
-            });
-
-            document.querySelectorAll('.calculated').forEach(field => {
-                field.addEventListener('input', handleManualEdit);
-            });
-
             document.querySelectorAll('.roll-ability-check, .roll-combat-check').forEach(button => {
                 button.addEventListener('click', handleRoll);
             });
@@ -754,9 +623,6 @@
             if (rollAllButton) {
                 rollAllButton.addEventListener('click', rollAllDice);
             }
-
-            // Initialize calculations
-            updateCalculatedFields();
         });
 
         // Global functions
@@ -883,6 +749,14 @@
         const size = document.getElementById('size');
         const abilityScores = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].map(ability => document.getElementById(`${ability}Score`));
 
+        // Prevent recalculation of fields that have been manually edited.
+        function handleManualEdit(event) {
+            const field = event.target;
+            if (field.classList.contains('calculated')) {
+                field.classList.add('manually-edited');
+            }
+        }
+
         function updateField(id, value) {
             const field = document.getElementById(id);
             if (!field.classList.contains('manually-edited')) {
@@ -890,6 +764,7 @@
             }
         }
 
+        // Functions to recalculate specific fields.
         function calculateKarma() {
             updateField('karma', rank.value);
         }
@@ -929,7 +804,7 @@
 
         function calculateInitiativeModifier() {
             const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            const modifierValue = vigilance > 0 ? `+${vigilance}` : vigilance.toString();
+            const modifierValue = vigilance >= 0 ? `+${vigilance}` : vigilance.toString();
             updateField('initiativeModifier', modifierValue);
         }
 
@@ -942,19 +817,16 @@
             });
         }
 
-        function handleManualEdit(event) {
-            const field = event.target;
-            if (field.classList.contains('calculated')) {
-                field.classList.add('manually-edited');
-            }
-        }
-
+        // Listeners for changes to scores that require recalculation.
         rank.addEventListener('input', () => {
             calculateKarma();
             calculateDamage();
         });
         
-        size.addEventListener('change', calculateMovementSpeeds);
+        size.addEventListener('change', () => {
+            calculateMovementSpeeds();
+            updateCalculatedFields();
+        });
 
         abilityScores.forEach(abilityScore => {
             abilityScore.addEventListener('input', () => {
@@ -974,19 +846,77 @@
             field.addEventListener('input', handleManualEdit);
         });
 
+        function updateCalculatedFields() {
+            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
+            calculateKarma();
+            calculateHealth();
+            calculateFocus();
+            calculateMovementSpeeds();
+            calculateInitiativeModifier();
+            calculateDamage();
+        }
+
         // Initial calculations
-        calculateKarma();
-        abilityScores.forEach(abilityScore => {
-            const ability = abilityScore.id.replace('Score', '');
-            calculateAbilityFields(ability);
-        });
-        calculateHealth();
-        calculateFocus();
-        calculateMovementSpeeds();
-        calculateInitiativeModifier();
-        calculateDamage();
+        updateCalculatedFields()
     });
     </script>
+
+    <!-- Character Sheet Portrait -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const portraitInput = document.getElementById('portraitInput');
+    const portraitDisplay = document.getElementById('portraitDisplay');
+
+    portraitInput.addEventListener('input', debounce(loadPortrait, 300));
+
+    function loadPortrait() {
+        const input = portraitInput.value.trim();
+        if (!input) {
+            portraitDisplay.innerHTML = '';
+            return;
+        }
+
+        let imageSrc;
+        if (input.startsWith('http://') || input.startsWith('https://')) {
+            // It's a URL
+            imageSrc = input;
+        } else {
+            // It's a filename, assume it's in the 'portrait' directory
+            imageSrc = `${input}`;
+        }
+
+        // Create and set up the image
+        const img = document.createElement('img');
+        img.onload = function() {
+            // Clear previous content and append the new image
+            portraitDisplay.innerHTML = '';
+            portraitDisplay.appendChild(img);
+        };
+        img.onerror = function() {
+            portraitDisplay.innerHTML = 'Failed to load image. Please check the URL or filename.';
+        };
+        img.src = imageSrc;
+        img.alt = 'Character Portrait';
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+    }
+
+    // Debounce function to limit how often loadPortrait is called
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    window.loadPortrait = loadPortrait
+});
+</script>
 
 </body>
 </html>

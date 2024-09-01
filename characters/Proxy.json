@@ -191,13 +191,13 @@
     "hair": "brown",
     "distinguishingFeatures": "",
     "background": {
-      "origin": "test",
-      "occupation": "test"
+      "origin": "",
+      "occupation": ""
     },
     "personality": "",
-    "team": "test",
-    "base": "test"
+    "team": "",
+    "base": ""
   },
-  "notes": "test",
+  "notes": "",
   "portrait": "portraits/proxy-1.jpg"
 }

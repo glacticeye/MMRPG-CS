@@ -55,12 +55,21 @@ th {
     font-weight: bold;
 }
 
-/* Powers Table Specific Styles */
-.powers-table .power-name { width: 30%; }
-.powers-table .power-set { width: 30%; }
-.powers-table .power-cost { width: 10%; }
-.powers-table .power-duration { width: 10%; }
-.powers-table .power-action { width: 10%; }
+/* Traits Table Styles */
+.traits-table .trait-name { width: 25%; }
+.traits-table .trait-description { width: 75%; }
+
+.traits-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Powers Table Styles */
+.powers-table .power-name { width: 35%; }
+.powers-table .power-set { width: 22%; }
+.powers-table .power-cost { width: 8%; }
+.powers-table .power-duration { width: 20%; }
+.powers-table .power-action { width: 15%; }
 
 .powers-table input[type="text"] {
     width: 100%;

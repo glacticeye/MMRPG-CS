@@ -143,21 +143,29 @@
 	<div class="page">
 
         <!-- Traits Section -->
-        <div class="section-title">Traits</div>
-        <table id="traits-table">
+  <div class="section-title">Traits</div>
+    <table id="traitsTable" class="traits-table">
+        <colgroup>
+            <col class="trait-name">
+            <col class="trait-description">
+        </colgroup>
+        <thead>
             <tr><th>Trait</th><th>Description</th></tr>
+        </thead>
+        <tbody>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-			<tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
             <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-        </table>
-		
+            <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+        </tbody>
+    </table>
+
         <!-- Tags Section -->
 		<div class="section-title">Tags</div>
 		<textarea id="tags" placeholder="Enter tags here"></textarea>
@@ -167,13 +175,9 @@
 		
         <!-- Powers Section -->
         <div class="section-title">Powers</div>
-        <table class="powers-table">
-            <colgroup>
-                <col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action">
-            </colgroup>
-            <thead>
-                <tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr>
-            </thead>
+        <table id="powersTable" class="powers-table">
+            <colgroup><col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action"></colgroup>
+            <thead><tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr></thead>
             <tbody>
                 <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
                 <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
@@ -419,16 +423,22 @@ function saveCharacter() {
     });
 
     // Save traits
-    document.querySelectorAll('#traits-table tr:not(:first-child)').forEach(row => {
-        const inputs = row.querySelectorAll('input');
+    characterData.traits = [];
+    const traitRows = document.getElementById('traitsTable').getElementsByTagName('tr');
+    for (let i = 1; i < traitRows.length; i++) { // Start at 1 to skip header
+        const inputs = traitRows[i].getElementsByTagName('input');
         if (inputs[0].value) {
-            characterData.traits.push({ name: inputs[0].value, description: inputs[1].value });
+            characterData.traits.push({
+                name: inputs[0].value,
+                description: inputs[1].value
+            });
         }
-    });
+    }
 
     // Save powers
-    document.querySelectorAll('.powers-table tbody tr').forEach(row => {
-        const inputs = row.querySelectorAll('input');
+    const powerRows = document.getElementById('powersTable').getElementsByTagName('tr');
+    for (let i = 1; i < powerRows.length; i++) { // Start at 1 to skip header
+        const inputs = powerRows[i].getElementsByTagName('input');
         if (inputs[0].value) {
             characterData.powers.push({
                 name: inputs[0].value,
@@ -438,7 +448,7 @@ function saveCharacter() {
                 action: inputs[4].value
             });
         }
-    });
+    }
 
     // Create a Blob with the character data
     const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
@@ -497,17 +507,17 @@ function loadCharacter(event) {
                     });
                 }
 
-                // Load traits
-                if (characterData.traits) {
-                    const traitRows = document.querySelectorAll('#traits-table tr:not(:first-child)');
-                    characterData.traits.forEach((trait, index) => {
-                        if (traitRows[index]) {
-                            const inputs = traitRows[index].querySelectorAll('input');
-                            inputs[0].value = trait.name || '';
-                            inputs[1].value = trait.description || '';
-                        }
-                    });
+// Load traits
+        if (characterData.traits) {
+            const traitRows = document.getElementById('traitsTable').getElementsByTagName('tr');
+            characterData.traits.forEach((trait, index) => {
+                if (traitRows[index + 1]) { // +1 to skip the header row
+                    const inputs = traitRows[index + 1].getElementsByTagName('input');
+                    inputs[0].value = trait.name || '';
+                    inputs[1].value = trait.description || '';
                 }
+            });
+            }
 
                 // Load tags
                 if (characterData.tags) {
@@ -580,6 +590,10 @@ function loadCharacter(event) {
             document.querySelectorAll('input, textarea').forEach(input => {
                 input.value = '';
             });
+
+            // Reset fields
+            document.getElementById('portraitInput').value = '';
+            document.getElementById('portraitDisplay').innerHTML = '';
             updateCalculatedFields();
         }
     }

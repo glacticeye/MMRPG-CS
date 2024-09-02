@@ -319,6 +319,7 @@
         </div>
         <div class="die-group">
             <div class="fantastic-indicator" id="fantasticIndicator">Fantastic!</div>
+            <div class="ultimate-fantastic-indicator" id="ultimateFantasticIndicator">Ultimate Fantastic!</div>
             <div class="die-pair">
                 <div class="die-column">
                     <div id="die2" class="die die-red">1</div>
@@ -376,12 +377,6 @@
     loadButton.addEventListener('click', () => fileInput.click()); // Trigger file input when load button is clicked
     newButton.addEventListener('click', newCharacter);
     fileInput.addEventListener('change', loadCharacter);
-
-    // Add event listeners to update calculated fields when input changes
-    document.getElementById('rank').addEventListener('input', updateCalculatedFields);
-    document.querySelectorAll('#abilities-table input[type="number"]').forEach(input => {
-        input.addEventListener('input', updateCalculatedFields);
-    });
 
     // Function to save the character data
     function saveCharacter() {
@@ -687,11 +682,18 @@ function newCharacter() {
         if (isAbilityCheck) {
             resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
         } else {
-            const damage = (marvelValue * damageMultiplier) + abilityScore; // Use marvelValue for damage calculation
+            const damage = (marvelValue * damageMultiplier) + abilityScore;
             resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
         }
 
-        document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+        // Check for Ultimate Fantastic
+        if (d6_1 === 6 && marvel === 1 && d6_2 === 6) {
+            document.getElementById('ultimateFantasticIndicator').style.display = 'block';
+            document.getElementById('fantasticIndicator').style.display = 'none';
+        } else {
+            document.getElementById('ultimateFantasticIndicator').style.display = 'none';
+            document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+        }
     }
 
     function updateDiceDisplay(rollResult) {
@@ -739,7 +741,10 @@ function newCharacter() {
         indicator.className = 'reroll-indicator edge-indicator';
 
         if (dieKey === 'marvel') {
-            if (newRoll === 1 || newRoll > rollResult[dieKey]) {
+            // For Marvel die, 1 is treated as 6 for comparison
+            const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+            const newValue = newRoll === 1 ? 6 : newRoll;
+            if (newValue >= currentValue) {
                 rollResult[dieKey] = newRoll;
             }
         } else {
@@ -767,7 +772,10 @@ function newCharacter() {
         indicator.className = 'reroll-indicator trouble-indicator';
 
         if (dieKey === 'marvel') {
-            if (newRoll > 1 && newRoll < rollResult[dieKey]) {
+            // For Marvel die, 1 is treated as 6 for comparison
+            const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+            const newValue = newRoll === 1 ? 6 : newRoll;
+            if (newValue < currentValue) {
                 rollResult[dieKey] = newRoll;
             }
         } else {
@@ -786,121 +794,121 @@ function newCharacter() {
 
 <!-- Character Sheet Calculations -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const rank = document.getElementById('rank');
-        const size = document.getElementById('size');
-        const abilityScores = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].map(ability => document.getElementById(`${ability}Score`));
+document.addEventListener('DOMContentLoaded', function() {
+    const rank = document.getElementById('rank');
+    const size = document.getElementById('size');
+    const abilityScores = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].map(ability => document.getElementById(`${ability}Score`));
 
-        // Prevent recalculation of fields that have been manually edited.
-        function handleManualEdit(event) {
-            const field = event.target;
-            if (field.classList.contains('calculated')) {
-                field.classList.add('manually-edited');
-            }
+    // Define updateCalculatedFields at the top
+    function updateCalculatedFields() {
+        ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
+        calculateKarma();
+        calculateHealth();
+        calculateFocus();
+        calculateMovementSpeeds();
+        calculateInitiativeModifier();
+        calculateDamage();
+    }
+
+    // Make updateCalculatedFields globally accessible
+    window.updateCalculatedFields = updateCalculatedFields;
+
+    function handleManualEdit(event) {
+        const field = event.target;
+        if (field.classList.contains('calculated')) {
+            field.classList.add('manually-edited');
         }
+    }
 
-        function updateField(id, value) {
-            const field = document.getElementById(id);
-            if (field && !field.classList.contains('manually-edited')) {
-                field.value = value;
-            }
+    function updateField(id, value) {
+        const field = document.getElementById(id);
+        if (field && !field.classList.contains('manually-edited')) {
+            field.value = value;
         }
+    }
 
-        // Functions to recalculate specific fields.
-        function calculateKarma() {
-            updateField('karma', rank.value);
-        }
+    function calculateKarma() {
+        updateField('karma', rank.value);
+    }
 
-        function calculateAbilityFields(ability) {
-            const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
-            updateField(`${ability}Defense`, score + 10);
-            const nonCombatValue = score > 0 ? `+${score}` : score.toString();
-            updateField(`${ability}NonCombat`, nonCombatValue);
-        }
+    function calculateAbilityFields(ability) {
+        const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+        updateField(`${ability}Defense`, score + 10);
+        const nonCombatValue = score > 0 ? `+${score}` : score.toString();
+        updateField(`${ability}NonCombat`, nonCombatValue);
+    }
 
-        function calculateHealth() {
-            const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
-            updateField('health', resilience < 1 ? 10 : resilience * 30);
-        }
+    function calculateHealth() {
+        const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
+        updateField('health', resilience < 1 ? 10 : resilience * 30);
+    }
 
-        function calculateFocus() {
-            const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
-        }
+    function calculateFocus() {
+        const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+        updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
+    }
 
-        function calculateMovementSpeeds() {
-            const agility = parseInt(document.getElementById('agilityScore').value) || 0;
-            const sizeValue = size.value;
-            let sizeModifier = 0;
-            if (sizeValue === 'Big') sizeModifier = 1;
-            if (sizeValue === 'Small') sizeModifier = -1;
-            
-            const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
-            updateField('run', baseSpeed);
-            updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
-            updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
-            updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
-            
-            document.getElementById('run-speed').textContent = baseSpeed;
-        }
-
-        function calculateInitiativeModifier() {
-            const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
-            const modifierValue = vigilance >= 0 ? `+${vigilance}` : vigilance.toString();
-            updateField('initiativeModifier', modifierValue);
-        }
-
-        function calculateDamage() {
-            const rankValue = parseInt(rank.value) || 1;
-            ['melee', 'agility', 'ego', 'logic'].forEach(ability => {
-                const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
-                updateField(`${ability}DamageMultiplier`, rankValue);
-                updateField(`${ability}DamageAbility`, score);
-            });
-        }
-
-        // Listeners for changes to scores that require recalculation.
-        rank.addEventListener('input', () => {
-            calculateKarma();
-            calculateDamage();
-        });
+    function calculateMovementSpeeds() {
+        const agility = parseInt(document.getElementById('agilityScore').value) || 0;
+        const sizeValue = size.value;
+        let sizeModifier = 0;
+        if (sizeValue === 'Big') sizeModifier = 1;
+        if (sizeValue === 'Small') sizeModifier = -1;
         
-        size.addEventListener('change', () => {
-            calculateMovementSpeeds();
-            updateCalculatedFields();
+        const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
+        updateField('run', baseSpeed);
+        updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
+        updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
+        updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
+    }
+
+    function calculateInitiativeModifier() {
+        const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+        const modifierValue = vigilance >= 0 ? `+${vigilance}` : vigilance.toString();
+        updateField('initiativeModifier', modifierValue);
+    }
+
+    function calculateDamage() {
+        const rankValue = parseInt(rank.value) || 1;
+        ['melee', 'agility', 'ego', 'logic'].forEach(ability => {
+            const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+            updateField(`${ability}DamageMultiplier`, rankValue);
+            updateField(`${ability}DamageAbility`, score);
         });
+    }
 
-        abilityScores.forEach(abilityScore => {
-            abilityScore.addEventListener('input', () => {
-                const ability = abilityScore.id.replace('Score', '');
-                calculateAbilityFields(ability);
-                if (ability === 'resilience') calculateHealth();
-                if (ability === 'vigilance') {
-                    calculateFocus();
-                    calculateInitiativeModifier();
-                }
-                if (ability === 'agility') calculateMovementSpeeds();
-                calculateDamage();
-            });
-        });
-
-        document.querySelectorAll('.calculated').forEach(field => {
-            field.addEventListener('input', handleManualEdit);
-        });
-
-        function updateCalculatedFields() {
-            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
-            calculateKarma();
-            calculateHealth();
-            calculateFocus();
-            calculateMovementSpeeds();
-            calculateInitiativeModifier();
-            calculateDamage();
-        }
-
-        // Initial calculations
-        updateCalculatedFields()
+    rank.addEventListener('input', () => {
+        calculateKarma();
+        calculateDamage();
+        updateCalculatedFields();
     });
+    
+    size.addEventListener('change', () => {
+        calculateMovementSpeeds();
+        updateCalculatedFields();
+    });
+
+    abilityScores.forEach(abilityScore => {
+        abilityScore.addEventListener('input', () => {
+            const ability = abilityScore.id.replace('Score', '');
+            calculateAbilityFields(ability);
+            if (ability === 'resilience') calculateHealth();
+            if (ability === 'vigilance') {
+                calculateFocus();
+                calculateInitiativeModifier();
+            }
+            if (ability === 'agility') calculateMovementSpeeds();
+            calculateDamage();
+        });
+    });
+
+    document.querySelectorAll('.calculated').forEach(field => {
+        field.addEventListener('input', handleManualEdit);
+    });
+
+    // Initial calculations
+    updateCalculatedFields();
+});
 </script>
 
 <!-- Character Sheet Portrait -->

@@ -46,7 +46,7 @@ table {
 
 th, td {
     border: 1px solid #ccc;
-    padding: 8px;
+    padding: 4px 6px;
     text-align: left;
 }
 
@@ -88,7 +88,7 @@ th {
 
 /* Portrait */
 
-.portrait-display {
+#portraitDisplay {
     width: 100%;
     height: 100%;
     display: flex;
@@ -96,13 +96,11 @@ th {
     align-items: center;
 }
 
-.portraitDisplay img {
+#portraitDisplay img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
-
-
 
 /* Layout Helpers */
 .two-column {
@@ -262,9 +260,9 @@ textarea {
 
 #rollAllButton {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 18px;
+    margin: 10px auto;
+    padding: 8px 16px;
+    font-size: 14px;
     background-color: #518cca;
     color: white;
     border: none;
@@ -310,14 +308,14 @@ textarea {
 
 /* Character Actions Styles */
 .character-actions {
-    margin: 20px 0;
+    margin: 10px 0;
     text-align: center;
 }
 
 .character-actions button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    font-size: 16px;
+    padding: 8px 16px;
+    margin: 0 5px;
+    font-size: 14px;
     background-color: #518cca;
     color: white;
     border: none;
@@ -408,5 +406,51 @@ textarea {
 
     .powers-table input[type="text"] {
         font-size: 14px;
+    }
+}
+
+.table-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.table-column {
+    flex: 1;
+}
+
+.abilities-table,
+.damage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+.abilities-table th,
+.abilities-table td,
+.damage-table th,
+.damage-table td {
+    padding: 4px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.abilities-table input,
+.damage-table input {
+    width: 100%;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.abilities-table button,
+.damage-table button {
+    padding: 2px 4px;
+    font-size: 0.8em;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .table-container {
+        flex-direction: column;
     }
 }

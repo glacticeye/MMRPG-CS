@@ -680,10 +680,10 @@ function newCharacter() {
         const resultElement = document.getElementById('rollResult');
         
         if (isAbilityCheck) {
-            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
+            resultElement.innerHTML = `<strong>${ability.charAt(0).toUpperCase() + ability.slice(1)} Check:</strong> (${d6_1} + ${marvelValue} + ${d6_2}) + ${abilityScore} = <strong>${total}</strong>`;
         } else {
             const damage = (marvelValue * damageMultiplier) + abilityScore;
-            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
+            resultElement.innerHTML = `<strong>${ability.charAt(0).toUpperCase() + ability.slice(1)} Check:</strong> (${d6_1} + ${marvelValue} + ${d6_2}) + ${abilityScore} = <strong>${total}</strong>. <strong>Damage:</strong> (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = <strong>${damage}</strong>`;
         }
 
         // Check for Ultimate Fantastic
@@ -719,9 +719,9 @@ function newCharacter() {
 
     function rollAllDice() {
         const rollResult = rollDice();
-        lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: 'All Dice' };
+        lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: '' };
         lastRollType = 'ability';
-        displayResult(rollResult, 0, 1, true, 'All Dice');
+        displayResult(rollResult, 0, 1, true, '');
         updateDiceDisplay(rollResult);
     }
 

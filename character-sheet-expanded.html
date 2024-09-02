@@ -67,230 +67,230 @@
             </tr>
         </table>
 
-            <div class="section-title">Abilities</div>
-            <table class="abilities-table">
-                <tr><th>Ability</th><th>Score</th><th>Defense</th><th>Non-Combat</th><th></th></tr>
-                <tr>
-                    <td>Melee</td>
-                    <td><input type="number" id="meleeScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="meleeDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="meleeNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Agility</td>
-                    <td><input type="number" id="agilityScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="agilityDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="agilityNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Resilience</td>
-                    <td><input type="number" id="resilienceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="resilienceDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="resilienceNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Vigilance</td>
-                    <td><input type="number" id="vigilanceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="vigilanceDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="vigilanceNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Ego</td>
-                    <td><input type="number" id="egoScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="egoDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="egoNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Logic</td>
-                    <td><input type="number" id="logicScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                    <td><input type="number" id="logicDefense" placeholder="+10" class="calculated"></td>
-                    <td><input type="text" id="logicNonCombat" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
-                </tr>
-            </table>
-
-            <div class="section-title">Damage</div>
-            <table class="damage-table">
-                <tr><th>Damage</th><th>Multiplier</th><th></th><th>Ability</th><th></th></tr>
-                <tr>
-                    <td>Melee</td>
-                    <td><input type="number" id="meleeDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                    <td>+</td>
-                    <td><input type="number" id="meleeDamageAbility" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-combat-check" data-ability="melee">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Agility</td>
-                    <td><input type="number" id="agilityDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                    <td>+</td>
-                    <td><input type="number" id="agilityDamageAbility" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-combat-check" data-ability="agility">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Ego</td>
-                    <td><input type="number" id="egoDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                    <td>+</td>
-                    <td><input type="number" id="egoDamageAbility" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-combat-check" data-ability="ego">Roll</button></td>
-                </tr>
-                <tr>
-                    <td>Logic</td>
-                    <td><input type="number" id="logicDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                    <td>+</td>
-                    <td><input type="number" id="logicDamageAbility" placeholder="Score" class="calculated"></td>
-                    <td><button class="roll-combat-check" data-ability="logic">Roll</button></td>
-                </tr>
-            </table>
-        </div>
-
-
-        <div class="page">
-
-            <!-- Traits Section -->
-            <div class="section-title">Traits</div>
-            <table id="traitsTable" class="traits-table">
-                <colgroup>
-                    <col class="trait-name">
-                    <col class="trait-description">
-                </colgroup>
-                <thead>
-                    <tr><th>Trait</th><th>Description</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                </tbody>
-            </table>
-
-            <!-- Tags Section -->
-            <div class="section-title">Tags</div>
-            <textarea id="tags" placeholder="Enter tags here"></textarea>
-        </div>
-
-        <div class="page">
-
-            <!-- Powers Section -->
-            <div class="section-title">Powers</div>
-            <table id="powersTable" class="powers-table">
-                <colgroup><col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action"></colgroup>
-                <thead><tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr></thead>
-                <tbody>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="page">
-
-        <!-- Team Maneuver Section -->
-        <div class="section-title">Team Maneuver</div>
-        <table>
-            <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
-            <tr><td>Offensive</td><td><input type="text"></td><td><input type="number"></td><td><input type="number"></td></tr>
-            <tr><td>Defensive</td><td><input type="text"></td><td><input type="number"></td><td><input type="number"></td></tr>
-            <tr><td>Rally</td><td><input type="text"></td><td><input type="number"></td><td><input type="number"></td></tr>
+        <div class="section-title">Abilities</div>
+        <table class="abilities-table">
+            <tr><th>Ability</th><th>Score</th><th>Defense</th><th>Non-Combat</th><th></th></tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="meleeDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="meleeNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Agility</td>
+                <td><input type="number" id="agilityScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="agilityDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="agilityNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Resilience</td>
+                <td><input type="number" id="resilienceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="resilienceDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="resilienceNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Vigilance</td>
+                <td><input type="number" id="vigilanceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="vigilanceDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="vigilanceNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Ego</td>
+                <td><input type="number" id="egoScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="egoDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="egoNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Logic</td>
+                <td><input type="number" id="logicScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="logicDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="logicNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
+            </tr>
         </table>
 
-        <!-- Character Details Section -->
-        <div class="section-title">Character Details</div>
-        <table class="character-details-table">
+        <div class="section-title">Damage</div>
+        <table class="damage-table">
+            <tr><th>Damage</th><th>Multiplier</th><th></th><th>Ability</th><th></th></tr>
             <tr>
-                <th>Real Name</th>
-                <td><input type="text" id="realName" name="realName"></td>
-                <th>Height</th>
-                <td><input type="text" id="height" name="height"></td>
+                <td>Melee</td>
+                <td><input type="number" id="meleeDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="meleeDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="melee">Roll</button></td>
             </tr>
             <tr>
-                <th>Weight</th>
-                <td><input type="text" id="weight" name="weight"></td>
-                <th>Gender</th>
-                <td><input type="text" id="gender" name="gender"></td>
+                <td>Agility</td>
+                <td><input type="number" id="agilityDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="agilityDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="agility">Roll</button></td>
             </tr>
             <tr>
-                <th>Eyes</th>
-                <td><input type="text" id="eyes" name="eyes"></td>
-                <th>Hair</th>
-                <td><input type="text" id="hair" name="hair"></td>
+                <td>Ego</td>
+                <td><input type="number" id="egoDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="egoDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="ego">Roll</button></td>
             </tr>
             <tr>
-                <th>Origin</th>
-                <td><input type="text" id="origin" name="origin"></td>
-            </tr>
-            <tr>
-                <th>Distinguishing Features</th>
-                <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
-            </tr>
-            <tr>
-                <th>Team</th>
-                <td><input type="text" id="team" name="team"></td>
-                <th>Base</th>
-                <td><input type="text" id="base" name="base"></td>
-            </tr>
-            <tr>
-                <th>Occupation</th>
-                <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
+                <td>Logic</td>
+                <td><input type="number" id="logicDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="logicDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="logic">Roll</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- Power Descriptions Section -->
+
     <div class="page">
-        <div class="section-title">Power Descriptions (Page 1)</div>
-        <textarea id="powerDescriptions" class ="powerDescriptions" style="height: 250mm;"></textarea>
+
+        <!-- Traits Section -->
+        <div class="section-title">Traits</div>
+        <table id="traitsTable" class="traits-table">
+            <colgroup>
+                <col class="trait-name">
+                <col class="trait-description">
+            </colgroup>
+            <thead>
+                <tr><th>Trait</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            </tbody>
+        </table>
+
+        <!-- Tags Section -->
+        <div class="section-title">Tags</div>
+        <textarea id="tags" placeholder="Enter tags here"></textarea>
     </div>
 
     <div class="page">
-        <div class="section-title">Power Descriptions (Page 2)</div>
-        <textarea id="powerDescriptions2" class ="powerDescriptions" style="height: 250mm;"></textarea>
+
+        <!-- Powers Section -->
+        <div class="section-title">Powers</div>
+        <table id="powersTable" class="powers-table">
+            <colgroup><col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action"></colgroup>
+            <thead><tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr></thead>
+            <tbody>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+            </tbody>
+        </table>
     </div>
+</div>
+<div class="page">
 
-    <div class="page">
-        <div class="section-title">Power Descriptions (Page 3) </div>
-        <textarea id="powerDescriptions3" class ="powerDescriptions" style="height: 250mm;"></textarea>
-    </div>
+    <!-- Team Maneuver Section -->
+    <div class="section-title">Team Maneuver</div>
+    <table>
+        <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
+        <tr><td>Offensive</td><td><input type="checkbox" name="teamManeuver" value="offensive"></td><td><input type="number" name="offensiveLevel"></td><td><input type="number" name="offensiveCost"></td></tr>
+        <tr><td>Defensive</td><td><input type="checkbox" name="teamManeuver" value="defensive"></td><td><input type="number" name="defensiveLevel"></td><td><input type="number" name="defensiveCost"></td></tr>
+        <tr><td>Rally</td><td><input type="checkbox" name="teamManeuver" value="rally"></td><td><input type="number" name="rallyLevel"></td><td><input type="number" name="rallyCost"></td></tr>
+    </table>
+
+    <!-- Character Details Section -->
+    <div class="section-title">Character Details</div>
+    <table class="character-details-table">
+        <tr>
+            <th>Real Name</th>
+            <td><input type="text" id="realName" name="realName"></td>
+            <th>Height</th>
+            <td><input type="text" id="height" name="height"></td>
+        </tr>
+        <tr>
+            <th>Weight</th>
+            <td><input type="text" id="weight" name="weight"></td>
+            <th>Gender</th>
+            <td><input type="text" id="gender" name="gender"></td>
+        </tr>
+        <tr>
+            <th>Eyes</th>
+            <td><input type="text" id="eyes" name="eyes"></td>
+            <th>Hair</th>
+            <td><input type="text" id="hair" name="hair"></td>
+        </tr>
+        <tr>
+            <th>Origin</th>
+            <td><input type="text" id="origin" name="origin"></td>
+        </tr>
+        <tr>
+            <th>Distinguishing Features</th>
+            <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
+        </tr>
+        <tr>
+            <th>Team</th>
+            <td><input type="text" id="team" name="team"></td>
+            <th>Base</th>
+            <td><input type="text" id="base" name="base"></td>
+        </tr>
+        <tr>
+            <th>Occupation</th>
+            <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
+        </tr>
+    </table>
+</div>
+
+<!-- Power Descriptions Section -->
+<div class="page">
+    <div class="section-title">Power Descriptions (Page 1)</div>
+    <textarea id="powerDescriptions" class ="powerDescriptions" style="height: 250mm;"></textarea>
+</div>
+
+<div class="page">
+    <div class="section-title">Power Descriptions (Page 2)</div>
+    <textarea id="powerDescriptions2" class ="powerDescriptions" style="height: 250mm;"></textarea>
+</div>
+
+<div class="page">
+    <div class="section-title">Power Descriptions (Page 3) </div>
+    <textarea id="powerDescriptions3" class ="powerDescriptions" style="height: 250mm;"></textarea>
+</div>
 
 
-    <!-- Portrait Section -->
-    <div class="page">
-      <div class="section-title">Portrait</div>
-      <div class="portrait-container">
-          <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
-          <div id="portraitDisplay" style="height: 180mm;"> </div>
-      </div>
+<!-- Portrait Section -->
+<div class="page">
+  <div class="section-title">Portrait</div>
+  <div class="portrait-container">
+      <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
+      <div id="portraitDisplay" style="height: 180mm;"> </div>
   </div>
+</div>
 
-  <!-- Notes Section -->
-  <div class="page">
+<!-- Notes Section -->
+<div class="page">
     <div class="section-title">Notes</div>
     <textarea id="notes" style="height: 60mm;"></textarea>
 </div>
@@ -319,6 +319,7 @@
         </div>
         <div class="die-group">
             <div class="fantastic-indicator" id="fantasticIndicator">Fantastic!</div>
+            <div class="ultimate-fantastic-indicator" id="ultimateFantasticIndicator">Ultimate Fantastic!</div>
             <div class="die-pair">
                 <div class="die-column">
                     <div id="die2" class="die die-red">1</div>
@@ -376,12 +377,6 @@
     loadButton.addEventListener('click', () => fileInput.click()); // Trigger file input when load button is clicked
     newButton.addEventListener('click', newCharacter);
     fileInput.addEventListener('change', loadCharacter);
-
-    // Add event listeners to update calculated fields when input changes
-    document.getElementById('rank').addEventListener('input', updateCalculatedFields);
-    document.querySelectorAll('#abilities-table input[type="number"]').forEach(input => {
-        input.addEventListener('input', updateCalculatedFields);
-    });
 
     // Function to save the character data
     function saveCharacter() {
@@ -472,6 +467,16 @@
         }
     }
 
+    // Save team maneuvers
+    characterData.teamManeuvers = ['offensive', 'defensive', 'rally'].reduce((acc, type) => {
+        acc[type] = {
+            selected: document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked,
+            level: document.querySelector(`input[name="${type}Level"]`).value,
+            cost: document.querySelector(`input[name="${type}Cost"]`).value
+        };
+        return acc;
+    }, {});
+
     // Create a Blob with the character data
     const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
 
@@ -529,7 +534,7 @@ function loadCharacter(event) {
                     });
                 }
 
-// Load traits
+                // Load traits
                 if (characterData.traits) {
                     const traitRows = document.getElementById('traitsTable').getElementsByTagName('tr');
                     characterData.traits.forEach((trait, index) => {
@@ -570,6 +575,15 @@ function loadCharacter(event) {
                 }
                 if (characterData.powerDescriptions3) {
                     document.getElementById('powerDescriptions3').value = characterData.powerDescriptions3;
+                }
+
+                // Load team maneuvers
+                if (characterData.teamManeuvers) {
+                    ['offensive', 'defensive', 'rally'].forEach(type => {
+                        document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked = characterData.teamManeuvers[type].selected;
+                        document.querySelector(`input[name="${type}Level"]`).value = characterData.teamManeuvers[type].level;
+                        document.querySelector(`input[name="${type}Cost"]`).value = characterData.teamManeuvers[type].cost;
+                    });
                 }
 
                 // Load character details
@@ -678,110 +692,128 @@ function newCharacter() {
 
     function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
         const { d6_1, marvel, d6_2 } = rollResult;
-        const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
-        const diceTotal = d6_1 + marvelValue + d6_2;
-        const total = diceTotal + abilityScore;
-        
-        const resultElement = document.getElementById('rollResult');
-        
-        if (isAbilityCheck) {
-            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: Total: ${diceTotal} + ${abilityScore} = ${total}`;
-        } else {
-            const damage = (marvelValue * damageMultiplier) + abilityScore; // Use marvelValue for damage calculation
-            resultElement.textContent = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Damage: Total: ${diceTotal} + ${abilityScore} = ${total}. Damage: (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = ${damage}`;
-        }
+    const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
+    const diceTotal = d6_1 + marvelValue + d6_2;
+    const total = diceTotal + abilityScore;
+    
+    const resultElement = document.getElementById('rollResult');
+    
+    // Helper function to create colored spans
+    const colorSpan = (value, color) => `<span style="background-color: ${color}; color: ${color === 'white' ? 'black' : 'white'}; padding: 0 3px;">${value}</span>`;
+    
+    const diceDisplay = `${colorSpan(d6_1, 'white')} + ${colorSpan(marvel, 'red')} + ${colorSpan(d6_2, 'white')}`;
+    
+    if (isAbilityCheck) {
+        resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>`;
+    } else {
+        const damage = (marvelValue * damageMultiplier) + abilityScore;
+        resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>. Damage: (${colorSpan(marvelValue, 'red')} * ${damageMultiplier}) + ${abilityScore} = <strong>${damage}</strong>`;
+    }
 
+    // Check for Ultimate Fantastic
+    if (d6_1 === 6 && marvel === 1 && d6_2 === 6) {
+        document.getElementById('ultimateFantasticIndicator').style.display = 'block';
+        document.getElementById('fantasticIndicator').style.display = 'none';
+    } else {
+        document.getElementById('ultimateFantasticIndicator').style.display = 'none';
         document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
     }
+}
 
-    function updateDiceDisplay(rollResult) {
-        const { d6_1, marvel, d6_2 } = rollResult;
-        animateDice('die1', d6_1);
-        animateDice('die2', marvel);
-        animateDice('die3', d6_2);
+function updateDiceDisplay(rollResult) {
+    const { d6_1, marvel, d6_2 } = rollResult;
+    animateDice('die1', d6_1);
+    animateDice('die2', marvel);
+    animateDice('die3', d6_2);
 
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById(`rerollIndicator${i}`).textContent = '';
-            document.getElementById(`die${i}reroll`).style.visibility = 'hidden';
+    for (let i = 1; i <= 3; i++) {
+        document.getElementById(`rerollIndicator${i}`).textContent = '';
+        document.getElementById(`die${i}reroll`).style.visibility = 'hidden';
+    }
+}
+
+function animateDice(dieId, value) {
+    const die = document.getElementById(dieId);
+    die.classList.add('rolling');
+    setTimeout(() => {
+        die.textContent = value;
+        die.classList.remove('rolling');
+    }, 500);
+}
+
+function rollAllDice() {
+    const rollResult = rollDice();
+    lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: '' };
+    lastRollType = 'ability';
+    displayResult(rollResult, 0, 1, true, '');
+    updateDiceDisplay(rollResult);
+}
+
+function rollEdge(dieNumber) {
+    if (!lastRollResult) return;
+
+    const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+    const newRoll = Math.floor(Math.random() * 6) + 1;
+    const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
+
+    const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+    animateDice(`die${dieNumber}reroll`, newRoll);
+    rerollDie.style.visibility = 'visible';
+
+    const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+    indicator.textContent = 'Edge';
+    indicator.className = 'reroll-indicator edge-indicator';
+
+    if (dieKey === 'marvel') {
+            // For Marvel die, 1 is treated as 6 for comparison
+        const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+        const newValue = newRoll === 1 ? 6 : newRoll;
+        if (newValue >= currentValue) {
+            rollResult[dieKey] = newRoll;
+        }
+    } else {
+        if (newRoll > rollResult[dieKey]) {
+            rollResult[dieKey] = newRoll;
         }
     }
 
-    function animateDice(dieId, value) {
-        const die = document.getElementById(dieId);
-        die.classList.add('rolling');
-        setTimeout(() => {
-            die.textContent = value;
-            die.classList.remove('rolling');
-        }, 500);
-    }
+    displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+}
 
-    function rollAllDice() {
-        const rollResult = rollDice();
-        lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: 'All Dice' };
-        lastRollType = 'ability';
-        displayResult(rollResult, 0, 1, true, 'All Dice');
-        updateDiceDisplay(rollResult);
-    }
+function rollTrouble(dieNumber) {
+    if (!lastRollResult) return;
 
-    function rollEdge(dieNumber) {
-        if (!lastRollResult) return;
+    const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+    const newRoll = Math.floor(Math.random() * 6) + 1;
+    const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
 
-        const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
-        const newRoll = Math.floor(Math.random() * 6) + 1;
-        const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
+    const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+    animateDice(`die${dieNumber}reroll`, newRoll);
+    rerollDie.style.visibility = 'visible';
 
-        const rerollDie = document.getElementById(`die${dieNumber}reroll`);
-        animateDice(`die${dieNumber}reroll`, newRoll);
-        rerollDie.style.visibility = 'visible';
+    const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+    indicator.textContent = 'Trouble';
+    indicator.className = 'reroll-indicator trouble-indicator';
 
-        const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
-        indicator.textContent = 'Edge';
-        indicator.className = 'reroll-indicator edge-indicator';
-
-        if (dieKey === 'marvel') {
-            if (newRoll === 1 || newRoll > rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
-            }
-        } else {
-            if (newRoll > rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
-            }
+    if (dieKey === 'marvel') {
+            // For Marvel die, 1 is treated as 6 for comparison
+        const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+        const newValue = newRoll === 1 ? 6 : newRoll;
+        if (newValue < currentValue) {
+            rollResult[dieKey] = newRoll;
         }
-
-        displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
-    }
-
-    function rollTrouble(dieNumber) {
-        if (!lastRollResult) return;
-
-        const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
-        const newRoll = Math.floor(Math.random() * 6) + 1;
-        const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
-
-        const rerollDie = document.getElementById(`die${dieNumber}reroll`);
-        animateDice(`die${dieNumber}reroll`, newRoll);
-        rerollDie.style.visibility = 'visible';
-
-        const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
-        indicator.textContent = 'Trouble';
-        indicator.className = 'reroll-indicator trouble-indicator';
-
-        if (dieKey === 'marvel') {
-            if (newRoll > 1 && newRoll < rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
-            }
-        } else {
-            if (newRoll < rollResult[dieKey]) {
-                rollResult[dieKey] = newRoll;
-            }
+    } else {
+        if (newRoll < rollResult[dieKey]) {
+            rollResult[dieKey] = newRoll;
         }
-
-        displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
     }
+
+    displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+}
 
         // Make sure these functions are accessible globally
-    window.rollEdge = rollEdge;
-    window.rollTrouble = rollTrouble;
+window.rollEdge = rollEdge;
+window.rollTrouble = rollTrouble;
 </script>
 
 <!-- Character Sheet Calculations -->
@@ -791,7 +823,20 @@ function newCharacter() {
         const size = document.getElementById('size');
         const abilityScores = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].map(ability => document.getElementById(`${ability}Score`));
 
-        // Prevent recalculation of fields that have been manually edited.
+    // Define updateCalculatedFields at the top
+        function updateCalculatedFields() {
+            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
+            calculateKarma();
+            calculateHealth();
+            calculateFocus();
+            calculateMovementSpeeds();
+            calculateInitiativeModifier();
+            calculateDamage();
+        }
+
+    // Make updateCalculatedFields globally accessible
+        window.updateCalculatedFields = updateCalculatedFields;
+
         function handleManualEdit(event) {
             const field = event.target;
             if (field.classList.contains('calculated')) {
@@ -806,7 +851,6 @@ function newCharacter() {
             }
         }
 
-        // Functions to recalculate specific fields.
         function calculateKarma() {
             updateField('karma', rank.value);
         }
@@ -834,14 +878,12 @@ function newCharacter() {
             let sizeModifier = 0;
             if (sizeValue === 'Big') sizeModifier = 1;
             if (sizeValue === 'Small') sizeModifier = -1;
-            
+
             const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
             updateField('run', baseSpeed);
             updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
             updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
             updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
-            
-            document.getElementById('run-speed').textContent = baseSpeed;
         }
 
         function calculateInitiativeModifier() {
@@ -859,12 +901,12 @@ function newCharacter() {
             });
         }
 
-        // Listeners for changes to scores that require recalculation.
         rank.addEventListener('input', () => {
             calculateKarma();
             calculateDamage();
+            updateCalculatedFields();
         });
-        
+
         size.addEventListener('change', () => {
             calculateMovementSpeeds();
             updateCalculatedFields();
@@ -888,18 +930,8 @@ function newCharacter() {
             field.addEventListener('input', handleManualEdit);
         });
 
-        function updateCalculatedFields() {
-            ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
-            calculateKarma();
-            calculateHealth();
-            calculateFocus();
-            calculateMovementSpeeds();
-            calculateInitiativeModifier();
-            calculateDamage();
-        }
-
-        // Initial calculations
-        updateCalculatedFields()
+    // Initial calculations
+        updateCalculatedFields();
     });
 </script>
 

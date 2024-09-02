@@ -368,46 +368,6 @@ textarea {
     }
 }
 
-/* Responsive Design for small screens */
-@media screen and (max-width: 210mm) {
-    .page {
-        width: 100%;
-        height: auto;
-        margin: 0;
-        padding: 5mm;
-    }
-
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .two-column {
-        flex-direction: column;
-    }
-
-    .die {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-}
-
-/* Responsive adjustments for smaller screens */
-@media screen and (max-width: 600px) {
-    .powers-table {
-        font-size: 14px;
-    }
-
-    .powers-table th,
-    .powers-table td {
-        padding: 4px;
-    }
-
-    .powers-table input[type="text"] {
-        font-size: 14px;
-    }
-}
 
 .table-container {
     display: flex;
@@ -448,9 +408,56 @@ textarea {
     font-size: 0.8em;
 }
 
-/* Responsive design */
-@media screen and (max-width: 768px) {
-    .table-container {
-        flex-direction: column;
+/* Mobile optimizations */
+@media screen and (max-width: 600px) {
+
+    .die {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .powers-table {
+        font-size: 14px;
+    }
+
+    .powers-table th,
+    .powers-table td {
+        padding: 4px;
+    }
+
+    #rollAllButton {
+        padding: 6px 12px;
+        font-size: 14px;
+        margin: 3px auto;
+    }
+
+    .character-actions {
+        margin: 5px 0;
+    }
+
+    .character-actions button {
+        padding: 6px 12px;
+        margin: 0 3px;
+        font-size: 12px;
+    }
+
+    .dice-roller {
+        padding: 5px;
+    }
+
+    .dice-container {
+        margin-top: 10px;
+    }
+
+    .die {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .edge-button, .trouble-button {
+        padding: 3px 6px;
+        font-size: 10px;
     }
 }

@@ -25,24 +25,20 @@
             </tr>
         </table>
 
-        <div class="two-column">
-            <div>
-                <table>
-                    <tr>
-                        <th>Health</th>
-                        <td><input type="number" id="health" placeholder="Resilience * 30" class="calculated"></td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                        <th>Focus</th>
-                        <td><input type="number" id="focus" placeholder="Vigilance * 30" class="calculated"></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <table>
+            <tr>
+                <th>Health</th>
+                <th>Damage Reduction</th>
+                <th>Focus</th>
+                <th>Damage Reduction</th>
+            </tr>
+            <tr>
+                <td><input type="number" id="health" name="health" placeholder="Resilience * 30" value="" class="calculated" ></td>
+                <td><input type="number" id="healthDR" name="healthDR" placeholder=&#8212 min="-4" max="-1" value=""></td>
+                <td><input type="number" id="focus" name="focus" placeholder="Vigilance * 30" class="calculated"></td>
+                <td><input type="number" id="focusDR" name="focusDR" placeholder="&#8212" value="" min="-4" max="-1" value=""></td>
+            </tr>
+        </table>
 
         <table>
             <tr>
@@ -241,10 +237,10 @@
     <div class="page">
         <div class="section-title">Team Maneuver</div>
         <table>
-            <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
-            <tr><td>Offensive</td><td><input type="checkbox" name="teamManeuver" value="offensive"></td><td><input type="number" name="offensiveLevel"></td><td><input type="number" name="offensiveCost"></td></tr>
-            <tr><td>Defensive</td><td><input type="checkbox" name="teamManeuver" value="defensive"></td><td><input type="number" name="defensiveLevel"></td><td><input type="number" name="defensiveCost"></td></tr>
-            <tr><td>Rally</td><td><input type="checkbox" name="teamManeuver" value="rally"></td><td><input type="number" name="rallyLevel"></td><td><input type="number" name="rallyCost"></td></tr>
+            <tr><th>Type</th><th>Level</th><th>Cost</th></tr>
+            <td><input type="text" id="maneuverName" name="maneuverName" placeholder=&#8212></td>
+            <td><input type="number" id="maneuverLevel" name="maneuverLevel"></td>
+            <td><input type="number" id="maneuverCost" name="maneuverCost"></td></tr>
         </table>
 
         <!-- Character Details Section -->
@@ -290,7 +286,7 @@
 
         <!-- Notes Section -->
         <div class="section-title">Notes</div>
-        <textarea id="notes" style="height: 100mm;"></textarea>
+        <textarea id="notes" style="height: 120mm;"></textarea>
     </div>
 
 
@@ -390,7 +386,9 @@
             rank: parseInt(document.getElementById('rank').value) || 1,
             karma: parseInt(document.getElementById('karma').value) || 0,
             health: parseInt(document.getElementById('health').value) || 0,
+            healthDR: parseInt(document.getElementById('healthDR').value) || 0,
             focus: parseInt(document.getElementById('focus').value) || 0,
+            focusDR: parseInt(document.getElementById('focusDR').value) || 0,
             initiative: document.getElementById('initiativeModifier').value,
             size: document.getElementById('size').value,
             speed: {
@@ -422,6 +420,11 @@
                 personality: "",
                 team: document.getElementById('team').value,
                 base: document.getElementById('base').value
+            },
+            teamManeuver: {
+                name: document.getElementById('maneuverName').value,
+                level: parseInt(document.getElementById('maneuverLevel').value) || 0,
+                cost: parseInt(document.getElementById('maneuverCost').value) || 0
             },
             notes: document.getElementById('notes').value,
             portrait: document.getElementById('portraitInput').value
@@ -472,16 +475,6 @@
         }
     }
 
-    // Save team maneuvers
-    characterData.teamManeuvers = ['offensive', 'defensive', 'rally'].reduce((acc, type) => {
-        acc[type] = {
-            selected: document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked,
-            level: document.querySelector(`input[name="${type}Level"]`).value,
-            cost: document.querySelector(`input[name="${type}Cost"]`).value
-        };
-        return acc;
-    }, {});
-
     // Create a Blob with the character data
     const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
 
@@ -510,7 +503,9 @@ function loadCharacter(event) {
                 document.getElementById('rank').value = characterData.rank || '';
                 document.getElementById('karma').value = characterData.karma || '';
                 document.getElementById('health').value = characterData.health || '';
+                document.getElementById('healthDR').value = characterData.healthDR || '';
                 document.getElementById('focus').value = characterData.focus || '';
+                document.getElementById('focusDR').value = characterData.focusDR || '';
                 document.getElementById('initiativeModifier').value = characterData.initiative || '';
                 document.getElementById('size').value = characterData.size || '';
 
@@ -582,15 +577,6 @@ function loadCharacter(event) {
                     document.getElementById('powerDescriptions3').value = characterData.powerDescriptions3;
                 }
 
-                // Load team maneuvers
-                if (characterData.teamManeuvers) {
-                    ['offensive', 'defensive', 'rally'].forEach(type => {
-                        document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked = characterData.teamManeuvers[type].selected;
-                        document.querySelector(`input[name="${type}Level"]`).value = characterData.teamManeuvers[type].level;
-                        document.querySelector(`input[name="${type}Cost"]`).value = characterData.teamManeuvers[type].cost;
-                    });
-                }
-
                 // Load character details
                 if (characterData.details) {
                     const details = characterData.details;
@@ -607,6 +593,13 @@ function loadCharacter(event) {
                         document.getElementById('origin').value = details.background.origin || '';
                         document.getElementById('occupation').value = details.background.occupation || '';
                     }
+                }
+
+                // Load character details
+                if (characterData.teamManeuver) {
+                    document.getElementById('maneuverName').value = characterData.teamManeuver.name || '';
+                    document.getElementById('maneuverLevel').value = characterData.teamManeuver.level || '';
+                    document.getElementById('maneuverCost').value = characterData.teamManeuver.cost || '';
                 }
 
                 // Load notes

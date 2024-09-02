@@ -3,7 +3,9 @@
   "rank": 3,
   "karma": 3,
   "health": 30,
+  "healthDR": 0,
   "focus": 120,
+  "focusDR": 0,
   "initiative": "+4",
   "size": "Average",
   "speed": {
@@ -201,5 +203,22 @@
     "base": ""
   },
   "notes": "",
-  "portrait": "portraits/proxy-1.jpg"
+  "portrait": "portraits/proxy-1.jpg",
+  "teamManeuvers": {
+    "offensive": {
+      "selected": false,
+      "level": "",
+      "cost": ""
+    },
+    "defensive": {
+      "selected": false,
+      "level": "",
+      "cost": ""
+    },
+    "rally": {
+      "selected": false,
+      "level": "",
+      "cost": ""
+    }
+  }
 }

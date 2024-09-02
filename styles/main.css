@@ -57,10 +57,10 @@ th {
 
 /* Tags Styles */
 #tags {
-    font-size: 0.8em;
+    font-size: 1em;
     line-height: 1.4;
     width: 100%;
-    height: 30mm;
+    height: 20mm;
     padding: 5px;
     box-sizing: border-box;
 }

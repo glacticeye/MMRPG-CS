@@ -671,30 +671,35 @@ function newCharacter() {
         };
     }
 
-    function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
-        const { d6_1, marvel, d6_2 } = rollResult;
-        const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
-        const diceTotal = d6_1 + marvelValue + d6_2;
-        const total = diceTotal + abilityScore;
-        
-        const resultElement = document.getElementById('rollResult');
-        
-        if (isAbilityCheck) {
-            resultElement.innerHTML = `<strong>${ability.charAt(0).toUpperCase() + ability.slice(1)} Check:</strong> (${d6_1} + ${marvelValue} + ${d6_2}) + ${abilityScore} = <strong>${total}</strong>`;
-        } else {
-            const damage = (marvelValue * damageMultiplier) + abilityScore;
-            resultElement.innerHTML = `<strong>${ability.charAt(0).toUpperCase() + ability.slice(1)} Check:</strong> (${d6_1} + ${marvelValue} + ${d6_2}) + ${abilityScore} = <strong>${total}</strong>. <strong>Damage:</strong> (${marvelValue} * ${damageMultiplier}) + ${abilityScore} = <strong>${damage}</strong>`;
-        }
-
-        // Check for Ultimate Fantastic
-        if (d6_1 === 6 && marvel === 1 && d6_2 === 6) {
-            document.getElementById('ultimateFantasticIndicator').style.display = 'block';
-            document.getElementById('fantasticIndicator').style.display = 'none';
-        } else {
-            document.getElementById('ultimateFantasticIndicator').style.display = 'none';
-            document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
-        }
+function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
+    const { d6_1, marvel, d6_2 } = rollResult;
+    const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
+    const diceTotal = d6_1 + marvelValue + d6_2;
+    const total = diceTotal + abilityScore;
+    
+    const resultElement = document.getElementById('rollResult');
+    
+    // Helper function to create colored spans
+    const colorSpan = (value, color) => `<span style="background-color: ${color}; color: ${color === 'white' ? 'black' : 'white'}; padding: 0 3px;">${value}</span>`;
+    
+    const diceDisplay = `${colorSpan(d6_1, 'white')} + ${colorSpan(marvel, 'red')} + ${colorSpan(d6_2, 'white')}`;
+    
+    if (isAbilityCheck) {
+        resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>`;
+    } else {
+        const damage = (marvelValue * damageMultiplier) + abilityScore;
+        resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>. Damage: (${colorSpan(marvelValue, 'red')} * ${damageMultiplier}) + ${abilityScore} = <strong>${damage}</strong>`;
     }
+
+    // Check for Ultimate Fantastic
+    if (d6_1 === 6 && marvel === 1 && d6_2 === 6) {
+        document.getElementById('ultimateFantasticIndicator').style.display = 'block';
+        document.getElementById('fantasticIndicator').style.display = 'none';
+    } else {
+        document.getElementById('ultimateFantasticIndicator').style.display = 'none';
+        document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+    }
+}
 
     function updateDiceDisplay(rollResult) {
         const { d6_1, marvel, d6_2 } = rollResult;

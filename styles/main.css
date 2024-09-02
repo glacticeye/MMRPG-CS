@@ -411,6 +411,22 @@ textarea {
 /* Mobile optimizations */
 @media screen and (max-width: 600px) {
 
+    .page {
+        width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 5mm;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .two-column {
+        flex-direction: column;
+    }
+
     .die {
         width: 40px;
         height: 40px;
@@ -426,10 +442,13 @@ textarea {
         padding: 4px;
     }
 
+    .powers-table input[type="text"] {
+        font-size: 14px;
+    }
     #rollAllButton {
         padding: 6px 12px;
         font-size: 14px;
-        margin: 3px auto;
+        margin: 5px auto;
     }
 
     .character-actions {

@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="page">
-        <div class="header">
-            <h1>Marvel Multiverse Character Sheet</h1>
+        <div class="header-title">
+            <div>Marvel Multiverse Character Sheet</div>
         </div>
 
         <table>
@@ -52,257 +52,260 @@
                 <th>Swim</th>
                 <th>Jump</th>
                 <th><input type="text" id="otherMovement" style="background-color: #f0f0f0; font-weight: bold"></td>
-                <th>Initiative Modifier</th>
-            </tr>
-            <tr>
-                <td><select id="size" name="size">
-                    <option value="Average">Average</option>
-                    <option value="Big">Big</option>
-                    <option value="Small">Small</option>
-                </select></td>
-                <td><input type="number" id="run" class="calculated"></td>
-                <td><input type="number" id="climb" class="calculated"></td>
-                <td><input type="number" id="swim" class="calculated"></td>
-                <td><input type="number" id="jump" class="calculated"></td>
-                <td><input type="number" id="other"></td>
-                <td><input type="text" id="initiativeModifier" placeholder="Vigilance" class="calculated"></td>
-            </tr>
-        </table>
+                    <th>Initiative</th>
+                </tr>
+                <tr>
+                    <td><select id="size" name="size">
+                        <option value="Average">Average</option>
+                        <option value="Big">Big</option>
+                        <option value="Small">Small</option>
+                    </select></td>
+                    <td><input type="number" id="run" class="calculated"></td>
+                    <td><input type="number" id="climb" class="calculated"></td>
+                    <td><input type="number" id="swim" class="calculated"></td>
+                    <td><input type="number" id="jump" class="calculated"></td>
+                    <td><input type="number" id="other"></td>
+                    <td><input type="text" id="initiativeModifier" placeholder="Vigilance" class="calculated"></td>
+                </tr>
+            </table>
 
-        <div class="section-title">Abilities</div>
-        <table class="abilities-table">
-            <tr><th>Ability</th><th>Score</th><th>Defense</th><th>Non-Combat</th><th></th></tr>
-            <tr>
-                <td>Melee</td>
-                <td><input type="number" id="meleeScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="meleeDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="meleeNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Agility</td>
-                <td><input type="number" id="agilityScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="agilityDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="agilityNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Resilience</td>
-                <td><input type="number" id="resilienceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="resilienceDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="resilienceNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Vigilance</td>
-                <td><input type="number" id="vigilanceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="vigilanceDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="vigilanceNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Ego</td>
-                <td><input type="number" id="egoScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="egoDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="egoNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Logic</td>
-                <td><input type="number" id="logicScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
-                <td><input type="number" id="logicDefense" placeholder="+10" class="calculated"></td>
-                <td><input type="text" id="logicNonCombat" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
-            </tr>
-        </table>
+            <div class="section-title">Abilities</div>
+            <table class="abilities-table">
+                <tr><th>Ability</th><th>Score</th><th>Defense</th><th>Non-Combat</th><th></th></tr>
+                <tr>
+                    <td>Melee</td>
+                    <td><input type="number" id="meleeScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="meleeDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="meleeNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Agility</td>
+                    <td><input type="number" id="agilityScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="agilityDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="agilityNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Resilience</td>
+                    <td><input type="number" id="resilienceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="resilienceDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="resilienceNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Vigilance</td>
+                    <td><input type="number" id="vigilanceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="vigilanceDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="vigilanceNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Ego</td>
+                    <td><input type="number" id="egoScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="egoDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="egoNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Logic</td>
+                    <td><input type="number" id="logicScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                    <td><input type="number" id="logicDefense" placeholder="+10" class="calculated"></td>
+                    <td><input type="text" id="logicNonCombat" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
+                </tr>
+            </table>
 
-        <div class="section-title">Damage</div>
-        <table class="damage-table">
-            <tr><th>Damage</th><th>Multiplier</th><th></th><th>Ability</th><th></th></tr>
-            <tr>
-                <td>Melee</td>
-                <td><input type="number" id="meleeDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                <td>+</td>
-                <td><input type="number" id="meleeDamageAbility" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-combat-check" data-ability="melee">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Agility</td>
-                <td><input type="number" id="agilityDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                <td>+</td>
-                <td><input type="number" id="agilityDamageAbility" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-combat-check" data-ability="agility">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Ego</td>
-                <td><input type="number" id="egoDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                <td>+</td>
-                <td><input type="number" id="egoDamageAbility" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-combat-check" data-ability="ego">Roll</button></td>
-            </tr>
-            <tr>
-                <td>Logic</td>
-                <td><input type="number" id="logicDamageMultiplier" placeholder="Rank" class="calculated"></td>
-                <td>+</td>
-                <td><input type="number" id="logicDamageAbility" placeholder="Score" class="calculated"></td>
-                <td><button class="roll-combat-check" data-ability="logic">Roll</button></td>
-            </tr>
-        </table>
+            <div class="section-title">Damage</div>
+            <table class="damage-table">
+                <tr><th>Damage</th><th>Multiplier</th><th></th><th>Ability</th><th></th></tr>
+                <tr>
+                    <td>Melee</td>
+                    <td><input type="number" id="meleeDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                    <td>+</td>
+                    <td><input type="number" id="meleeDamageAbility" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-combat-check" data-ability="melee">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Agility</td>
+                    <td><input type="number" id="agilityDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                    <td>+</td>
+                    <td><input type="number" id="agilityDamageAbility" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-combat-check" data-ability="agility">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Ego</td>
+                    <td><input type="number" id="egoDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                    <td>+</td>
+                    <td><input type="number" id="egoDamageAbility" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-combat-check" data-ability="ego">Roll</button></td>
+                </tr>
+                <tr>
+                    <td>Logic</td>
+                    <td><input type="number" id="logicDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                    <td>+</td>
+                    <td><input type="number" id="logicDamageAbility" placeholder="Score" class="calculated"></td>
+                    <td><button class="roll-combat-check" data-ability="logic">Roll</button></td>
+                </tr>
+            </table>
+
+            <!-- Tags Section -->
+            <div class="section-title">Tags</div>
+            <textarea id="tags" placeholder="Enter tags here"></textarea>
+
+        </div>
+
+        <div class="page">
+
+            <!-- Traits Section -->
+            <div class="section-title">Traits</div>
+            <table id="traitsTable" class="traits-table">
+                <colgroup>
+                    <col class="trait-name">
+                    <col class="trait-description">
+                </colgroup>
+                <thead>
+                    <tr><th>Trait</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                    <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page">
+
+            <!-- Powers Section -->
+            <div class="section-title">Powers</div>
+            <table id="powersTable" class="powers-table">
+                <colgroup><col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action"></colgroup>
+                <thead><tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr></thead>
+                <tbody>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                    <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
+    <!-- Power Descriptions Section -->
+    <div class="page">
+        <div class="section-title">Power Descriptions (Page 1)</div>
+        <textarea id="powerDescriptions" class ="powerDescriptions" style="height: 250mm;"></textarea>
+    </div>
 
     <div class="page">
-
-        <!-- Traits Section -->
-        <div class="section-title">Traits</div>
-        <table id="traitsTable" class="traits-table">
-            <colgroup>
-                <col class="trait-name">
-                <col class="trait-description">
-            </colgroup>
-            <thead>
-                <tr><th>Trait</th><th>Description</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
-            </tbody>
-        </table>
-
-        <!-- Tags Section -->
-        <div class="section-title">Tags</div>
-        <textarea id="tags" placeholder="Enter tags here"></textarea>
+        <div class="section-title">Power Descriptions (Page 2)</div>
+        <textarea id="powerDescriptions2" class ="powerDescriptions" style="height: 250mm;"></textarea>
     </div>
 
     <div class="page">
-
-        <!-- Powers Section -->
-        <div class="section-title">Powers</div>
-        <table id="powersTable" class="powers-table">
-            <colgroup><col class="power-name"><col class="power-set"><col class="power-cost"><col class="power-duration"><col class="power-action"></colgroup>
-            <thead><tr><th>Power</th><th>Set</th><th>Cost</th><th>Duration</th><th>Action</th></tr></thead>
-            <tbody>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
-            </tbody>
-        </table>
+        <div class="section-title">Power Descriptions (Page 3) </div>
+        <textarea id="powerDescriptions3" class ="powerDescriptions" style="height: 250mm;"></textarea>
     </div>
-</div>
-<div class="page">
 
     <!-- Team Maneuver Section -->
-    <div class="section-title">Team Maneuver</div>
-    <table>
-        <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
-        <tr><td>Offensive</td><td><input type="checkbox" name="teamManeuver" value="offensive"></td><td><input type="number" name="offensiveLevel"></td><td><input type="number" name="offensiveCost"></td></tr>
-        <tr><td>Defensive</td><td><input type="checkbox" name="teamManeuver" value="defensive"></td><td><input type="number" name="defensiveLevel"></td><td><input type="number" name="defensiveCost"></td></tr>
-        <tr><td>Rally</td><td><input type="checkbox" name="teamManeuver" value="rally"></td><td><input type="number" name="rallyLevel"></td><td><input type="number" name="rallyCost"></td></tr>
-    </table>
+    <div class="page">
+        <div class="section-title">Team Maneuver</div>
+        <table>
+            <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
+            <tr><td>Offensive</td><td><input type="checkbox" name="teamManeuver" value="offensive"></td><td><input type="number" name="offensiveLevel"></td><td><input type="number" name="offensiveCost"></td></tr>
+            <tr><td>Defensive</td><td><input type="checkbox" name="teamManeuver" value="defensive"></td><td><input type="number" name="defensiveLevel"></td><td><input type="number" name="defensiveCost"></td></tr>
+            <tr><td>Rally</td><td><input type="checkbox" name="teamManeuver" value="rally"></td><td><input type="number" name="rallyLevel"></td><td><input type="number" name="rallyCost"></td></tr>
+        </table>
 
-    <!-- Character Details Section -->
-    <div class="section-title">Character Details</div>
-    <table class="character-details-table">
-        <tr>
-            <th>Real Name</th>
-            <td><input type="text" id="realName" name="realName"></td>
-            <th>Height</th>
-            <td><input type="text" id="height" name="height"></td>
-        </tr>
-        <tr>
-            <th>Weight</th>
-            <td><input type="text" id="weight" name="weight"></td>
-            <th>Gender</th>
-            <td><input type="text" id="gender" name="gender"></td>
-        </tr>
-        <tr>
-            <th>Eyes</th>
-            <td><input type="text" id="eyes" name="eyes"></td>
-            <th>Hair</th>
-            <td><input type="text" id="hair" name="hair"></td>
-        </tr>
-        <tr>
-            <th>Origin</th>
-            <td><input type="text" id="origin" name="origin"></td>
-        </tr>
-        <tr>
-            <th>Distinguishing Features</th>
-            <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
-        </tr>
-        <tr>
-            <th>Team</th>
-            <td><input type="text" id="team" name="team"></td>
-            <th>Base</th>
-            <td><input type="text" id="base" name="base"></td>
-        </tr>
-        <tr>
-            <th>Occupation</th>
-            <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
-        </tr>
-    </table>
-</div>
+        <!-- Character Details Section -->
+        <div class="section-title">Character Details</div>
+        <table class="character-details-table">
+            <tr>
+                <th>Real Name</th>
+                <td><input type="text" id="realName" name="realName"></td>
+                <th>Height</th>
+                <td><input type="text" id="height" name="height"></td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td><input type="text" id="weight" name="weight"></td>
+                <th>Gender</th>
+                <td><input type="text" id="gender" name="gender"></td>
+            </tr>
+            <tr>
+                <th>Eyes</th>
+                <td><input type="text" id="eyes" name="eyes"></td>
+                <th>Hair</th>
+                <td><input type="text" id="hair" name="hair"></td>
+            </tr>
+            <tr>
+                <th>Origin</th>
+                <td><input type="text" id="origin" name="origin"></td>
+            </tr>
+            <tr>
+                <th>Distinguishing Features</th>
+                <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
+            </tr>
+            <tr>
+                <th>Team</th>
+                <td><input type="text" id="team" name="team"></td>
+                <th>Base</th>
+                <td><input type="text" id="base" name="base"></td>
+            </tr>
+            <tr>
+                <th>Occupation</th>
+                <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
+            </tr>
+        </table>
 
-<!-- Power Descriptions Section -->
-<div class="page">
-    <div class="section-title">Power Descriptions (Page 1)</div>
-    <textarea id="powerDescriptions" class ="powerDescriptions" style="height: 250mm;"></textarea>
-</div>
-
-<div class="page">
-    <div class="section-title">Power Descriptions (Page 2)</div>
-    <textarea id="powerDescriptions2" class ="powerDescriptions" style="height: 250mm;"></textarea>
-</div>
-
-<div class="page">
-    <div class="section-title">Power Descriptions (Page 3) </div>
-    <textarea id="powerDescriptions3" class ="powerDescriptions" style="height: 250mm;"></textarea>
-</div>
+        <!-- Notes Section -->
+        <div class="section-title">Notes</div>
+        <textarea id="notes" style="height: 100mm;"></textarea>
+    </div>
 
 
-<!-- Portrait Section -->
-<div class="page">
-  <div class="section-title">Portrait</div>
-  <div class="portrait-container">
-      <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
-      <div id="portraitDisplay" style="height: 180mm;"> </div>
+    <!-- Portrait Section -->
+    <div class="page">
+      <div class="section-title">Portrait</div>
+      <div class="portrait-container">
+          <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
+          <div id="portraitDisplay" style="height: 180mm;"> </div>
+      </div>
   </div>
-</div>
 
-<!-- Notes Section -->
-<div class="page">
-    <div class="section-title">Notes</div>
-    <textarea id="notes" style="height: 60mm;"></textarea>
-</div>
+  <!-- Dice Roller Section -->
 
-<!-- Extra Page -->
-<div class="page"></div>
-
-<!-- Dice Roller Section -->
-
-<div class="dice-roller">
+  <div class="dice-roller">
     <div id="diceContainer" class="dice-container">
         <div class="die-group">
             <div class="die-pair">
@@ -607,7 +610,7 @@ function loadCharacter(event) {
                 }
 
                 // Load notes
-                document.querySelector('textarea[style="height: 60mm;"]').value = characterData.notes || '';
+                document.getElementById('notes').value = characterData.notes || '';
 
                 // Load portrait
                 if (characterData.portrait) {

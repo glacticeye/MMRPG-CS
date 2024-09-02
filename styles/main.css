@@ -55,6 +55,16 @@ th {
     font-weight: bold;
 }
 
+/* Tags Styles */
+#tags {
+    font-size: 0.8em;
+    line-height: 1.4;
+    width: 100%;
+    height: 30mm;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
 /* Traits Table Styles */
 .traits-table .trait-name { width: 25%; }
 .traits-table .trait-description { width: 75%; }
@@ -132,6 +142,16 @@ textarea {
 }
 
 /* Section Styles */
+.header-title {
+    background-color: #e23636;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
 .section-title {
     background-color: #518cca;
     color: white;
@@ -139,6 +159,7 @@ textarea {
     margin-top: 20px;
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 16px;
 }
 
 /* Calculated Field Styles */

@@ -1,0 +1,1588 @@
+<!-- Character Sheet Load and Save Scripts -->
+    <script>
+        // Wait for the DOM to be fully loaded before executing the script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get references to the buttons and file input
+            const saveButton = document.getElementById('saveCharacter');
+            const loadButton = document.getElementById('loadCharacter');
+            const newButton = document.getElementById('newCharacter');
+            const fileInput = document.getElementById('fileInput');
+
+            // Add event listeners to the buttons
+            saveButton.addEventListener('click', saveCharacter);
+            loadButton.addEventListener('click', () => fileInput.click()); // Trigger file input when load button is clicked
+            newButton.addEventListener('click', newCharacter);
+            fileInput.addEventListener('change', loadCharacter);
+
+            // Function to save the character data
+            function saveCharacter() {
+                const characterData = {
+                    name: document.getElementById('characterName').value,
+                    rank: parseInt(document.getElementById('rank').value) || 1,
+                    karma: parseInt(document.getElementById('karma').value) || 0,
+                    health: parseInt(document.getElementById('health').value) || 0,
+                    focus: parseInt(document.getElementById('focus').value) || 0,
+                    initiative: document.getElementById('initiativeModifier').value,
+                    size: document.getElementById('size').value,
+                    speed: {
+                        run: parseInt(document.getElementById('run').value) || 0,
+                        climb: parseInt(document.getElementById('climb').value) || 0,
+                        swim: parseInt(document.getElementById('swim').value) || 0,
+                        jump: parseInt(document.getElementById('jump').value) || 0
+                    },
+                    abilities: {},
+                    damage: {},
+                    traits: [],
+                    tags: document.getElementById('tags').value.split(',').map(tag => tag.trim()),
+                    powers: [],
+                    powerDescriptions: document.getElementById('powerDescriptions').value,
+                    powerDescriptions2: document.getElementById('powerDescriptions2').value,
+                    powerDescriptions3: document.getElementById('powerDescriptions3').value,
+                    details: {
+                        realName: document.getElementById('realName').value,
+                        height: document.getElementById('height').value,
+                        weight: document.getElementById('weight').value,
+                        gender: document.getElementById('gender').value,
+                        eyes: document.getElementById('eyes').value,
+                        hair: document.getElementById('hair').value,
+                        distinguishingFeatures: document.getElementById('distinguishingFeatures').value,
+                        background: {
+                            origin: document.getElementById('origin').value,
+                            occupation: document.getElementById('occupation').value
+                        },
+                        personality: "",
+                        team: document.getElementById('team').value,
+                        base: document.getElementById('base').value
+                    },
+                    notes: document.getElementById('notes').value,
+                    portrait: document.getElementById('portraitInput').value
+                };
+
+                // Save abilities
+                ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(ability => {
+                    characterData.abilities[ability] = {
+                        score: parseInt(document.getElementById(`${ability}Score`).value) || 0,
+                        defense: parseInt(document.getElementById(`${ability}Defense`).value) || 0,
+                        nonCombat: document.getElementById(`${ability}NonCombat`).value
+                    };
+                });
+
+                // Save damage
+                ['melee', 'agility', 'ego', 'logic'].forEach(damageType => {
+                    characterData.damage[damageType] = {
+                        multiplier: parseInt(document.getElementById(`${damageType}DamageMultiplier`).value) || 0,
+                        ability: parseInt(document.getElementById(`${damageType}DamageAbility`).value) || 0
+                    };
+                });
+
+                // Save traits
+                characterData.traits = [];
+                const traitRows = document.getElementById('traitsTable').getElementsByTagName('tr');
+                for (let i = 1; i < traitRows.length; i++) { // Start at 1 to skip header
+                    const inputs = traitRows[i].getElementsByTagName('input');
+                    if (inputs[0].value) {
+                        characterData.traits.push({
+                            name: inputs[0].value,
+                            description: inputs[1].value
+                        });
+                    }
+                }
+
+                // Save powers
+                const powerRows = document.getElementById('powersTable').getElementsByTagName('tr');
+                for (let i = 1; i < powerRows.length; i++) { // Start at 1 to skip header
+                    const inputs = powerRows[i].getElementsByTagName('input');
+                    if (inputs[0].value) {
+                        characterData.powers.push({
+                            name: inputs[0].value,
+                            set: inputs[1].value,
+                            cost: inputs[2].value,
+                            duration: inputs[3].value,
+                            action: inputs[4].value
+                        });
+                    }
+                }
+
+                // Save team maneuvers
+                characterData.teamManeuvers = ['offensive', 'defensive', 'rally'].reduce((acc, type) => {
+                    acc[type] = {
+                        selected: document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked,
+                        level: document.querySelector(`input[name="${type}Level"]`).value,
+                        cost: document.querySelector(`input[name="${type}Cost"]`).value
+                    };
+                    return acc;
+                }, {});
+
+                // Create a Blob with the character data
+                const blob = new Blob([JSON.stringify(characterData, null, 2)], {type: 'application/json'});
+
+                // Create a download link
+                const downloadLink = document.createElement('a');
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = `${characterData.name || 'character'}.json`;
+
+                // Append the link to the body, click it, and remove it
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+
+                alert('Character file ready for download!');
+            }
+
+            function loadCharacter(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const characterData = JSON.parse(e.target.result);
+                            
+                            // Load basic character information
+                            document.getElementById('characterName').value = characterData.name || '';
+                            document.getElementById('rank').value = characterData.rank || '';
+                            document.getElementById('karma').value = characterData.karma || '';
+                            document.getElementById('health').value = characterData.health || '';
+                            document.getElementById('focus').value = characterData.focus || '';
+                            document.getElementById('initiativeModifier').value = characterData.initiative || '';
+                            document.getElementById('size').value = characterData.size || '';
+
+                            // Load speed
+                            if (characterData.speed) {
+                                document.getElementById('run').value = characterData.speed.run || '';
+                                document.getElementById('climb').value = characterData.speed.climb || '';
+                                document.getElementById('swim').value = characterData.speed.swim || '';
+                                document.getElementById('jump').value = characterData.speed.jump || '';
+                            }
+
+                            // Load abilities
+                            if (characterData.abilities) {
+                                Object.entries(characterData.abilities).forEach(([ability, data]) => {
+                                    document.getElementById(`${ability}Score`).value = data.score || '';
+                                    document.getElementById(`${ability}Defense`).value = data.defense || '';
+                                    document.getElementById(`${ability}NonCombat`).value = data.nonCombat || '';
+                                });
+                            }
+
+                            // Load damage
+                            if (characterData.damage) {
+                                Object.entries(characterData.damage).forEach(([damageType, data]) => {
+                                    document.getElementById(`${damageType}DamageMultiplier`).value = data.multiplier || '';
+                                    document.getElementById(`${damageType}DamageAbility`).value = data.ability || '';
+                                });
+                            }
+
+                            // Load traits
+                            if (characterData.traits) {
+                                const traitRows = document.getElementById('traitsTable').getElementsByTagName('tr');
+                                characterData.traits.forEach((trait, index) => {
+                                    if (traitRows[index + 1]) { // +1 to skip the header row
+                                        const inputs = traitRows[index + 1].getElementsByTagName('input');
+                                        inputs[0].value = trait.name || '';
+                                        inputs[1].value = trait.description || '';
+                                    }
+                                });
+                            }
+
+                            // Load tags
+                            if (characterData.tags) {
+                                document.getElementById('tags').value = characterData.tags.join(', ');
+                            }
+
+                            // Load powers
+                            if (characterData.powers) {
+                                const powerRows = document.querySelectorAll('.powers-table tbody tr');
+                                characterData.powers.forEach((power, index) => {
+                                    if (powerRows[index]) {
+                                        const inputs = powerRows[index].querySelectorAll('input');
+                                        inputs[0].value = power.name || '';
+                                        inputs[1].value = power.set || '';
+                                        inputs[2].value = power.cost || '';
+                                        inputs[3].value = power.duration || '';
+                                        inputs[4].value = power.action || '';
+                                    }
+                                });
+                            }
+
+                            // Load power descriptions
+                            if (characterData.powerDescriptions) {
+                                document.getElementById('powerDescriptions').value = characterData.powerDescriptions;
+                            }
+                            if (characterData.powerDescriptions2) {
+                                document.getElementById('powerDescriptions2').value = characterData.powerDescriptions2;
+                            }
+                            if (characterData.powerDescriptions3) {
+                                document.getElementById('powerDescriptions3').value = characterData.powerDescriptions3;
+                            }
+
+                            // Load team maneuvers
+                            if (characterData.teamManeuvers) {
+                                ['offensive', 'defensive', 'rally'].forEach(type => {
+                                    document.querySelector(`input[name="teamManeuver"][value="${type}"]`).checked = characterData.teamManeuvers[type].selected;
+                                    document.querySelector(`input[name="${type}Level"]`).value = characterData.teamManeuvers[type].level;
+                                    document.querySelector(`input[name="${type}Cost"]`).value = characterData.teamManeuvers[type].cost;
+                                });
+                            }
+
+                            // Load character details
+                            if (characterData.details) {
+                                const details = characterData.details;
+                                document.getElementById('realName').value = details.realName || '';
+                                document.getElementById('height').value = details.height || '';
+                                document.getElementById('weight').value = details.weight || '';
+                                document.getElementById('gender').value = details.gender || '';
+                                document.getElementById('eyes').value = details.eyes || '';
+                                document.getElementById('hair').value = details.hair || '';
+                                document.getElementById('distinguishingFeatures').value = details.distinguishingFeatures || '';
+                                document.getElementById('team').value = details.team || '';
+                                document.getElementById('base').value = details.base || '';
+                                if (details.background) {
+                                    document.getElementById('origin').value = details.background.origin || '';
+                                    document.getElementById('occupation').value = details.background.occupation || '';
+                                }
+                            }
+
+                            // Load notes
+                            document.getElementById('notes').value = characterData.notes || '';
+
+                            // Load portrait
+                            if (characterData.portrait) {
+                                document.getElementById('portraitInput').value = characterData.portrait;
+                                loadPortrait(); // Call this function directly
+                            }
+
+                            // Update calculated fields
+                            updateCalculatedFields();
+
+                            console.log('Character loaded successfully:', characterData);
+                        } catch (error) {
+                            console.error('Error loading character:', error);
+                            alert('Error loading character file. Please make sure it\'s a valid JSON file.');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            }
+
+            // Function to create a new character (reset all fields)
+            function newCharacter() {
+                if (confirm('Are you sure you want to create a new character? This will erase the current character.')) {
+                    document.querySelectorAll('input, textarea').forEach(input => {
+                        input.value = '';
+                    });
+
+                    // Reset fields
+                    document.getElementById('portraitInput').value = '';
+                    document.getElementById('portraitDisplay').innerHTML = '';
+                    updateCalculatedFields();
+                }
+            }
+        });
+    </script>
+
+    <!-- Dice Roller Script -->
+    <script>
+        let lastRollResult = null;
+        let lastRollType = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            function handleManualEdit(event) {
+                const field = event.target;
+                if (field.classList.contains('calculated')) {
+                    field.classList.add('manually-edited');
+                }
+            }
+
+            function handleRoll(event) {
+                const ability = event.target.dataset.ability;
+                const isAbilityCheck = event.target.classList.contains('roll-ability-check');
+                const rollResult = rollDice();
+                const abilityScore = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                const damageMultiplier = isAbilityCheck ? 1 : (parseInt(document.getElementById(`${ability}DamageMultiplier`).value) || 1);
+
+                lastRollResult = { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability };
+                lastRollType = isAbilityCheck ? 'ability' : 'combat';
+
+                displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+                updateDiceDisplay(rollResult);
+            }
+
+            document.querySelectorAll('.roll-ability-check, .roll-combat-check').forEach(button => {
+                button.addEventListener('click', handleRoll);
+            });
+
+            const rollAllButton = document.getElementById('rollAllButton');
+            if (rollAllButton) {
+                rollAllButton.addEventListener('click', rollAllDice);
+            }
+        });
+
+        // Global functions
+        function rollDice() {
+            return {
+                d6_1: Math.floor(Math.random() * 6) + 1,
+                marvel: Math.floor(Math.random() * 6) + 1,
+                d6_2: Math.floor(Math.random() * 6) + 1
+            };
+        }
+
+        function displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability) {
+            const { d6_1, marvel, d6_2 } = rollResult;
+            const marvelValue = marvel === 1 ? 6 : marvel; // Treat 1 as 6 on the Marvel die
+            const diceTotal = d6_1 + marvelValue + d6_2;
+            const total = diceTotal + abilityScore;
+            
+            const resultElement = document.getElementById('rollResult');
+            
+            // Helper function to create colored spans
+            const colorSpan = (value, color) => `<span style="background-color: ${color}; color: ${color === 'white' ? 'black' : 'white'}; padding: 0 3px;">${value}</span>`;
+            
+            const diceDisplay = `${colorSpan(d6_1, 'white')} + ${colorSpan(marvel, 'red')} + ${colorSpan(d6_2, 'white')}`;
+            
+            if (isAbilityCheck) {
+                resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>`;
+            } else {
+                const damage = (marvelValue * damageMultiplier) + abilityScore;
+                resultElement.innerHTML = `${ability.charAt(0).toUpperCase() + ability.slice(1)} Check: (${diceDisplay}) + ${abilityScore} = <strong>${total}</strong>. Damage: (${colorSpan(marvelValue, 'red')} * ${damageMultiplier}) + ${abilityScore} = <strong>${damage}</strong>`;
+            }
+
+            // Check for Ultimate Fantastic
+            if (d6_1 === 6 && marvel === 1 && d6_2 === 6) {
+                document.getElementById('ultimateFantasticIndicator').style.display = 'block';
+                document.getElementById('fantasticIndicator').style.display = 'none';
+            } else {
+                document.getElementById('ultimateFantasticIndicator').style.display = 'none';
+                document.getElementById('fantasticIndicator').style.display = marvel === 1 ? 'block' : 'none';
+            }
+        }
+
+        function updateDiceDisplay(rollResult) {
+            const { d6_1, marvel, d6_2 } = rollResult;
+            animateDice('die1', d6_1);
+            animateDice('die2', marvel);
+            animateDice('die3', d6_2);
+
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`rerollIndicator${i}`).textContent = '';
+                document.getElementById(`die${i}reroll`).style.visibility = 'hidden';
+            }
+        }
+
+        function animateDice(dieId, value) {
+            const die = document.getElementById(dieId);
+            die.classList.add('rolling');
+            setTimeout(() => {
+                die.textContent = value;
+                die.classList.remove('rolling');
+            }, 500);
+        }
+
+        function rollAllDice() {
+            const rollResult = rollDice();
+            lastRollResult = { rollResult, abilityScore: 0, damageMultiplier: 1, isAbilityCheck: true, ability: '' };
+            lastRollType = 'ability';
+            displayResult(rollResult, 0, 1, true, '');
+            updateDiceDisplay(rollResult);
+        }
+
+        function rollEdge(dieNumber) {
+            if (!lastRollResult) return;
+
+            const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+            const newRoll = Math.floor(Math.random() * 6) + 1;
+            const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
+
+            const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+            animateDice(`die${dieNumber}reroll`, newRoll);
+            rerollDie.style.visibility = 'visible';
+
+            const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+            indicator.textContent = 'Edge';
+            indicator.className = 'reroll-indicator edge-indicator';
+
+            if (dieKey === 'marvel') {
+                // For Marvel die, 1 is treated as 6 for comparison
+                const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+                const newValue = newRoll === 1 ? 6 : newRoll;
+                if (newValue >= currentValue) {
+                    rollResult[dieKey] = newRoll;
+                }
+            } else {
+                if (newRoll > rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
+            }
+
+            displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+        }
+
+        function rollTrouble(dieNumber) {
+            if (!lastRollResult) return;
+
+            const { rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability } = lastRollResult;
+            const newRoll = Math.floor(Math.random() * 6) + 1;
+            const dieKey = dieNumber === 2 ? 'marvel' : (dieNumber === 1 ? 'd6_1' : 'd6_2');
+
+            const rerollDie = document.getElementById(`die${dieNumber}reroll`);
+            animateDice(`die${dieNumber}reroll`, newRoll);
+            rerollDie.style.visibility = 'visible';
+
+            const indicator = document.getElementById(`rerollIndicator${dieNumber}`);
+            indicator.textContent = 'Trouble';
+            indicator.className = 'reroll-indicator trouble-indicator';
+
+            if (dieKey === 'marvel') {
+                // For Marvel die, 1 is treated as 6 for comparison
+                const currentValue = rollResult[dieKey] === 1 ? 6 : rollResult[dieKey];
+                const newValue = newRoll === 1 ? 6 : newRoll;
+                if (newValue < currentValue) {
+                    rollResult[dieKey] = newRoll;
+                }
+            } else {
+                if (newRoll < rollResult[dieKey]) {
+                    rollResult[dieKey] = newRoll;
+                }
+            }
+
+            displayResult(rollResult, abilityScore, damageMultiplier, isAbilityCheck, ability);
+        }
+
+        // Make sure these functions are accessible globally
+        window.rollEdge = rollEdge;
+        window.rollTrouble = rollTrouble;
+    </script>
+
+    <!-- Character Sheet Calculations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rank = document.getElementById('rank');
+            const size = document.getElementById('size');
+            const abilityScores = ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].map(ability => document.getElementById(`${ability}Score`));
+
+            // Define updateCalculatedFields at the top
+            function updateCalculatedFields() {
+                ['melee', 'agility', 'resilience', 'vigilance', 'ego', 'logic'].forEach(calculateAbilityFields);
+                calculateKarma();
+                calculateHealth();
+                calculateFocus();
+                calculateMovementSpeeds();
+                calculateInitiativeModifier();
+                calculateDamage();
+            }
+
+            // Make updateCalculatedFields globally accessible
+            window.updateCalculatedFields = updateCalculatedFields;
+
+            function handleManualEdit(event) {
+                const field = event.target;
+                if (field.classList.contains('calculated')) {
+                    field.classList.add('manually-edited');
+                }
+            }
+
+            function updateField(id, value) {
+                const field = document.getElementById(id);
+                if (field && !field.classList.contains('manually-edited')) {
+                    field.value = value;
+                }
+            }
+
+            function calculateKarma() {
+                updateField('karma', rank.value);
+            }
+
+            function calculateAbilityFields(ability) {
+                const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                updateField(`${ability}Defense`, score + 10);
+                const nonCombatValue = score > 0 ? `+${score}` : score.toString();
+                updateField(`${ability}NonCombat`, nonCombatValue);
+            }
+
+            function calculateHealth() {
+                const resilience = parseInt(document.getElementById('resilienceScore').value) || 0;
+                updateField('health', resilience < 1 ? 10 : resilience * 30);
+            }
+
+            function calculateFocus() {
+                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+                updateField('focus', vigilance < 1 ? 10 : vigilance * 30);
+            }
+
+            function calculateMovementSpeeds() {
+                const agility = parseInt(document.getElementById('agilityScore').value) || 0;
+                const sizeValue = size.value;
+                let sizeModifier = 0;
+                if (sizeValue === 'Big') sizeModifier = 1;
+                if (sizeValue === 'Small') sizeModifier = -1;
+
+                const baseSpeed = 5 + Math.floor(agility / 5) + sizeModifier;
+                updateField('run', baseSpeed);
+                updateField('climb', Math.max(1, Math.floor(baseSpeed / 2)));
+                updateField('swim', Math.max(1, Math.floor(baseSpeed / 2)));
+                updateField('jump', Math.max(1, Math.floor(baseSpeed / 2)));
+            }
+
+            function calculateInitiativeModifier() {
+                const vigilance = parseInt(document.getElementById('vigilanceScore').value) || 0;
+                const modifierValue = vigilance >= 0 ? `+${vigilance}` : vigilance.toString();
+                updateField('initiativeModifier', modifierValue);
+            }
+
+            function calculateDamage() {
+                const rankValue = parseInt(rank.value) || 1;
+                ['melee', 'agility', 'ego', 'logic'].forEach(ability => {
+                    const score = parseInt(document.getElementById(`${ability}Score`).value) || 0;
+                    updateField(`${ability}DamageMultiplier`, rankValue);
+                    updateField(`${ability}DamageAbility`, score);
+                });
+            }
+
+            rank.addEventListener('input', () => {
+                calculateKarma();
+                calculateDamage();
+                updateCalculatedFields();
+            });
+
+            size.addEventListener('change', () => {
+                calculateMovementSpeeds();
+                updateCalculatedFields();
+            });
+
+            abilityScores.forEach(abilityScore => {
+                abilityScore.addEventListener('input', () => {
+                    const ability = abilityScore.id.replace('Score', '');
+                    calculateAbilityFields(ability);
+                    if (ability === 'resilience') calculateHealth();
+                    if (ability === 'vigilance') {
+                        calculateFocus();
+                        calculateInitiativeModifier();
+                    }
+                    if (ability === 'agility') calculateMovementSpeeds();
+                    calculateDamage();
+                });
+            });
+
+            document.querySelectorAll('.calculated').forEach(field => {
+                field.addEventListener('input', handleManualEdit);
+            });
+
+            // Initial calculations
+            updateCalculatedFields();
+        });
+    </script>
+
+    <!-- Character Sheet Portrait -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const portraitInput = document.getElementById('portraitInput');
+            const portraitDisplay = document.getElementById('portraitDisplay');
+
+            portraitInput.addEventListener('input', debounce(loadPortrait, 300));
+
+            function loadPortrait() {
+                const input = portraitInput.value.trim();
+                if (!input) {
+                    portraitDisplay.innerHTML = '';
+                    return;
+                }
+
+                let imageSrc;
+                if (input.startsWith('http://') || input.startsWith('https://')) {
+                    // It's a URL
+                    imageSrc = input;
+                } else {
+                    // It's a filename, assume it's in the 'portrait' directory
+                    imageSrc = `${input}`;
+                }
+
+                // Create and set up the image
+                const img = document.createElement('img');
+                img.onload = function() {
+                    // Clear previous content and append the new image
+                    portraitDisplay.innerHTML = '';
+                    portraitDisplay.appendChild(img);
+                };
+                img.onerror = function() {
+                    portraitDisplay.innerHTML = 'Failed to load image. Please check the URL or filename.';
+                };
+                img.src = imageSrc;
+                img.alt = 'Character Portrait';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+            }
+
+            // Debounce function to limit how often loadPortrait is called
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            window.loadPortrait = loadPortrait;
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Multiverse RPG Character Sheet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        
+        @page { size: A4; margin: 0; }
+        
+        :root {
+            --marvel-red: #e23636;
+            --marvel-blue: #518cca;
+            --marvel-dark-blue: #1d4e89;
+            --marvel-yellow: #ffd700;
+            --title-font: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyIiBmaWxsPSIjZTIzNjM2IiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==');
+            color: #333;
+        }
+        
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            box-sizing: border-box;
+            background-color: white;
+            margin: 20px auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--marvel-red), #a12626);
+            color: white;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmwtMi4yNSA2LjlIMi45NWw1LjQgMy45TDYuMSAyMDhsMTcgMTIuNSA1Ljc1LTQuMTUtMS44LS41NS41LTcuOEgyMi42TDE4IDEyeiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=');
+            background-size: 48px;
+            opacity: 0.1;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-family: var(--title-font);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .section-title {
+            background: linear-gradient(to right, var(--marvel-blue), var(--marvel-dark-blue));
+            color: white;
+            padding: 8px 15px;
+            font-family: var(--title-font);
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            font-family: var(--title-font);
+            font-size: 14px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        /* Form elements styling */
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: calc(100% - 14px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--marvel-blue);
+            box-shadow: 0 0 0 3px rgba(81, 140, 202, 0.2);
+            outline: none;
+        }
+        
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+            font-size: 14px;
+            height: 36px;
+            width: 100%;
+            min-width: 100px;
+            display: inline-block;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        #size {
+            width: 100%;
+            min-width: 120px;
+            font-size: 14px;
+        }
+        
+        .calculated {
+            background-color: #f0f8ff;
+            border: 1px solid #b8d4e8;
+        }
+        
+        .manually-edited {
+            background-color: #fff9c4;
+            font-weight: bold;
+        }
+        
+        /* Two-column layout */
+        .two-column {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .two-column > div {
+            flex: 1;
+        }
+        
+        /* Abilities table styling */
+        .abilities-table, .damage-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .abilities-table th, .damage-table th {
+            background: linear-gradient(to bottom, #f8f8f8, #eeeeee);
+            font-family: var(--title-font);
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        .abilities-table tr:hover, .damage-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .roll-ability-check, .roll-combat-check {
+            background-color: var(--marvel-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .roll-ability-check:hover, .roll-combat-check:hover {
+            background-color: var(--marvel-dark-blue);
+        }
+        
+        /* Traits table styling */
+        .traits-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .traits-table .trait-name {
+            width: 25%;
+        }
+        
+        .traits-table .trait-description {
+            width: 75%;
+        }
+        
+        /* Powers table styling */
+        .powers-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .powers-table .power-name {
+            width: 35%;
+        }
+        
+        .powers-table .power-set {
+            width: 22%;
+        }
+        
+        .powers-table .power-cost {
+            width: 8%;
+        }
+        
+        .powers-table .power-duration {
+            width: 20%;
+        }
+        
+        .powers-table .power-action {
+            width: 15%;
+        }
+        
+        .powers-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        /* Dice roller styling */
+        .dice-roller {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+            padding: 10px 15px;  /* Reduced padding from 15px to 10px top/bottom */
+            text-align: center;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            border-top: 2px solid var(--marvel-red);
+        }
+        
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;  /* Reduced margin from 15px to 10px */
+            gap: 10px;  /* Added gap property to reduce spacing between dice */
+        }
+        
+        .die-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .die-pair {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 10px;
+        }
+        
+        .die-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 5px;
+        }
+        
+        .die {
+            width: 50px;  /* Reduced from 60px */
+            height: 50px;  /* Reduced from 60px */
+            border: 2px solid black;
+            border-radius: 8px;  /* Slightly reduced from 10px */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;  /* Reduced from 24px */
+            font-weight: bold;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);  /* Reduced shadow */
+            margin-bottom: 3px;  /* Reduced from 5px */
+            transition: transform 0.2s;
+        }
+        
+        .die-white {
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            color: black;
+        }
+        
+        .die-red {
+            background: linear-gradient(135deg, var(--marvel-red), #b71c1c);
+            color: white;
+        }
+        
+        .die.rolling {
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        
+        .edge-trouble-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .edge-button, .trouble-button {
+            padding: 4px 8px;  /* Reduced from 5px 10px */
+            font-size: 11px;  /* Reduced from 12px */
+            color: white;
+            border: none;
+            border-radius: 3px;  /* Reduced from 4px */
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .edge-button {
+            background-color: #4CAF50;
+        }
+        
+        .edge-button:hover {
+            background-color: #388E3C;
+        }
+        
+        .trouble-button {
+            background-color: #f44336;
+        }
+        
+        .trouble-button:hover {
+            background-color: #D32F2F;
+        }
+        
+        #rollAllButton {
+            display: block;
+            margin: 10px auto;  /* Reduced from 15px */
+            padding: 8px 20px;  /* Reduced from 10px 25px */
+            font-size: 15px;  /* Reduced from 16px */
+            background: linear-gradient(to bottom, var(--marvel-blue), var(--marvel-dark-blue));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: bold;
+        }
+        
+        #rollAllButton:hover {
+            background: linear-gradient(to bottom, #4579b5, #1a447a);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 7px rgba(0,0,0,0.25);
+        }
+        
+        #rollAllButton:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        #rollResult {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 27px;
+        }
+        
+        .reroll-indicator {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2px;
+            height: 15px;
+        }
+        
+        .edge-indicator {
+            color: #4CAF50;
+        }
+        
+        .trouble-indicator {
+            color: #f44336;
+        }
+        
+        .fantastic-indicator, .ultimate-fantastic-indicator {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            display: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .fantastic-indicator {
+            background: linear-gradient(to bottom, var(--marvel-yellow), #ffa000);
+        }
+        
+        .ultimate-fantastic-indicator {
+            background: linear-gradient(to bottom, #9c27b0, #6a1b9a);
+            color: white;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        /* Character Actions Styles */
+        .character-actions {
+            margin: 20px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .character-actions button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            font-size: 14px;
+            background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .character-actions button:hover {
+            background: linear-gradient(to bottom, #e8e8e8, #d8d8d8);
+            border-color: #aaa;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        
+        .character-actions button:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* Portrait styles */
+        #portraitDisplay {
+            width: 100%;
+            max-height: 180mm;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .powerDescriptions {
+            font-size: 0.8em;
+            line-height: 1.4;
+            width: 100%;
+            height: 250mm;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        
+        /* Print Styles */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            body {
+                background-color: white;
+            }
+            
+            .page {
+                width: 210mm;
+                height: 297mm;
+                padding: 10mm;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+            
+            table {
+                page-break-inside: avoid;
+            }
+            
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            
+            .dice-roller {
+                display: none;
+            }
+            
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        /* Mobile optimizations */
+        @media screen and (max-width: 600px) {
+            .page {
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding: 10px;
+                border-radius: 0;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+            }
+            
+            .two-column {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .die {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .dice-container {
+                gap: 10px;
+            }
+            
+            .character-actions button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Core Info -->
+    <div class="page">
+        <div class="header">
+            <h1>Marvel Multiverse Character Sheet</h1>
+        </div>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Rank</th>
+                <th>Karma</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="characterName" placeholder="Codename"></td>
+                <td><input type="number" id="rank" placeholder="1 to 6" min="1" max="6" value=""></td>
+                <td><input type="number" id="karma" placeholder="Rank" class="calculated"></td>
+            </tr>
+        </table>
+
+        <div class="two-column">
+            <div>
+                <table>
+                    <tr>
+                        <th>Health</th>
+                        <td><input type="number" id="health" placeholder="Resilience * 30" class="calculated"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Focus</th>
+                        <td><input type="number" id="focus" placeholder="Vigilance * 30" class="calculated"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Size</th>
+                <th>Run</th>
+                <th>Climb</th>
+                <th>Swim</th>
+                <th>Jump</th>
+                <th><input type="text" id="otherMovement" style="background-color: #f0f0f0; font-weight: bold"></td>
+                <th>Initiative Modifier</th>
+            </tr>
+            <tr>
+                <td><select id="size" name="size">
+                    <option value="Average">Average</option>
+                    <option value="Big">Big</option>
+                    <option value="Small">Small</option>
+                </select></td>
+                <td><input type="number" id="run" class="calculated"></td>
+                <td><input type="number" id="climb" class="calculated"></td>
+                <td><input type="number" id="swim" class="calculated"></td>
+                <td><input type="number" id="jump" class="calculated"></td>
+                <td><input type="number" id="other"></td>
+                <td><input type="text" id="initiativeModifier" placeholder="Vigilance" class="calculated"></td>
+            </tr>
+        </table>
+
+        <div class="section-title">Abilities</div>
+        <table class="abilities-table">
+            <tr><th>Ability</th><th>Score</th><th>Defense</th><th>Non-Combat</th><th></th></tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="meleeDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="meleeNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="melee">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Agility</td>
+                <td><input type="number" id="agilityScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="agilityDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="agilityNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="agility">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Resilience</td>
+                <td><input type="number" id="resilienceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="resilienceDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="resilienceNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="resilience">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Vigilance</td>
+                <td><input type="number" id="vigilanceScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="vigilanceDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="vigilanceNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="vigilance">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Ego</td>
+                <td><input type="number" id="egoScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="egoDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="egoNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="ego">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Logic</td>
+                <td><input type="number" id="logicScore" placeholder="-3 to 9" min="-3" max="9" value=""></td>
+                <td><input type="number" id="logicDefense" placeholder="+10" class="calculated"></td>
+                <td><input type="text" id="logicNonCombat" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-ability-check" data-ability="logic">Roll</button></td>
+            </tr>
+        </table>
+
+        <div class="section-title">Damage</div>
+        <table class="damage-table">
+            <tr><th>Damage</th><th>Multiplier</th><th></th><th>Ability</th><th></th></tr>
+            <tr>
+                <td>Melee</td>
+                <td><input type="number" id="meleeDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="meleeDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="melee">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Agility</td>
+                <td><input type="number" id="agilityDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="agilityDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="agility">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Ego</td>
+                <td><input type="number" id="egoDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="egoDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="ego">Roll</button></td>
+            </tr>
+            <tr>
+                <td>Logic</td>
+                <td><input type="number" id="logicDamageMultiplier" placeholder="Rank" class="calculated"></td>
+                <td>+</td>
+                <td><input type="number" id="logicDamageAbility" placeholder="Score" class="calculated"></td>
+                <td><button class="roll-combat-check" data-ability="logic">Roll</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Page 2: Traits and Tags -->
+    <div class="page">
+        <!-- Traits Section -->
+        <div class="section-title">Traits</div>
+        <table id="traitsTable" class="traits-table">
+            <colgroup>
+                <col class="trait-name">
+                <col class="trait-description">
+            </colgroup>
+            <thead>
+                <tr><th>Trait</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+                <tr><td><input type="text" name="trait-name[]"></td><td><input type="text" name="trait-description[]"></td></tr>
+            </tbody>
+        </table>
+
+        <!-- Tags Section -->
+        <div class="section-title">Tags</div>
+        <textarea id="tags" placeholder="Enter tags here" style="height: 80px;"></textarea>
+    </div>
+
+    <!-- Page 3: Powers -->
+    <div class="page">
+        <!-- Powers Section -->
+        <div class="section-title">Powers</div>
+        <table id="powersTable" class="powers-table">
+            <colgroup>
+                <col class="power-name">
+                <col class="power-set">
+                <col class="power-cost">
+                <col class="power-duration">
+                <col class="power-action">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Power</th>
+                    <th>Set</th>
+                    <th>Cost</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+                <tr><td><input type="text" name="power-name[]"></td><td><input type="text" name="power-set[]"></td><td><input type="text" name="power-cost[]"></td><td><input type="text" name="power-duration[]"></td><td><input type="text" name="power-action[]"></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Page 4: Team Maneuvers and Character Details -->
+    <div class="page">
+        <!-- Team Maneuver Section -->
+        <div class="section-title">Team Maneuver</div>
+        <table>
+            <tr><th>Type</th><th>Selected</th><th>Level</th><th>Cost</th></tr>
+            <tr><td>Offensive</td><td><input type="checkbox" name="teamManeuver" value="offensive"></td><td><input type="number" name="offensiveLevel"></td><td><input type="number" name="offensiveCost"></td></tr>
+            <tr><td>Defensive</td><td><input type="checkbox" name="teamManeuver" value="defensive"></td><td><input type="number" name="defensiveLevel"></td><td><input type="number" name="defensiveCost"></td></tr>
+            <tr><td>Rally</td><td><input type="checkbox" name="teamManeuver" value="rally"></td><td><input type="number" name="rallyLevel"></td><td><input type="number" name="rallyCost"></td></tr>
+        </table>
+
+        <!-- Character Details Section -->
+        <div class="section-title">Character Details</div>
+        <table class="character-details-table">
+            <tr>
+                <th>Real Name</th>
+                <td><input type="text" id="realName" name="realName"></td>
+                <th>Height</th>
+                <td><input type="text" id="height" name="height"></td>
+            </tr>
+            <tr>
+                <th>Weight</th>
+                <td><input type="text" id="weight" name="weight"></td>
+                <th>Gender</th>
+                <td><input type="text" id="gender" name="gender"></td>
+            </tr>
+            <tr>
+                <th>Eyes</th>
+                <td><input type="text" id="eyes" name="eyes"></td>
+                <th>Hair</th>
+                <td><input type="text" id="hair" name="hair"></td>
+            </tr>
+            <tr>
+                <th>Origin</th>
+                <td><input type="text" id="origin" name="origin"></td>
+            </tr>
+            <tr>
+                <th>Distinguishing Features</th>
+                <td colspan="3"><input type="text" id="distinguishingFeatures" name="distinguishingFeatures"></td>
+            </tr>
+            <tr>
+                <th>Team</th>
+                <td><input type="text" id="team" name="team"></td>
+                <th>Base</th>
+                <td><input type="text" id="base" name="base"></td>
+            </tr>
+            <tr>
+                <th>Occupation</th>
+                <td colspan="3"><input type="text" id="occupation" name="occupation"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Power Descriptions Sections -->
+    <div class="page">
+        <div class="section-title">Power Descriptions (Page 1)</div>
+        <textarea id="powerDescriptions" class="powerDescriptions" style="height: 250mm;"></textarea>
+    </div>
+
+    <div class="page">
+        <div class="section-title">Power Descriptions (Page 2)</div>
+        <textarea id="powerDescriptions2" class="powerDescriptions" style="height: 250mm;"></textarea>
+    </div>
+
+    <div class="page">
+        <div class="section-title">Power Descriptions (Page 3)</div>
+        <textarea id="powerDescriptions3" class="powerDescriptions" style="height: 250mm;"></textarea>
+    </div>
+
+    <!-- Portrait Section -->
+    <div class="page">
+        <div class="section-title">Portrait</div>
+        <div class="portrait-container">
+            <input type="text" id="portraitInput" placeholder="Enter URL or filename from 'portrait' directory">
+            <div id="portraitDisplay" style="height: 180mm;"></div>
+        </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="page">
+        <div class="section-title">Notes</div>
+        <textarea id="notes" style="height: 60mm;"></textarea>
+    </div>
+
+    <!-- Dice Roller Section -->
+    <div class="dice-roller">
+        <div id="diceContainer" class="dice-container">
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die1" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator1" class="reroll-indicator"></div>
+                        <div id="die1reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(1)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(1)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="fantastic-indicator" id="fantasticIndicator">Fantastic!</div>
+                <div class="ultimate-fantastic-indicator" id="ultimateFantasticIndicator">Ultimate Fantastic!</div>
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die2" class="die die-red">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator2" class="reroll-indicator"></div>
+                        <div id="die2reroll" class="die die-red" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(2)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(2)">Trouble</button>
+                </div>
+            </div>
+            <div class="die-group">
+                <div class="die-pair">
+                    <div class="die-column">
+                        <div id="die3" class="die die-white">1</div>
+                    </div>
+                    <div class="die-column">
+                        <div id="rerollIndicator3" class="reroll-indicator"></div>
+                        <div id="die3reroll" class="die die-white" style="visibility: hidden;">1</div>
+                    </div>
+                </div>
+                <div class="edge-trouble-buttons">
+                    <button class="edge-button" onclick="rollEdge(3)">Edge</button>
+                    <button class="trouble-button" onclick="rollTrouble(3)">Trouble</button>
+                </div>
+            </div>
+        </div>
+        <button id="rollAllButton">Roll 3d6</button>
+        <div id="rollResult"></div>
+
+        <!-- Save/Load Functions -->
+        <div class="character-actions">
+            <button id="saveCharacter">Save Character</button>
+            <button id="loadCharacter">Load Character</button>
+            <input type="file" id="fileInput" style="display: none;" accept=".json">
+            <button id="newCharacter">New Character</button>
+        </div>
+    </div>
